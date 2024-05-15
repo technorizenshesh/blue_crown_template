@@ -29,7 +29,9 @@ class LoginTypeController extends GetxController {
   void openNewPage(int index) {
     switch (index) {
       case 0:
-        Map<String, String> data = {ApiKeyConstants.type: StringConstants.user};
+        Map<String, String> data = {
+          ApiKeyConstants.type: StringConstants.provider
+        };
         Get.toNamed(Routes.LOGIN, parameters: data);
         break;
       case 1:

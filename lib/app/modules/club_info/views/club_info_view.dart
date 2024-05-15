@@ -65,7 +65,7 @@ class ClubInfoView extends GetView<ClubInfoController> {
         ));
   }
 
-  /// Show Club Photos ...
+  /// Show C Photos ...
   Widget showClubPhotos() {
     return Obx(() => controller.showEventsProgressBar.value
         ? CommonWidgets.commonShimmer(

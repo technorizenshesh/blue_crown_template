@@ -18,6 +18,8 @@ import '../modules/provider_event_detail/bindings/provider_event_detail_binding.
 import '../modules/provider_event_detail/views/provider_event_detail_view.dart';
 import '../modules/provider_nav_bar/bindings/provider_nav_bar_binding.dart';
 import '../modules/provider_nav_bar/views/provider_nav_bar_view.dart';
+import '../modules/provider_publish_event/bindings/provider_publish_event_binding.dart';
+import '../modules/provider_publish_event/views/provider_publish_event_view.dart';
 import '../modules/request_list_history/bindings/request_list_history_binding.dart';
 import '../modules/request_list_history/views/request_list_history_view.dart';
 import '../modules/screens/bluecrown_point_view.dart';
@@ -182,6 +184,11 @@ class AppPages {
       name: _Paths.PROVIDER_CONSUMER_REGISTER,
       page: () => const ProviderConsumerRegisterView(),
       binding: ProviderConsumerRegisterBinding(),
+    ),
+    GetPage(
+      name: _Paths.PROVIDER_PUBLISH_EVENT,
+      page: () => const ProviderPublishEventView(),
+      binding: ProviderPublishEventBinding(),
     ),
   ];
 }

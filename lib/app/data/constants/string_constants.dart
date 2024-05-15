@@ -109,6 +109,14 @@ class StringConstants {
   static const String pushNotification = 'Push Notification';
   static const String consumerRegister = 'Consumer Register';
   static const String search = 'Search';
+  static const String reject = 'Reject';
+  static const String register = 'Register';
+  static const String time = 'Time';
+  static const String date = 'Date';
+  static const String eventName = 'Event Name';
+  static const String description = 'Description';
+  static const String entranceCost = 'Entrance Cost';
+  static const String publishEvent = 'Publish Event';
 
   static const String pleaseAgreeGDPRRuleBecauseThisIsMandatory =
       'Please agree GDPR rules because this is mandatory.';

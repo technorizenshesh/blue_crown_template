@@ -34,6 +34,7 @@ abstract class Routes {
   static const PROVIDER_NAV_BAR = _Paths.PROVIDER_NAV_BAR;
   static const PROVIDER_EVENT_DETAIL = _Paths.PROVIDER_EVENT_DETAIL;
   static const PROVIDER_CONSUMER_REGISTER = _Paths.PROVIDER_CONSUMER_REGISTER;
+  static const PROVIDER_PUBLISH_EVENT = _Paths.PROVIDER_PUBLISH_EVENT;
 }
 
 abstract class _Paths {
@@ -69,4 +70,5 @@ abstract class _Paths {
   static const PROVIDER_NAV_BAR = '/provider-nav-bar';
   static const PROVIDER_EVENT_DETAIL = '/provider-event-detail';
   static const PROVIDER_CONSUMER_REGISTER = '/provider-consumer-register';
+  static const PROVIDER_PUBLISH_EVENT = '/provider-publish-event';
 }

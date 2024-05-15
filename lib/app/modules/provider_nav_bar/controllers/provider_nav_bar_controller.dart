@@ -72,14 +72,14 @@ class ProviderNavBarController extends GetxController {
   void increment() => count.value++;
 
   changeIndex(int index) {
-    tabIndex.value = index;
+    // tabIndex.value = index;
     increment();
     switch (index) {
       case 0:
         //showEventsProgressBar.value = true;
         break;
       case 1:
-        //showEventsProgressBar.value = false;
+        Get.toNamed(Routes.PROVIDER_PUBLISH_EVENT);
         break;
       case 2:
         Get.toNamed(Routes.PROVIDER_CONSUMER_REGISTER);
