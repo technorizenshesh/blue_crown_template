@@ -76,7 +76,7 @@ class ProviderNavBarController extends GetxController {
     increment();
     switch (index) {
       case 0:
-        //showEventsProgressBar.value = true;
+        Get.toNamed(Routes.PROVIDER_WARDROBE);
         break;
       case 1:
         Get.toNamed(Routes.PROVIDER_PUBLISH_EVENT);

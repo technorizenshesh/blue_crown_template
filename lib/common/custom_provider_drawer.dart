@@ -81,25 +81,7 @@ class CustomProviderDrawer {
                         fit: BoxFit.fill),
                     onTap: () {
                       Get.back();
-                    },
-                  ),
-                  ListTile(
-                    leading: CommonWidgets.appIcons(
-                        assetName: IconConstants.icList,
-                        height: 40.px,
-                        width: 40.px,
-                        fit: BoxFit.fill),
-                    title: Text(
-                      StringConstants.addToList,
-                      style: MyTextStyle.titleStyle14w,
-                    ),
-                    trailing: CommonWidgets.appIcons(
-                        assetName: IconConstants.icRightArrow,
-                        height: 24.px,
-                        width: 24.px,
-                        fit: BoxFit.fill),
-                    onTap: () {
-                      Get.back();
+                      Get.toNamed(Routes.MY_PROFILE);
                     },
                   ),
                   ListTile(
@@ -118,8 +100,8 @@ class CustomProviderDrawer {
                         width: 24.px,
                         fit: BoxFit.fill),
                     onTap: () {
-                      Get.back();
-                      Get.toNamed(Routes.CLUB_INFO);
+                      // Get.back();
+                      // Get.toNamed(Routes.CLUB_INFO);
                     },
                   ),
                   ListTile(
@@ -138,8 +120,8 @@ class CustomProviderDrawer {
                         width: 24.px,
                         fit: BoxFit.fill),
                     onTap: () {
-                      Get.back();
-                      Get.toNamed(Routes.CLUB_EVENTS);
+                      // Get.back();
+                      // Get.toNamed(Routes.CLUB_EVENTS);
                     },
                   ),
                   ListTile(
@@ -158,8 +140,8 @@ class CustomProviderDrawer {
                         width: 24.px,
                         fit: BoxFit.fill),
                     onTap: () {
-                      Get.back();
-                      Get.toNamed(Routes.EVENT_WALLET_HISTORY);
+                      // Get.back();
+                      // Get.toNamed(Routes.EVENT_WALLET_HISTORY);
                     },
                   ),
                   ListTile(
@@ -218,8 +200,8 @@ class CustomProviderDrawer {
                         width: 24.px,
                         fit: BoxFit.fill),
                     onTap: () {
-                      // Update the state of the app.
-                      // ...
+                      Get.back();
+                      Get.toNamed(Routes.PROVIDER_CONTACT_US);
                     },
                   ),
                   ListTile(

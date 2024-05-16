@@ -240,8 +240,8 @@ class CustomDrawer {
                         width: 24.px,
                         fit: BoxFit.fill),
                     onTap: () {
-                      // Update the state of the app.
-                      // ...
+                      Get.back();
+                      Get.toNamed(Routes.CONTACT_US);
                     },
                   ),
                   ListTile(

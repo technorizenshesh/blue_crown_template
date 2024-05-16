@@ -117,6 +117,13 @@ class StringConstants {
   static const String description = 'Description';
   static const String entranceCost = 'Entrance Cost';
   static const String publishEvent = 'Publish Event';
+  static const String download = 'Download';
+  static const String hanger = 'Hanger';
+  static const String submit = 'Submit';
+  static const String name = 'Name';
+  static const String qrNumber = 'Qr Number';
+  static const String createQrCode = 'Create Qr Code';
+  static const String message = 'Message';
 
   static const String pleaseAgreeGDPRRuleBecauseThisIsMandatory =
       'Please agree GDPR rules because this is mandatory.';

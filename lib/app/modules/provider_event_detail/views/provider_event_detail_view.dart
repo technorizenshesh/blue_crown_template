@@ -68,20 +68,26 @@ class ProviderEventDetailView extends GetView<ProviderEventDetailController> {
                           children: [
                             Expanded(
                                 flex: 1,
-                                child: Container(
-                                  height: 50.px,
-                                  alignment: Alignment.center,
-                                  margin: EdgeInsets.symmetric(
-                                      horizontal: 10.px, vertical: 5.px),
-                                  decoration: BoxDecoration(
-                                      borderRadius:
-                                          BorderRadius.circular(25.px),
-                                      color: backgroundColor,
-                                      border: Border.all(
-                                          width: 1.5.px, color: primaryColor)),
-                                  child: Text(
-                                    StringConstants.listRequest,
-                                    style: MyTextStyle.titleStyle14bw,
+                                child: GestureDetector(
+                                  onTap: () {
+                                    controller.clickOnListRequest();
+                                  },
+                                  child: Container(
+                                    height: 50.px,
+                                    alignment: Alignment.center,
+                                    margin: EdgeInsets.symmetric(
+                                        horizontal: 10.px, vertical: 5.px),
+                                    decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(25.px),
+                                        color: backgroundColor,
+                                        border: Border.all(
+                                            width: 1.5.px,
+                                            color: primaryColor)),
+                                    child: Text(
+                                      StringConstants.listRequest,
+                                      style: MyTextStyle.titleStyle14bw,
+                                    ),
                                   ),
                                 )),
                             Expanded(

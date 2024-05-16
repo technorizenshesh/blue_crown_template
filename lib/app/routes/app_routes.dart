@@ -35,6 +35,14 @@ abstract class Routes {
   static const PROVIDER_EVENT_DETAIL = _Paths.PROVIDER_EVENT_DETAIL;
   static const PROVIDER_CONSUMER_REGISTER = _Paths.PROVIDER_CONSUMER_REGISTER;
   static const PROVIDER_PUBLISH_EVENT = _Paths.PROVIDER_PUBLISH_EVENT;
+  static const PROVIDER_WARDROBE = _Paths.PROVIDER_WARDROBE;
+  static const PROVIDER_CREATE_QR_CODE = _Paths.PROVIDER_CREATE_QR_CODE;
+  static const PROVIDER_DOWNLOAD_QR_CODE = _Paths.PROVIDER_DOWNLOAD_QR_CODE;
+  static const PROVIDER_CONTACT_US = _Paths.PROVIDER_CONTACT_US;
+  static const CONTACT_US = _Paths.CONTACT_US;
+  static const PROVIDER_LIST_HISTORY = _Paths.PROVIDER_LIST_HISTORY;
+  static const PROVIDER_CURRENT_LIST = _Paths.PROVIDER_CURRENT_LIST;
+  static const PROVIDER_ADD_LIST = _Paths.PROVIDER_ADD_LIST;
 }
 
 abstract class _Paths {
@@ -71,4 +79,12 @@ abstract class _Paths {
   static const PROVIDER_EVENT_DETAIL = '/provider-event-detail';
   static const PROVIDER_CONSUMER_REGISTER = '/provider-consumer-register';
   static const PROVIDER_PUBLISH_EVENT = '/provider-publish-event';
+  static const PROVIDER_WARDROBE = '/provider-wardrobe';
+  static const PROVIDER_CREATE_QR_CODE = '/provider-create-qr-code';
+  static const PROVIDER_DOWNLOAD_QR_CODE = '/provider-download-qr-code';
+  static const PROVIDER_CONTACT_US = '/provider-contact-us';
+  static const CONTACT_US = '/contact-us';
+  static const PROVIDER_LIST_HISTORY = '/provider-list-history';
+  static const PROVIDER_CURRENT_LIST = '/provider-current-list';
+  static const PROVIDER_ADD_LIST = '/provider-add-list';
 }

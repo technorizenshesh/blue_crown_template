@@ -2,6 +2,8 @@ import 'package:get/get.dart';
 
 import '../modules/club_info/bindings/club_info_binding.dart';
 import '../modules/club_info/views/club_info_view.dart';
+import '../modules/contact_us/bindings/contact_us_binding.dart';
+import '../modules/contact_us/views/contact_us_view.dart';
 import '../modules/event_wallet_history/bindings/event_wallet_history_binding.dart';
 import '../modules/event_wallet_history/views/event_wallet_history_view.dart';
 import '../modules/login/bindings/login_binding.dart';
@@ -12,14 +14,28 @@ import '../modules/nav_bar/bindings/nav_bar_binding.dart';
 import '../modules/nav_bar/views/nav_bar_view.dart';
 import '../modules/privacy_policy/bindings/privacy_policy_binding.dart';
 import '../modules/privacy_policy/views/privacy_policy_view.dart';
+import '../modules/provider_add_list/bindings/provider_add_list_binding.dart';
+import '../modules/provider_add_list/views/provider_add_list_view.dart';
 import '../modules/provider_consumer_register/bindings/provider_consumer_register_binding.dart';
 import '../modules/provider_consumer_register/views/provider_consumer_register_view.dart';
+import '../modules/provider_contact_us/bindings/provider_contact_us_binding.dart';
+import '../modules/provider_contact_us/views/provider_contact_us_view.dart';
+import '../modules/provider_create_qr_code/bindings/provider_create_qr_code_binding.dart';
+import '../modules/provider_create_qr_code/views/provider_create_qr_code_view.dart';
+import '../modules/provider_current_list/bindings/provider_current_list_binding.dart';
+import '../modules/provider_current_list/views/provider_current_list_view.dart';
+import '../modules/provider_download_qr_code/bindings/provider_download_qr_code_binding.dart';
+import '../modules/provider_download_qr_code/views/provider_download_qr_code_view.dart';
 import '../modules/provider_event_detail/bindings/provider_event_detail_binding.dart';
 import '../modules/provider_event_detail/views/provider_event_detail_view.dart';
+import '../modules/provider_list_history/bindings/provider_list_history_binding.dart';
+import '../modules/provider_list_history/views/provider_list_history_view.dart';
 import '../modules/provider_nav_bar/bindings/provider_nav_bar_binding.dart';
 import '../modules/provider_nav_bar/views/provider_nav_bar_view.dart';
 import '../modules/provider_publish_event/bindings/provider_publish_event_binding.dart';
 import '../modules/provider_publish_event/views/provider_publish_event_view.dart';
+import '../modules/provider_wardrobe/bindings/provider_wardrobe_binding.dart';
+import '../modules/provider_wardrobe/views/provider_wardrobe_view.dart';
 import '../modules/request_list_history/bindings/request_list_history_binding.dart';
 import '../modules/request_list_history/views/request_list_history_view.dart';
 import '../modules/screens/bluecrown_point_view.dart';
@@ -189,6 +205,46 @@ class AppPages {
       name: _Paths.PROVIDER_PUBLISH_EVENT,
       page: () => const ProviderPublishEventView(),
       binding: ProviderPublishEventBinding(),
+    ),
+    GetPage(
+      name: _Paths.PROVIDER_WARDROBE,
+      page: () => const ProviderWardrobeView(),
+      binding: ProviderWardrobeBinding(),
+    ),
+    GetPage(
+      name: _Paths.PROVIDER_CREATE_QR_CODE,
+      page: () => const ProviderCreateQrCodeView(),
+      binding: ProviderCreateQrCodeBinding(),
+    ),
+    GetPage(
+      name: _Paths.PROVIDER_DOWNLOAD_QR_CODE,
+      page: () => const ProviderDownloadQrCodeView(),
+      binding: ProviderDownloadQrCodeBinding(),
+    ),
+    GetPage(
+      name: _Paths.PROVIDER_CONTACT_US,
+      page: () => const ProviderContactUsView(),
+      binding: ProviderContactUsBinding(),
+    ),
+    GetPage(
+      name: _Paths.CONTACT_US,
+      page: () => const ContactUsView(),
+      binding: ContactUsBinding(),
+    ),
+    GetPage(
+      name: _Paths.PROVIDER_LIST_HISTORY,
+      page: () => const ProviderListHistoryView(),
+      binding: ProviderListHistoryBinding(),
+    ),
+    GetPage(
+      name: _Paths.PROVIDER_CURRENT_LIST,
+      page: () => const ProviderCurrentListView(),
+      binding: ProviderCurrentListBinding(),
+    ),
+    GetPage(
+      name: _Paths.PROVIDER_ADD_LIST,
+      page: () => const ProviderAddListView(),
+      binding: ProviderAddListBinding(),
     ),
   ];
 }

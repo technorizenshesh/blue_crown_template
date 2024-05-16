@@ -76,6 +76,6 @@ class ClubEventsController extends GetxController {
   void increment() => count.value++;
 
   clickOnEvent(int index) {
-    Get.toNamed(Routes.USE_POINTS);
+    Get.toNamed(Routes.EVENT_DETAIL);
   }
 }

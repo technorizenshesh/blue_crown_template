@@ -38,4 +38,5 @@ class IconConstants {
   static const String icAdd = 'assets/icons/ic_add.png';
   static const String icProfile = 'assets/icons/ic_profile.png';
   static const String icProfileColor = 'assets/icons/ic_profile_color.png';
+  static const String icHanger = 'assets/icons/ic_hanger.png';
 }
