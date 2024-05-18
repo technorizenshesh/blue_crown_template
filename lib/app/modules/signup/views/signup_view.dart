@@ -1,22 +1,17 @@
-import 'package:blue_crown_template/app/data/constants/image_constants.dart';
-import 'package:blue_crown_template/app/data/constants/string_constants.dart';
-import 'package:blue_crown_template/app/modules/controller/signup_controller.dart';
-import 'package:blue_crown_template/common/colors.dart';
-import 'package:blue_crown_template/common/common_widgets.dart';
-import 'package:blue_crown_template/common/text_styles.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-class SignUpView extends StatefulWidget {
-  const SignUpView({Key? key}) : super(key: key);
-  @override
-  State<SignUpView> createState() => _SignUpViewState();
-}
+import '../../../../common/colors.dart';
+import '../../../../common/common_widgets.dart';
+import '../../../../common/text_styles.dart';
+import '../../../data/constants/image_constants.dart';
+import '../../../data/constants/string_constants.dart';
+import '../controllers/signup_controller.dart';
 
-class _SignUpViewState extends State<SignUpView> {
-  SignUpController controller = Get.put(SignUpController());
+class SignupView extends GetView<SignupController> {
+  const SignupView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -7,24 +7,24 @@ import '../../../../common/common_widgets.dart';
 import '../../../../common/text_styles.dart';
 import '../../../data/constants/icons_constant.dart';
 import '../../../data/constants/string_constants.dart';
-import '../controllers/provider_add_list_controller.dart';
+import '../controllers/list_request_controller.dart';
 
-class ProviderAddListView extends GetView<ProviderAddListController> {
-  const ProviderAddListView({Key? key}) : super(key: key);
+class ListRequestView extends GetView<ListRequestController> {
+  const ListRequestView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: Colors.black,
         appBar: CommonWidgets.appBar(
-            wantBackButton: true, title: StringConstants.addToList),
+            wantBackButton: true, title: StringConstants.listRequest),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         floatingActionButton: CommonWidgets.commonElevatedButton(
             onPressed: () {
               //controller.openNewPage(1);
             },
             child: Text(
-              StringConstants.submit,
+              StringConstants.sendRequest,
               style: MyTextStyle.titleStyle16bw,
             ),
             borderRadius: 30.px,
@@ -35,7 +35,6 @@ class ProviderAddListView extends GetView<ProviderAddListController> {
           controller.count.value;
           return InkWell(
             onTap: () {
-              print("clicked on screen....");
               FocusManager.instance.primaryFocus?.unfocus();
             },
             child: Padding(

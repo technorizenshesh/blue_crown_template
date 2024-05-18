@@ -25,4 +25,18 @@ class ProviderEventDetailController extends GetxController {
   clickOnListRequest() {
     Get.toNamed(Routes.PROVIDER_LIST_HISTORY);
   }
+
+  clickOnPushNotification() {
+    Get.toNamed(Routes.PROVIDER_PUSH_NOTIFICATION);
+  }
+
+  clickOnListChange() {
+    Map<String, String> data = {
+      "event": parameters['event'] ?? '',
+      "date": parameters['date'] ?? '',
+      "time": parameters['time'] ?? '',
+      "amount": parameters['amount'] ?? ''
+    };
+    Get.toNamed(Routes.PROVIDER_EDIT_EVENT, parameters: data);
+  }
 }

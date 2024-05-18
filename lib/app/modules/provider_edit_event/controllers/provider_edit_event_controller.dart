@@ -1,5 +1,3 @@
-import 'package:blue_crown_template/common/common_widgets.dart';
-import 'package:blue_crown_template/common/text_styles.dart';
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -8,10 +6,12 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:time_range_picker/time_range_picker.dart';
 
 import '../../../../common/colors.dart';
+import '../../../../common/common_widgets.dart';
 import '../../../../common/date_picker.dart';
+import '../../../../common/text_styles.dart';
 import '../../../data/constants/string_constants.dart';
 
-class ProviderPublishEventController extends GetxController {
+class ProviderEditEventController extends GetxController {
   RxBool showNearEventsProgressBar = false.obs;
   TextEditingController dateController = TextEditingController();
   TextEditingController timeController = TextEditingController();
@@ -37,10 +37,13 @@ class ProviderPublishEventController extends GetxController {
   List<DateTime?> datesList = [];
   String fromDate = '', toDate = '';
   String fromTime = '10:00', toTime = '12:00';
+
+  Map<String, String?> parameters = Get.parameters;
   @override
   void onInit() {
     super.onInit();
     startListener();
+    setPreviousData();
   }
 
   @override
@@ -81,6 +84,15 @@ class ProviderPublishEventController extends GetxController {
     isDate.value = focusDate.hasFocus;
     isStyle.value = focusStyle.hasFocus;
     isDescription.value = focusDescription.hasFocus;
+  }
+
+  setPreviousData() {
+    eventNameController.text = parameters['event'] ?? '';
+    dateController.text = parameters['date'] ?? '';
+    timeController.text = parameters['time'] ?? '';
+
+    print("Edit data:-${parameters['name']}");
+    increment();
   }
 
   clickOnDate() async {

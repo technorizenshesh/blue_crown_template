@@ -1,11 +1,11 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
-import '../../../common/colors.dart';
-import '../../../common/date_picker.dart';
+import '../../../../common/colors.dart';
+import '../../../../common/date_picker.dart';
 
-class SignUpController extends GetxController {
+class SignupController extends GetxController {
   TextEditingController fullNameController = TextEditingController();
   TextEditingController dobController = TextEditingController();
   TextEditingController emailController = TextEditingController();

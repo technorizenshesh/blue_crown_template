@@ -1,23 +1,16 @@
-import 'package:blue_crown_template/app/data/constants/string_constants.dart';
-import 'package:blue_crown_template/app/modules/controller/notification_setting_controller.dart';
-import 'package:blue_crown_template/common/common_widgets.dart';
-import 'package:blue_crown_template/common/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-import '../../../common/colors.dart';
+import '../../../../common/colors.dart';
+import '../../../../common/common_widgets.dart';
+import '../../../../common/text_styles.dart';
+import '../../../data/constants/string_constants.dart';
+import '../controllers/notification_setting_controller.dart';
 
-class NotificationSettingView extends StatefulWidget {
+class NotificationSettingView extends GetView<NotificationSettingController> {
   const NotificationSettingView({Key? key}) : super(key: key);
-  @override
-  State<NotificationSettingView> createState() => NotificationSettingState();
-}
-
-class NotificationSettingState extends State<NotificationSettingView> {
-  NotificationSettingController controller =
-      Get.put(NotificationSettingController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(

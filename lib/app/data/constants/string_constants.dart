@@ -124,6 +124,11 @@ class StringConstants {
   static const String qrNumber = 'Qr Number';
   static const String createQrCode = 'Create Qr Code';
   static const String message = 'Message';
+  static const String accept = 'Accept';
+  static const String editPublishedEvent = 'Edit Published Event';
+  static const String updateEvent = 'Update Event';
+  static const String everyOne = 'Every One';
+  static const String sendMessage = 'Send Message';
 
   static const String pleaseAgreeGDPRRuleBecauseThisIsMandatory =
       'Please agree GDPR rules because this is mandatory.';

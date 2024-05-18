@@ -161,7 +161,7 @@ class ProviderListHistoryView extends GetView<ProviderListHistoryController> {
               //  GetClubsResult item = controller.getClubsModel!.result![index];
               return GestureDetector(
                 onTap: () {
-                  //controller.openEventDetail(index);
+                  showAlertBox(context, controller.requestList[index]);
                 },
                 child: Card(
                   shape: RoundedRectangleBorder(
@@ -285,7 +285,7 @@ class ProviderListHistoryView extends GetView<ProviderListHistoryController> {
               //  GetClubsResult item = controller.getClubsModel!.result![index];
               return GestureDetector(
                 onTap: () {
-                  //controller.openEventDetail(index);
+                  showAlertBox(context, controller.requestList[index]);
                 },
                 child: Card(
                   shape: RoundedRectangleBorder(
@@ -381,5 +381,114 @@ class ProviderListHistoryView extends GetView<ProviderListHistoryController> {
               );
             },
           ));
+  }
+
+  /// Show Alert Box...
+  void showAlertBox(BuildContext context, Map<String, String> user) {
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        insetPadding: EdgeInsets.symmetric(horizontal: 20.px),
+        contentPadding: EdgeInsets.zero,
+        clipBehavior: Clip.hardEdge,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(20.px))),
+        content: SizedBox(
+          height: 360.px,
+          child: Card(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(20.px))),
+            elevation: 5.px,
+            color: cartColor,
+            margin: EdgeInsets.all(1.px),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SizedBox(
+                  height: 5.px,
+                ),
+                Text(
+                  StringConstants.listRequest,
+                  style: MyTextStyle.titleStyle20bb,
+                ),
+                SizedBox(
+                  height: 5.px,
+                ),
+                Text(
+                  user['event'] ?? '',
+                  style: MyTextStyle.titleStyle16bw,
+                ),
+                ListTile(
+                  contentPadding:
+                      EdgeInsets.symmetric(horizontal: 10.px, vertical: 0.px),
+                  title: Text('Name', style: MyTextStyle.titleStyle16bw),
+                  subtitle: Text(user['name'] ?? '',
+                      style: MyTextStyle.titleStyle14w),
+                ),
+                ListTile(
+                  contentPadding:
+                      EdgeInsets.symmetric(horizontal: 10.px, vertical: 0.px),
+                  title: Text('Number of peoples',
+                      style: MyTextStyle.titleStyle16bw),
+                  subtitle: Text(user['people'] ?? '',
+                      style: MyTextStyle.titleStyle14w),
+                ),
+                ListTile(
+                  contentPadding:
+                      EdgeInsets.symmetric(horizontal: 10.px, vertical: 0.px),
+                  title: Text('Status', style: MyTextStyle.titleStyle16bw),
+                  subtitle: Text(user['status'] ?? '',
+                      style: MyTextStyle.titleStyleCustom(
+                          14, FontWeight.normal, greenColor)),
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                      flex: 1,
+                      child: CommonWidgets.commonElevatedButton(
+                          onPressed: () {
+                            Get.back();
+                          },
+                          child: Text(
+                            StringConstants.reject,
+                            style: MyTextStyle.titleStyle16bw,
+                          ),
+                          borderRadius: 30.px,
+                          height: 40.px,
+                          buttonColor: errorColor,
+                          buttonMargin: EdgeInsets.only(
+                              top: 10.px,
+                              left: 10.px,
+                              right: 5.px,
+                              bottom: 10.px)),
+                    ),
+                    Expanded(
+                      flex: 1,
+                      child: CommonWidgets.commonElevatedButton(
+                          onPressed: () {
+                            Get.back();
+                          },
+                          child: Text(
+                            StringConstants.accept,
+                            style: MyTextStyle.titleStyle16bw,
+                          ),
+                          borderRadius: 30.px,
+                          height: 40.px,
+                          buttonColor: primaryColor,
+                          buttonMargin: EdgeInsets.only(
+                              top: 10.px,
+                              left: 5.px,
+                              right: 10.px,
+                              bottom: 10.px)),
+                    ),
+                  ],
+                )
+              ],
+            ),
+          ),
+        ),
+        alignment: Alignment.center,
+      ),
+    );
   }
 }

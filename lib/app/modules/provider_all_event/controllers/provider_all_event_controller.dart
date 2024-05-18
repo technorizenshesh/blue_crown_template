@@ -1,28 +1,19 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../routes/app_pages.dart';
-import '../../screens/home_view.dart';
-import '../../screens/scanner_view.dart';
-import '../../wardrobe/views/wardrobe_view.dart';
 
-class ProviderNavBarController extends GetxController {
+class ProviderAllEventController extends GetxController {
   final showEventsProgressBar = false.obs;
   final count = 0.obs;
-  final tabIndex = 1.obs;
-  List<Widget> pages = [
-    const WardrobeView(),
-    const HomeView(),
-    const ScannerView()
-  ];
-
+  final tabIndex = 0.obs;
   List<String> eventsImages = [
     'assets/un_used_images/party1.png',
     'assets/un_used_images/party2.png',
     'assets/un_used_images/party3.png',
     'assets/un_used_images/party4.png',
     'assets/un_used_images/party1.png',
-    'assets/un_used_images/party2.png'
+    'assets/un_used_images/party2.png',
+    'assets/un_used_images/party1.png',
   ];
   List<Map<String, String>> eventsDetails = [
     {
@@ -53,6 +44,13 @@ class ProviderNavBarController extends GetxController {
       "location": "indore,Madhya Pradesh",
       "amount": "100 P"
     },
+    {
+      "name": "BirthDay Party",
+      "date": "2024-01-01 to 2024-01-15",
+      "time": "10:00 - 12:00 PM",
+      "location": "indore,Madhya Pradesh",
+      "amount": "50 P"
+    },
   ];
   @override
   void onInit() {
@@ -70,30 +68,15 @@ class ProviderNavBarController extends GetxController {
   }
 
   void increment() => count.value++;
-
-  changeIndex(int index) {
-    // tabIndex.value = index;
+  changeTabIndex(index) {
+    tabIndex.value = index;
     increment();
-    switch (index) {
-      case 0:
-        Get.toNamed(Routes.PROVIDER_WARDROBE);
-        break;
-      case 1:
-        Get.toNamed(Routes.PROVIDER_PUBLISH_EVENT);
-        break;
-      case 2:
-        Get.toNamed(Routes.PROVIDER_CONSUMER_REGISTER);
-        break;
-    }
   }
 
   openEventDetail(int index, String type) {
     Map<String, String> data = {
       "image": eventsImages[index],
       "type": type,
-      "date": eventsDetails[index]['date'] ?? '',
-      "time": eventsDetails[index]['time'] ?? '',
-      "amount": eventsDetails[index]['amount'] ?? '',
       "event": eventsDetails[index]['name'] ?? '',
     };
     Get.toNamed(Routes.PROVIDER_EVENT_DETAIL, parameters: data);

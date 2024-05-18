@@ -7,23 +7,23 @@ import '../../../../common/common_widgets.dart';
 import '../../../../common/text_styles.dart';
 import '../../../data/constants/icons_constant.dart';
 import '../../../data/constants/string_constants.dart';
-import '../controllers/provider_publish_event_controller.dart';
+import '../controllers/provider_edit_event_controller.dart';
 
-class ProviderPublishEventView extends GetView<ProviderPublishEventController> {
-  const ProviderPublishEventView({Key? key}) : super(key: key);
+class ProviderEditEventView extends GetView<ProviderEditEventController> {
+  const ProviderEditEventView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Obx(() {
       controller.count.value;
       return Scaffold(
         backgroundColor: backgroundColor,
-        appBar: CommonWidgets.appBar(title: StringConstants.publishEvent),
+        appBar: CommonWidgets.appBar(title: StringConstants.editPublishedEvent),
         bottomNavigationBar: Padding(
           padding: EdgeInsets.all(15.px),
           child: CommonWidgets.commonElevatedButton(
               onPressed: () {},
               child: Text(
-                StringConstants.publishEvent,
+                StringConstants.updateEvent,
                 style: MyTextStyle.titleStyle16bw,
               ),
               borderRadius: 30.px,

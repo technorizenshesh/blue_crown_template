@@ -1,5 +1,6 @@
-import 'package:blue_crown_template/app/data/constants/string_constants.dart';
 import 'package:get/get.dart';
+
+import '../../../data/constants/string_constants.dart';
 
 class NotificationSettingController extends GetxController {
   final showEventsProgressBar = false.obs;

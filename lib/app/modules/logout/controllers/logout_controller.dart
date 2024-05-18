@@ -1,3 +1,4 @@
+import 'package:blue_crown_template/app/routes/app_pages.dart';
 import 'package:get/get.dart';
 
 class LogoutController extends GetxController {
@@ -19,7 +20,7 @@ class LogoutController extends GetxController {
 
   void increment() => count.value++;
 
-  clickOnLoginButton() {
-    Get.back();
+  clickOnYesButton() {
+    Get.offAllNamed(Routes.LOGIN_TYPE);
   }
 }

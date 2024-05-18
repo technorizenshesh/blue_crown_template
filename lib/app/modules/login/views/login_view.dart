@@ -35,10 +35,11 @@ class LoginView extends GetView<LoginController> {
                 padding:
                     const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
+                    CommonWidgets.appBar(wantBackButton: true),
                     SizedBox(
-                      height: 20.px,
+                      height: 10.px,
                     ),
                     Center(
                       child: Text(StringConstants.login,

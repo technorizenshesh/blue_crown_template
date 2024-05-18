@@ -1,26 +1,20 @@
-import 'package:blue_crown_template/app/modules/controller/logout_controller.dart';
-import 'package:blue_crown_template/common/common_widgets.dart';
-import 'package:blue_crown_template/common/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-import '../../../common/colors.dart';
-import '../../data/constants/string_constants.dart';
+import '../../../../common/colors.dart';
+import '../../../../common/common_widgets.dart';
+import '../../../../common/text_styles.dart';
+import '../../../data/constants/string_constants.dart';
+import '../controllers/logout_controller.dart';
 
-class LogoutView extends StatefulWidget {
+class LogoutView extends GetView<LogoutController> {
   const LogoutView({Key? key}) : super(key: key);
-  @override
-  State<LogoutView> createState() => _LogoutViewState();
-}
-
-class _LogoutViewState extends State<LogoutView> {
-  LogoutController controller = Get.put(LogoutController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         resizeToAvoidBottomInset: false,
-        backgroundColor: Colors.black,
+        backgroundColor: backgroundColor,
         appBar: CommonWidgets.appBar(
             wantBackButton: true, title: StringConstants.logout),
         body: Obx(() {
@@ -63,7 +57,9 @@ class _LogoutViewState extends State<LogoutView> {
                             Expanded(
                                 flex: 1,
                                 child: CommonWidgets.commonElevatedButton(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      controller.clickOnYesButton();
+                                    },
                                     child: Text(
                                       StringConstants.yes,
                                       style: MyTextStyle.titleStyle16bw,

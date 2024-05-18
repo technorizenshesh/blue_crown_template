@@ -1,8 +1,7 @@
-import 'package:blue_crown_template/app/routes/app_pages.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
-class TableRequestController extends GetxController {
+class ListRequestController extends GetxController {
   TextEditingController nameController = TextEditingController();
   TextEditingController personController = TextEditingController();
   TextEditingController emailController = TextEditingController();
@@ -64,10 +63,4 @@ class TableRequestController extends GetxController {
       increment();
     }
   }
-
-  clickOnSignUpButton() {
-    Get.toNamed(Routes.SIGNUP);
-  }
-
-  clickOnLoginButton() {}
 }

@@ -181,7 +181,7 @@ class CustomDrawer {
                         fit: BoxFit.fill),
                     onTap: () {
                       Get.back();
-                      Get.toNamed(Routes.NOTIFICATION_SETTING);
+                      Get.toNamed(Routes.NOTIFICATIONS);
                     },
                   ),
                   ListTile(

@@ -180,7 +180,7 @@ class ProviderConsumerRegisterView
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(20.px))),
         content: SizedBox(
-          height: 355.px,
+          height: 340.px,
           child: Card(
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(20.px))),
@@ -214,10 +214,10 @@ class ProviderConsumerRegisterView
                 ListTile(
                   contentPadding:
                       EdgeInsets.symmetric(horizontal: 10.px, vertical: 0.px),
-                  title: Text('Status', style: MyTextStyle.titleStyle16bw),
-                  subtitle: Text('Active',
-                      style: MyTextStyle.titleStyleCustom(
-                          14, FontWeight.normal, greenColor)),
+                  title:
+                      Text('Phone Number', style: MyTextStyle.titleStyle16bw),
+                  subtitle: Text(user['phone'] ?? '',
+                      style: MyTextStyle.titleStyle14w),
                 ),
                 Row(
                   children: [
@@ -232,13 +232,13 @@ class ProviderConsumerRegisterView
                             style: MyTextStyle.titleStyle16bw,
                           ),
                           borderRadius: 30.px,
-                          height: 50.px,
+                          height: 40.px,
                           buttonColor: errorColor,
                           buttonMargin: EdgeInsets.only(
-                              top: 20.px,
-                              left: 20.px,
-                              right: 20.px,
-                              bottom: 20.px)),
+                              top: 10.px,
+                              left: 10.px,
+                              right: 5.px,
+                              bottom: 10.px)),
                     ),
                     Expanded(
                       flex: 1,
@@ -249,13 +249,13 @@ class ProviderConsumerRegisterView
                             style: MyTextStyle.titleStyle16bw,
                           ),
                           borderRadius: 30.px,
-                          height: 50.px,
+                          height: 40.px,
                           buttonColor: primaryColor,
                           buttonMargin: EdgeInsets.only(
-                              top: 20.px,
-                              left: 20.px,
-                              right: 20.px,
-                              bottom: 20.px)),
+                              top: 10.px,
+                              left: 5.px,
+                              right: 10.px,
+                              bottom: 10.px)),
                     ),
                   ],
                 )

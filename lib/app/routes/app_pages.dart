@@ -6,16 +6,26 @@ import '../modules/contact_us/bindings/contact_us_binding.dart';
 import '../modules/contact_us/views/contact_us_view.dart';
 import '../modules/event_wallet_history/bindings/event_wallet_history_binding.dart';
 import '../modules/event_wallet_history/views/event_wallet_history_view.dart';
+import '../modules/list_request/bindings/list_request_binding.dart';
+import '../modules/list_request/views/list_request_view.dart';
 import '../modules/login/bindings/login_binding.dart';
 import '../modules/login/views/login_view.dart';
 import '../modules/login_type/bindings/login_type_binding.dart';
 import '../modules/login_type/views/login_type_view.dart';
+import '../modules/logout/bindings/logout_binding.dart';
+import '../modules/logout/views/logout_view.dart';
 import '../modules/nav_bar/bindings/nav_bar_binding.dart';
 import '../modules/nav_bar/views/nav_bar_view.dart';
+import '../modules/notification_setting/bindings/notification_setting_binding.dart';
+import '../modules/notification_setting/views/notification_setting_view.dart';
+import '../modules/notifications/bindings/notifications_binding.dart';
+import '../modules/notifications/views/notifications_view.dart';
 import '../modules/privacy_policy/bindings/privacy_policy_binding.dart';
 import '../modules/privacy_policy/views/privacy_policy_view.dart';
 import '../modules/provider_add_list/bindings/provider_add_list_binding.dart';
 import '../modules/provider_add_list/views/provider_add_list_view.dart';
+import '../modules/provider_all_event/bindings/provider_all_event_binding.dart';
+import '../modules/provider_all_event/views/provider_all_event_view.dart';
 import '../modules/provider_consumer_register/bindings/provider_consumer_register_binding.dart';
 import '../modules/provider_consumer_register/views/provider_consumer_register_view.dart';
 import '../modules/provider_contact_us/bindings/provider_contact_us_binding.dart';
@@ -26,6 +36,8 @@ import '../modules/provider_current_list/bindings/provider_current_list_binding.
 import '../modules/provider_current_list/views/provider_current_list_view.dart';
 import '../modules/provider_download_qr_code/bindings/provider_download_qr_code_binding.dart';
 import '../modules/provider_download_qr_code/views/provider_download_qr_code_view.dart';
+import '../modules/provider_edit_event/bindings/provider_edit_event_binding.dart';
+import '../modules/provider_edit_event/views/provider_edit_event_view.dart';
 import '../modules/provider_event_detail/bindings/provider_event_detail_binding.dart';
 import '../modules/provider_event_detail/views/provider_event_detail_view.dart';
 import '../modules/provider_list_history/bindings/provider_list_history_binding.dart';
@@ -34,6 +46,8 @@ import '../modules/provider_nav_bar/bindings/provider_nav_bar_binding.dart';
 import '../modules/provider_nav_bar/views/provider_nav_bar_view.dart';
 import '../modules/provider_publish_event/bindings/provider_publish_event_binding.dart';
 import '../modules/provider_publish_event/views/provider_publish_event_view.dart';
+import '../modules/provider_push_notification/bindings/provider_push_notification_binding.dart';
+import '../modules/provider_push_notification/views/provider_push_notification_view.dart';
 import '../modules/provider_wardrobe/bindings/provider_wardrobe_binding.dart';
 import '../modules/provider_wardrobe/views/provider_wardrobe_view.dart';
 import '../modules/request_list_history/bindings/request_list_history_binding.dart';
@@ -44,20 +58,19 @@ import '../modules/screens/club_events_view.dart';
 import '../modules/screens/event_detail_view.dart';
 import '../modules/screens/history_view.dart';
 import '../modules/screens/home_view.dart';
-import '../modules/screens/list_request_view.dart';
-import '../modules/screens/logout_view.dart';
 import '../modules/screens/my_profile_view.dart';
 import '../modules/screens/new_password_view.dart';
-import '../modules/screens/notification_setting_view.dart';
 import '../modules/screens/password_reset_screen.dart';
-import '../modules/screens/signup_view.dart';
-import '../modules/screens/table_request_view.dart';
 import '../modules/screens/terms_condition_view.dart';
 import '../modules/screens/use_point_view.dart';
 import '../modules/screens/wardrobe_availability_view.dart';
 import '../modules/screens/wardrobe_scanner_view.dart';
+import '../modules/signup/bindings/signup_binding.dart';
+import '../modules/signup/views/signup_view.dart';
 import '../modules/splash/bindings/splash_binding.dart';
 import '../modules/splash/views/splash_view.dart';
+import '../modules/table_request/bindings/table_request_binding.dart';
+import '../modules/table_request/views/table_request_view.dart';
 import '../modules/wardrobe/bindings/wardrobe_binding.dart';
 import '../modules/wardrobe/views/wardrobe_view.dart';
 
@@ -86,7 +99,8 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.SIGNUP,
-      page: () => const SignUpView(),
+      page: () => const SignupView(),
+      binding: SignupBinding(),
     ),
     GetPage(
       name: _Paths.PASSWORD_RESET,
@@ -107,10 +121,12 @@ class AppPages {
     GetPage(
       name: _Paths.LIST_REQUEST,
       page: () => const ListRequestView(),
+      binding: ListRequestBinding(),
     ),
     GetPage(
       name: _Paths.TABLE_REQUEST,
       page: () => const TableRequestView(),
+      binding: TableRequestBinding(),
     ),
     GetPage(
       name: _Paths.USE_POINTS,
@@ -148,6 +164,7 @@ class AppPages {
     GetPage(
       name: _Paths.LOGOUT,
       page: () => const LogoutView(),
+      binding: LogoutBinding(),
     ),
     GetPage(
       name: _Paths.CHANGE_PASSWORD,
@@ -156,6 +173,7 @@ class AppPages {
     GetPage(
       name: _Paths.NOTIFICATION_SETTING,
       page: () => const NotificationSettingView(),
+      binding: NotificationSettingBinding(),
     ),
     GetPage(
       name: _Paths.PRIVACY_POLICY,
@@ -245,6 +263,26 @@ class AppPages {
       name: _Paths.PROVIDER_ADD_LIST,
       page: () => const ProviderAddListView(),
       binding: ProviderAddListBinding(),
+    ),
+    GetPage(
+      name: _Paths.PROVIDER_ALL_EVENT,
+      page: () => const ProviderAllEventView(),
+      binding: ProviderAllEventBinding(),
+    ),
+    GetPage(
+      name: _Paths.PROVIDER_EDIT_EVENT,
+      page: () => const ProviderEditEventView(),
+      binding: ProviderEditEventBinding(),
+    ),
+    GetPage(
+      name: _Paths.PROVIDER_PUSH_NOTIFICATION,
+      page: () => const ProviderPushNotificationView(),
+      binding: ProviderPushNotificationBinding(),
+    ),
+    GetPage(
+      name: _Paths.NOTIFICATIONS,
+      page: () => const NotificationsView(),
+      binding: NotificationsBinding(),
     ),
   ];
 }

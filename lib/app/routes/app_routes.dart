@@ -43,6 +43,10 @@ abstract class Routes {
   static const PROVIDER_LIST_HISTORY = _Paths.PROVIDER_LIST_HISTORY;
   static const PROVIDER_CURRENT_LIST = _Paths.PROVIDER_CURRENT_LIST;
   static const PROVIDER_ADD_LIST = _Paths.PROVIDER_ADD_LIST;
+  static const PROVIDER_ALL_EVENT = _Paths.PROVIDER_ALL_EVENT;
+  static const PROVIDER_EDIT_EVENT = _Paths.PROVIDER_EDIT_EVENT;
+  static const PROVIDER_PUSH_NOTIFICATION = _Paths.PROVIDER_PUSH_NOTIFICATION;
+  static const NOTIFICATIONS = _Paths.NOTIFICATIONS;
 }
 
 abstract class _Paths {
@@ -87,4 +91,8 @@ abstract class _Paths {
   static const PROVIDER_LIST_HISTORY = '/provider-list-history';
   static const PROVIDER_CURRENT_LIST = '/provider-current-list';
   static const PROVIDER_ADD_LIST = '/provider-add-list';
+  static const PROVIDER_ALL_EVENT = '/provider-all-event';
+  static const PROVIDER_EDIT_EVENT = '/provider-edit-event';
+  static const PROVIDER_PUSH_NOTIFICATION = '/provider-push-notification';
+  static const NOTIFICATIONS = '/notifications';
 }

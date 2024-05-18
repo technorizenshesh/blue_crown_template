@@ -100,8 +100,8 @@ class CustomProviderDrawer {
                         width: 24.px,
                         fit: BoxFit.fill),
                     onTap: () {
-                      // Get.back();
-                      // Get.toNamed(Routes.CLUB_INFO);
+                      Get.back();
+                      Get.toNamed(Routes.CLUB_INFO);
                     },
                   ),
                   ListTile(
@@ -120,28 +120,8 @@ class CustomProviderDrawer {
                         width: 24.px,
                         fit: BoxFit.fill),
                     onTap: () {
-                      // Get.back();
-                      // Get.toNamed(Routes.CLUB_EVENTS);
-                    },
-                  ),
-                  ListTile(
-                    leading: CommonWidgets.appIcons(
-                        assetName: IconConstants.icMyWallet,
-                        height: 40.px,
-                        width: 40.px,
-                        fit: BoxFit.fill),
-                    title: Text(
-                      StringConstants.eventWalletHistory,
-                      style: MyTextStyle.titleStyle14w,
-                    ),
-                    trailing: CommonWidgets.appIcons(
-                        assetName: IconConstants.icRightArrow,
-                        height: 24.px,
-                        width: 24.px,
-                        fit: BoxFit.fill),
-                    onTap: () {
-                      // Get.back();
-                      // Get.toNamed(Routes.EVENT_WALLET_HISTORY);
+                      Get.back();
+                      Get.toNamed(Routes.PROVIDER_ALL_EVENT);
                     },
                   ),
                   ListTile(
@@ -181,7 +161,7 @@ class CustomProviderDrawer {
                         fit: BoxFit.fill),
                     onTap: () {
                       Get.back();
-                      Get.toNamed(Routes.NOTIFICATION_SETTING);
+                      Get.toNamed(Routes.NOTIFICATIONS);
                     },
                   ),
                   ListTile(

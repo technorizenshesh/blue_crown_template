@@ -163,7 +163,7 @@ class WardrobeView extends GetView<WardrobeController> {
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(20.px))),
         content: SizedBox(
-          height: 270.px,
+          height: 200.px,
           child: Card(
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(20.px))),
@@ -192,8 +192,8 @@ class WardrobeView extends GetView<WardrobeController> {
                                 ),
                                 Text('85',
                                     style: MyTextStyle.titleStyleCustom(
-                                        60, FontWeight.bold, primaryColor)),
-                                CommonWidgets.commonElevatedButton(
+                                        80, FontWeight.bold, primaryColor)),
+                                /*  CommonWidgets.commonElevatedButton(
                                     onPressed: () {},
                                     child: Text(
                                       StringConstants.takeOutJacket,
@@ -206,7 +206,7 @@ class WardrobeView extends GetView<WardrobeController> {
                                         top: 20.px,
                                         left: 20.px,
                                         right: 20.px,
-                                        bottom: 20.px))
+                                        bottom: 20.px))*/
                               ],
                             )
                           : Text(
