@@ -5,6 +5,7 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import '../../../../common/colors.dart';
 import '../../../../common/common_widgets.dart';
 import '../../../../common/text_styles.dart';
+import '../../../data/apis/api_models/get_all_user_model.dart';
 import '../../../data/constants/string_constants.dart';
 import '../controllers/provider_consumer_register_controller.dart';
 
@@ -59,19 +60,65 @@ class ProviderConsumerRegisterView
   /// Show user List ...
   Widget showUserList() {
     return GetBuilder<ProviderConsumerRegisterController>(builder: (context) {
-      return Obx(() => controller.showProgressBar.value
+      return Obx(() => controller.inAsyncCall.value
           ? CommonWidgets.commonShimmer(
-              itemCount: 4,
+              itemCount: 8,
               shimmerWidget: Container(
                 height: 80.px,
                 width: double.infinity,
                 decoration: BoxDecoration(
-                  color: Colors.black,
-                  borderRadius: BorderRadius.all(Radius.circular(10.px)),
-                ),
+                    borderRadius: BorderRadius.all(Radius.circular(10.px)),
+                    border: Border.all(color: Colors.black87, width: 1.5.px)),
                 margin: EdgeInsets.only(
                     left: 5.px, right: 5.px, top: 5.px, bottom: 2.px),
                 clipBehavior: Clip.hardEdge,
+                child: Row(
+                  children: [
+                    Container(
+                      height: 60.px,
+                      width: 60.px,
+                      margin: EdgeInsets.all(5.px),
+                      decoration: BoxDecoration(
+                        color: Colors.black87,
+                        borderRadius: BorderRadius.all(Radius.circular(30.px)),
+                      ),
+                    ),
+                    Expanded(
+                        child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Container(
+                          height: 15.px,
+                          width: 230.px,
+                          decoration: BoxDecoration(
+                            color: Colors.black87,
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(3.px)),
+                          ),
+                        ),
+                        Container(
+                          height: 15.px,
+                          width: 120.px,
+                          decoration: BoxDecoration(
+                            color: Colors.black87,
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(3.px)),
+                          ),
+                        ),
+                        Container(
+                          height: 15.px,
+                          width: 200.px,
+                          decoration: BoxDecoration(
+                            color: Colors.black87,
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(3.px)),
+                          ),
+                        ),
+                      ],
+                    ))
+                  ],
+                ),
               ))
           : ListView.builder(
               physics: const BouncingScrollPhysics(),
@@ -80,10 +127,10 @@ class ProviderConsumerRegisterView
               scrollDirection: Axis.vertical,
               itemCount: controller.filterUserList.length,
               itemBuilder: (context, int index) {
-                //  GetClubsResult item = controller.getClubsModel!.result![index];
+                AllUsersResult item = controller.filterUserList[index];
                 return GestureDetector(
                   onTap: () {
-                    showAlertBox(context, controller.filterUserList[index]);
+                    showAlertBox(context, item);
                   },
                   child: Card(
                     shape: RoundedRectangleBorder(
@@ -113,13 +160,12 @@ class ProviderConsumerRegisterView
                                 flex: 1,
                                 child: Align(
                                   alignment: Alignment.centerLeft,
-                                  child: CommonWidgets.appIcons(
-                                      assetName: controller
-                                              .filterUserList[index]['image'] ??
-                                          '',
+                                  child: CommonWidgets.imageView(
+                                      image: item.image ?? '',
                                       width: 60.px,
                                       height: 60.px,
-                                      borderRadius: 30.px,
+                                      borderRadius:
+                                          BorderRadius.circular(30.px),
                                       fit: BoxFit.fill),
                                 )),
                             Expanded(
@@ -131,9 +177,7 @@ class ProviderConsumerRegisterView
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        controller.filterUserList[index]
-                                                ['name'] ??
-                                            '',
+                                        item.fullName ?? '',
                                         style: MyTextStyle.titleStyle16bw,
                                         maxLines: 1,
                                       ),
@@ -141,9 +185,7 @@ class ProviderConsumerRegisterView
                                         height: 3.px,
                                       ),
                                       Text(
-                                        controller.filterUserList[index]
-                                                ['phone'] ??
-                                            '',
+                                        item.mobile ?? '',
                                         style: MyTextStyle.titleStyle12w,
                                         maxLines: 1,
                                       ),
@@ -151,9 +193,7 @@ class ProviderConsumerRegisterView
                                         height: 3.px,
                                       ),
                                       Text(
-                                        controller.filterUserList[index]
-                                                ['email'] ??
-                                            '',
+                                        item.email ?? '',
                                         style: MyTextStyle.titleStyle12w,
                                         maxLines: 1,
                                       ),
@@ -170,7 +210,7 @@ class ProviderConsumerRegisterView
   }
 
   /// Show Alert Box...
-  void showAlertBox(BuildContext context, Map<String, String> user) {
+  void showAlertBox(BuildContext context, AllUsersResult user) {
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
@@ -201,23 +241,23 @@ class ProviderConsumerRegisterView
                   contentPadding:
                       EdgeInsets.symmetric(horizontal: 10.px, vertical: 0.px),
                   title: Text('Name', style: MyTextStyle.titleStyle16bw),
-                  subtitle: Text(user['name'] ?? '',
+                  subtitle: Text(user.fullName ?? '',
                       style: MyTextStyle.titleStyle14w),
                 ),
                 ListTile(
                   contentPadding:
                       EdgeInsets.symmetric(horizontal: 10.px, vertical: 0.px),
                   title: Text('Email', style: MyTextStyle.titleStyle16bw),
-                  subtitle: Text(user['email'] ?? '',
-                      style: MyTextStyle.titleStyle14w),
+                  subtitle:
+                      Text(user.email ?? '', style: MyTextStyle.titleStyle14w),
                 ),
                 ListTile(
                   contentPadding:
                       EdgeInsets.symmetric(horizontal: 10.px, vertical: 0.px),
                   title:
                       Text('Phone Number', style: MyTextStyle.titleStyle16bw),
-                  subtitle: Text(user['phone'] ?? '',
-                      style: MyTextStyle.titleStyle14w),
+                  subtitle:
+                      Text(user.mobile ?? '', style: MyTextStyle.titleStyle14w),
                 ),
                 Row(
                   children: [
@@ -243,7 +283,11 @@ class ProviderConsumerRegisterView
                     Expanded(
                       flex: 1,
                       child: CommonWidgets.commonElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Get.back();
+                            controller
+                                .callingSubmitAddContomerForm(user.id ?? '');
+                          },
                           child: Text(
                             StringConstants.register,
                             style: MyTextStyle.titleStyle16bw,

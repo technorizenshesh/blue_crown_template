@@ -13,27 +13,71 @@ class ProviderAddListView extends GetView<ProviderAddListController> {
   const ProviderAddListView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        resizeToAvoidBottomInset: false,
-        backgroundColor: Colors.black,
-        appBar: CommonWidgets.appBar(
-            wantBackButton: true, title: StringConstants.addToList),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        floatingActionButton: CommonWidgets.commonElevatedButton(
-            onPressed: () {
-              //controller.openNewPage(1);
-            },
-            child: Text(
-              StringConstants.submit,
-              style: MyTextStyle.titleStyle16bw,
+    return Obx(() {
+      controller.count.value;
+      return Scaffold(
+          resizeToAvoidBottomInset: false,
+          backgroundColor: Colors.black,
+          appBar: CommonWidgets.appBar(
+              wantBackButton: true, title: StringConstants.addToList),
+          bottomNavigationBar: SizedBox(
+            height: 140.px,
+            child: Column(
+              children: [
+                CommonWidgets.commonElevatedButton(
+                    onPressed: () {
+                      //controller.openNewPage(1);
+                    },
+                    child: Text(
+                      StringConstants.submit,
+                      style: MyTextStyle.titleStyle16bw,
+                    ),
+                    borderRadius: 30.px,
+                    buttonColor: primaryColor,
+                    buttonMargin: EdgeInsets.only(
+                        bottom: 10.px, left: 10.px, right: 10.px)),
+                Row(
+                  children: [
+                    Expanded(
+                      flex: 1,
+                      child: CommonWidgets.commonElevatedButton(
+                          onPressed: () {
+                            controller.tabIndex.value = 0;
+                          },
+                          child: Text(
+                            StringConstants.listRequest,
+                            style: MyTextStyle.titleStyle16bw,
+                          ),
+                          borderRadius: 30.px,
+                          buttonColor: controller.tabIndex.value == 0
+                              ? primaryColor
+                              : cartColor,
+                          buttonMargin: EdgeInsets.only(
+                              bottom: 10.px, left: 10.px, right: 10.px)),
+                    ),
+                    Expanded(
+                      flex: 1,
+                      child: CommonWidgets.commonElevatedButton(
+                          onPressed: () {
+                            controller.tabIndex.value = 1;
+                          },
+                          child: Text(
+                            StringConstants.tableRequest,
+                            style: MyTextStyle.titleStyle16bw,
+                          ),
+                          borderRadius: 30.px,
+                          buttonColor: controller.tabIndex.value == 1
+                              ? primaryColor
+                              : cartColor,
+                          buttonMargin: EdgeInsets.only(
+                              bottom: 10.px, left: 10.px, right: 10.px)),
+                    ),
+                  ],
+                )
+              ],
             ),
-            borderRadius: 30.px,
-            buttonColor: primaryColor,
-            buttonMargin:
-                EdgeInsets.only(bottom: 10.px, left: 10.px, right: 10.px)),
-        body: Obx(() {
-          controller.count.value;
-          return InkWell(
+          ),
+          body: InkWell(
             onTap: () {
               print("clicked on screen....");
               FocusManager.instance.primaryFocus?.unfocus();
@@ -128,7 +172,7 @@ class ProviderAddListView extends GetView<ProviderAddListController> {
                 ],
               ),
             ),
-          );
-        }));
+          ));
+    });
   }
 }

@@ -38,7 +38,7 @@ class NotificationsView extends GetView<NotificationsController> {
             padding: EdgeInsets.all(15.px),
             child: Column(
               children: [
-                CommonWidgets.commonTextFieldForLoginSignUP(
+                /* CommonWidgets.commonTextFieldForLoginSignUP(
                   focusNode: controller.focusSearch,
                   controller: controller.searchController,
                   isCard: controller.isSearch.value,
@@ -55,7 +55,7 @@ class NotificationsView extends GetView<NotificationsController> {
                     controller.changeFilterUsersList(
                         controller.searchController.text);
                   },
-                ),
+                ),*/
                 SizedBox(
                   height: 20.px,
                 ),

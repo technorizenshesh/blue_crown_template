@@ -21,13 +21,16 @@ class ProviderEditEventView extends GetView<ProviderEditEventController> {
         bottomNavigationBar: Padding(
           padding: EdgeInsets.all(15.px),
           child: CommonWidgets.commonElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                controller.callingEditEventsForm();
+              },
               child: Text(
                 StringConstants.updateEvent,
                 style: MyTextStyle.titleStyle16bw,
               ),
               borderRadius: 30.px,
-              buttonColor: primaryColor),
+              buttonColor: primaryColor,
+              isLoading: controller.isLoading.value),
         ),
         body: SingleChildScrollView(
           scrollDirection: Axis.vertical,

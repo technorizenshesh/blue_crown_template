@@ -1,3 +1,4 @@
+import 'package:blue_crown_template/app/data/apis/api_models/get_request_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -51,7 +52,7 @@ class RequestListHistoryView extends GetView<RequestListHistoryController> {
                                           : primary3Color,
                                       width: 1.px)),
                               child: Text(
-                                StringConstants.currentList,
+                                StringConstants.tableRequests,
                                 style: MyTextStyle.titleStyle16bw,
                               ),
                             ),
@@ -79,7 +80,7 @@ class RequestListHistoryView extends GetView<RequestListHistoryController> {
                                           : primary3Color,
                                       width: 1.px)),
                               child: Text(
-                                StringConstants.listRequest,
+                                StringConstants.listRequests,
                                 style: MyTextStyle.titleStyle16bw,
                               ),
                             ),
@@ -90,7 +91,7 @@ class RequestListHistoryView extends GetView<RequestListHistoryController> {
                   child: SingleChildScrollView(
                     scrollDirection: Axis.vertical,
                     child: controller.tabIndex.value == 0
-                        ? currentList()
+                        ? tableRequestList()
                         : requestList(),
                   ),
                 )
@@ -101,29 +102,102 @@ class RequestListHistoryView extends GetView<RequestListHistoryController> {
   }
 
   /// Show Current List   ...
-  Widget currentList() {
-    return Obx(() => controller.showProgressBar.value
+  Widget tableRequestList() {
+    return Obx(() => controller.showTableProgressBar.value
         ? CommonWidgets.commonShimmer(
-            itemCount: 4,
+            itemCount: 7,
             shimmerWidget: Container(
-              height: 200.px,
+              height: 90.px,
               width: double.infinity,
-              decoration: BoxDecoration(
-                color: Colors.black,
-                borderRadius: BorderRadius.all(Radius.circular(10.px)),
-              ),
               margin: EdgeInsets.only(
-                  left: 20.px, right: 20.px, top: 5.px, bottom: 2.px),
-              clipBehavior: Clip.hardEdge,
+                  left: 10.px, right: 10.px, top: 5.px, bottom: 5.px),
+              padding: EdgeInsets.all(5.px),
+              child: Row(
+                children: [
+                  Expanded(
+                      flex: 3,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.black87,
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(10.px)),
+                        ),
+                      )),
+                  Expanded(
+                      flex: 7,
+                      child: Padding(
+                        padding: EdgeInsets.only(left: 5.px),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Container(
+                              height: 15.px,
+                              decoration: BoxDecoration(
+                                color: Colors.black87,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(3.px)),
+                              ),
+                            ),
+                            Container(
+                              height: 15.px,
+                              width: 100.px,
+                              decoration: BoxDecoration(
+                                color: Colors.black87,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(3.px)),
+                              ),
+                            ),
+                            Container(
+                              height: 15.px,
+                              width: 130.px,
+                              decoration: BoxDecoration(
+                                color: Colors.black87,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(3.px)),
+                              ),
+                            )
+                          ],
+                        ),
+                      )),
+                  Expanded(
+                      flex: 3,
+                      child: Padding(
+                        padding: EdgeInsets.all(5.px),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Container(
+                              height: 15.px,
+                              width: 40.px,
+                              decoration: BoxDecoration(
+                                color: Colors.black87,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(3.px)),
+                              ),
+                            ),
+                            Container(
+                              height: 25.px,
+                              decoration: BoxDecoration(
+                                color: Colors.black87,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(5.px)),
+                              ),
+                            )
+                          ],
+                        ),
+                      ))
+                ],
+              ),
             ))
         : ListView.builder(
             physics: const BouncingScrollPhysics(),
             shrinkWrap: true,
             padding: EdgeInsets.zero,
             scrollDirection: Axis.vertical,
-            itemCount: controller.currentList.length,
+            itemCount: controller.tableRequestList.length,
             itemBuilder: (context, int index) {
-              //  GetClubsResult item = controller.getClubsModel!.result![index];
+              GetRequestResult item = controller.tableRequestList[index];
               return GestureDetector(
                 onTap: () {
                   //controller.openEventDetail(index);
@@ -150,42 +224,48 @@ class RequestListHistoryView extends GetView<RequestListHistoryController> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Expanded(
+                              flex: 3,
+                              child: CommonWidgets.imageView(
+                                  image: item.image ?? '',
+                                  borderRadius: BorderRadius.circular(10.px))),
+                          Expanded(
                               flex: 7,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    controller.currentList[index]['name'] ?? '',
-                                    style: MyTextStyle.titleStyle16bw,
-                                    maxLines: 1,
-                                  ),
-                                  SizedBox(
-                                    height: 2.px,
-                                  ),
-                                  Text(
-                                    controller.currentList[index]['event'] ??
-                                        '',
-                                    style: MyTextStyle.titleStyle12w,
-                                    maxLines: 1,
-                                  ),
-                                  SizedBox(
-                                    height: 2.px,
-                                  ),
-                                  Text(
-                                    controller.currentList[index]['date'] ?? '',
-                                    style: MyTextStyle.titleStyle14w,
-                                    maxLines: 1,
-                                  ),
-                                ],
+                              child: Padding(
+                                padding: EdgeInsets.only(left: 5.px),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      item.name ?? '',
+                                      style: MyTextStyle.titleStyle16bw,
+                                      maxLines: 1,
+                                    ),
+                                    SizedBox(
+                                      height: 2.px,
+                                    ),
+                                    Text(
+                                      item.eventName ?? '',
+                                      style: MyTextStyle.titleStyle12w,
+                                      maxLines: 1,
+                                    ),
+                                    SizedBox(
+                                      height: 2.px,
+                                    ),
+                                    Text(
+                                      item.fromDate ?? '',
+                                      style: MyTextStyle.titleStyle14w,
+                                      maxLines: 1,
+                                    ),
+                                  ],
+                                ),
                               )),
                           Expanded(
-                              flex: 2,
+                              flex: 3,
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
-                                    controller.currentList[index]['people'] ??
-                                        '',
+                                    '${item.people} +',
                                     style: MyTextStyle.titleStyle16bw,
                                   ),
                                   SizedBox(
@@ -200,17 +280,16 @@ class RequestListHistoryView extends GetView<RequestListHistoryController> {
                                         top: 2.px,
                                         bottom: 2.px),
                                     decoration: BoxDecoration(
-                                      color: controller.currentList[index]
-                                                  ['status'] ==
-                                              'Accepted'
+                                      color: item.status == 'Accept'
                                           ? greenColor
-                                          : errorColor,
+                                          : item.status == 'Pending'
+                                              ? Colors.orangeAccent
+                                              : errorColor,
                                       borderRadius: BorderRadius.all(
                                           Radius.circular(12.px)),
                                     ),
                                     child: Text(
-                                      controller.currentList[index]['status'] ??
-                                          '',
+                                      item.status ?? '',
                                       style: MyTextStyle.titleStyle12w,
                                     ),
                                   )
@@ -226,28 +305,101 @@ class RequestListHistoryView extends GetView<RequestListHistoryController> {
 
   /// Show Request List  ...
   Widget requestList() {
-    return Obx(() => controller.showProgressBar.value
+    return Obx(() => controller.showListProgressBar.value
         ? CommonWidgets.commonShimmer(
-            itemCount: 4,
+            itemCount: 7,
             shimmerWidget: Container(
-              height: 200.px,
+              height: 90.px,
               width: double.infinity,
-              decoration: BoxDecoration(
-                color: Colors.black,
-                borderRadius: BorderRadius.all(Radius.circular(10.px)),
-              ),
               margin: EdgeInsets.only(
                   left: 10.px, right: 10.px, top: 5.px, bottom: 5.px),
-              clipBehavior: Clip.hardEdge,
+              padding: EdgeInsets.all(5.px),
+              child: Row(
+                children: [
+                  Expanded(
+                      flex: 3,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.black87,
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(10.px)),
+                        ),
+                      )),
+                  Expanded(
+                      flex: 7,
+                      child: Padding(
+                        padding: EdgeInsets.only(left: 5.px),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Container(
+                              height: 15.px,
+                              decoration: BoxDecoration(
+                                color: Colors.black87,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(3.px)),
+                              ),
+                            ),
+                            Container(
+                              height: 15.px,
+                              width: 100.px,
+                              decoration: BoxDecoration(
+                                color: Colors.black87,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(3.px)),
+                              ),
+                            ),
+                            Container(
+                              height: 15.px,
+                              width: 130.px,
+                              decoration: BoxDecoration(
+                                color: Colors.black87,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(3.px)),
+                              ),
+                            )
+                          ],
+                        ),
+                      )),
+                  Expanded(
+                      flex: 3,
+                      child: Padding(
+                        padding: EdgeInsets.all(5.px),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Container(
+                              height: 15.px,
+                              width: 40.px,
+                              decoration: BoxDecoration(
+                                color: Colors.black87,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(3.px)),
+                              ),
+                            ),
+                            Container(
+                              height: 25.px,
+                              decoration: BoxDecoration(
+                                color: Colors.black87,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(5.px)),
+                              ),
+                            )
+                          ],
+                        ),
+                      ))
+                ],
+              ),
             ))
         : ListView.builder(
             physics: const BouncingScrollPhysics(),
             shrinkWrap: true,
             padding: EdgeInsets.zero,
             scrollDirection: Axis.vertical,
-            itemCount: controller.requestList.length,
+            itemCount: controller.listRequestList.length,
             itemBuilder: (context, int index) {
-              //  GetClubsResult item = controller.getClubsModel!.result![index];
+              GetRequestResult item = controller.listRequestList[index];
               return GestureDetector(
                 onTap: () {
                   //controller.openEventDetail(index);
@@ -274,42 +426,48 @@ class RequestListHistoryView extends GetView<RequestListHistoryController> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Expanded(
+                              flex: 3,
+                              child: CommonWidgets.imageView(
+                                  image: item.image ?? '',
+                                  borderRadius: BorderRadius.circular(10.px))),
+                          Expanded(
                               flex: 7,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    controller.requestList[index]['name'] ?? '',
-                                    style: MyTextStyle.titleStyle16bw,
-                                    maxLines: 1,
-                                  ),
-                                  SizedBox(
-                                    height: 2.px,
-                                  ),
-                                  Text(
-                                    controller.requestList[index]['event'] ??
-                                        '',
-                                    style: MyTextStyle.titleStyle12w,
-                                    maxLines: 1,
-                                  ),
-                                  SizedBox(
-                                    height: 2.px,
-                                  ),
-                                  Text(
-                                    controller.requestList[index]['date'] ?? '',
-                                    style: MyTextStyle.titleStyle14w,
-                                    maxLines: 1,
-                                  ),
-                                ],
+                              child: Padding(
+                                padding: EdgeInsets.only(left: 5.px),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      item.name ?? '',
+                                      style: MyTextStyle.titleStyle16bw,
+                                      maxLines: 1,
+                                    ),
+                                    SizedBox(
+                                      height: 2.px,
+                                    ),
+                                    Text(
+                                      item.eventName ?? '',
+                                      style: MyTextStyle.titleStyle12w,
+                                      maxLines: 1,
+                                    ),
+                                    SizedBox(
+                                      height: 2.px,
+                                    ),
+                                    Text(
+                                      item.fromDate ?? '',
+                                      style: MyTextStyle.titleStyle14w,
+                                      maxLines: 1,
+                                    ),
+                                  ],
+                                ),
                               )),
                           Expanded(
-                              flex: 2,
+                              flex: 3,
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
-                                    controller.requestList[index]['people'] ??
-                                        '',
+                                    '${item.people} +',
                                     style: MyTextStyle.titleStyle16bw,
                                   ),
                                   SizedBox(
@@ -324,17 +482,16 @@ class RequestListHistoryView extends GetView<RequestListHistoryController> {
                                         top: 2.px,
                                         bottom: 2.px),
                                     decoration: BoxDecoration(
-                                      color: controller.requestList[index]
-                                                  ['status'] ==
-                                              'Accepted'
+                                      color: item.status == 'Accept'
                                           ? greenColor
-                                          : Colors.orangeAccent,
+                                          : item.status == 'Pending'
+                                              ? Colors.orangeAccent
+                                              : errorColor,
                                       borderRadius: BorderRadius.all(
                                           Radius.circular(12.px)),
                                     ),
                                     child: Text(
-                                      controller.requestList[index]['status'] ??
-                                          '',
+                                      item.status ?? '',
                                       style: MyTextStyle.titleStyle12w,
                                     ),
                                   )

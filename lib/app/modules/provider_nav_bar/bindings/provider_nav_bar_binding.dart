@@ -1,7 +1,7 @@
+import 'package:blue_crown_template/app/modules/scanner/controllers/scanner_controller.dart';
 import 'package:get/get.dart';
 
-import '../../controller/home_controller.dart';
-import '../../controller/scanner_controller.dart';
+import '../../home/controllers/home_controller.dart';
 import '../../wardrobe/controllers/wardrobe_controller.dart';
 import '../controllers/provider_nav_bar_controller.dart';
 

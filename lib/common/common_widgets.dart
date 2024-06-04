@@ -81,6 +81,7 @@ class CommonWidgets {
     double? borderRadius,
     Color? splashColor,
     bool wantContentSizeButton = false,
+    bool isLoading = false,
     Color? buttonColor,
     TextStyle? textStyle,
     double? elevation,
@@ -97,6 +98,7 @@ class CommonWidgets {
       decoration: decoration ??
           BoxDecoration(
             borderRadius: BorderRadius.circular(borderRadius ?? 14.px),
+            color: buttonColor ?? primary3Color,
             border: border ??
                 Border.all(
                   color:
@@ -104,26 +106,32 @@ class CommonWidgets {
                   width: 1.px,
                 ),
           ),
-      child: ElevatedButton(
-        onPressed: onPressed,
-        style: ElevatedButton.styleFrom(
-          elevation: elevation ?? 0.px,
-          padding: contentPadding,
-          textStyle: textStyle ??
-              Theme.of(Get.context!)
-                  .textTheme
-                  .displayMedium
-                  ?.copyWith(fontWeight: FontWeight.w700),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(borderRadius ?? 14.px),
-          ),
-          backgroundColor: buttonColor ?? primary3Color,
-          foregroundColor:
-              splashColor ?? Theme.of(Get.context!).scaffoldBackgroundColor,
-          shadowColor: Colors.transparent,
-        ),
-        child: child ?? const Text(''),
-      ),
+      child: isLoading
+          ? const Center(
+              child: CircularProgressIndicator(
+                color: primary3Color,
+              ),
+            )
+          : ElevatedButton(
+              onPressed: onPressed,
+              style: ElevatedButton.styleFrom(
+                elevation: elevation ?? 0.px,
+                padding: contentPadding,
+                textStyle: textStyle ??
+                    Theme.of(Get.context!)
+                        .textTheme
+                        .displayMedium
+                        ?.copyWith(fontWeight: FontWeight.w700),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(borderRadius ?? 14.px),
+                ),
+                backgroundColor: buttonColor ?? primary3Color,
+                foregroundColor: splashColor ??
+                    Theme.of(Get.context!).scaffoldBackgroundColor,
+                shadowColor: Colors.transparent,
+              ),
+              child: child ?? const Text(''),
+            ),
     );
   }
 
@@ -655,6 +663,37 @@ class CommonWidgets {
     }
   }
 
+  /// Common Progress bar...
+  static Widget customProgressBar(
+      {required bool inAsyncCall,
+      double? width,
+      Widget? child,
+      double? height}) {
+    return Container(
+      height: height ?? double.infinity,
+      width: width ?? double.infinity,
+      alignment: Alignment.center,
+      decoration: BoxDecoration(
+        color: inAsyncCall ? Colors.grey.withOpacity(0.5) : primary3Color,
+      ),
+      child: inAsyncCall
+          ? Stack(
+              alignment: Alignment.center,
+              children: [
+                const CircularProgressIndicator(
+                  color: primaryColor,
+                ),
+                appIcons(
+                    assetName: IconConstants.icLogo,
+                    width: 25.px,
+                    height: 25.px,
+                    fit: BoxFit.fill)
+              ],
+            )
+          : child ?? const SizedBox(),
+    );
+  }
+
   ///For Simmer for loading time
   static Widget commonShimmer({
     double? height,
@@ -741,36 +780,6 @@ class CommonWidgets {
         textColor: primaryColor,
         backgroundColor: primary3Color,
         fontSize: 16.0);
-  }
-
-  static Widget customProgressBar(
-      {required bool inAsyncCall,
-      double? width,
-      Widget? child,
-      double? height}) {
-    return Container(
-      height: height ?? double.infinity,
-      width: width ?? double.infinity,
-      alignment: Alignment.center,
-      decoration: BoxDecoration(
-        color: inAsyncCall ? Colors.grey.withOpacity(0.5) : primary3Color,
-      ),
-      child: inAsyncCall
-          ? Stack(
-              alignment: Alignment.center,
-              children: [
-                const CircularProgressIndicator(
-                  color: primary3Color,
-                ),
-                appIcons(
-                    assetName: IconConstants.icLogo,
-                    width: 25.px,
-                    height: 25.px,
-                    fit: BoxFit.fill)
-              ],
-            )
-          : child ?? const SizedBox(),
-    );
   }
 
   static void showAlertDialog(

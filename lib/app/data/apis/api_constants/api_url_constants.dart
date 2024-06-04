@@ -1,70 +1,86 @@
 class ApiUrlConstants {
-  static const String baseUrl =
-      'https://server-php-8-2.technorizen.com/rot/api/';
+  static const String baseUrlMain =
+      'https://server-php-7-3.technorizen.com/BlueCrownAccess';
   static const String baseUrlForGetMethodParams =
-      'server-php-8-2.technorizen.com';
-  static const String endPointOfUserSignup = '${baseUrl}UserSignup';
-  static const String endPointOfUserVerification =
-      '${baseUrl}user_verification';
+      'server-php-7-3.technorizen.com';
+  static const String baseUrl = '$baseUrlMain/webservice/';
+  static const String endPointOfSignUp = '${baseUrl}signup';
   static const String endPointOfLogin = '${baseUrl}login';
-  static const String endPointOfLoginWithGoogle = '${baseUrl}login_with_google';
-  static const String endPointOfForgetPassword = '${baseUrl}forget_password';
-  static const String endPointOfCreateNewPassword =
-      '${baseUrl}create_new_password';
-  static const String endPointOfCreateNewPasswordWithMobile =
-      '${baseUrl}create_newpassword_with_mobile';
-  static const String endPointOfChangePassword = '${baseUrl}change_password';
-  static const String endPointOfGetCategory = '${baseUrl}get_category';
-  static const String endPointOfGetCurrency = '${baseUrl}get_currency';
-  static const String endPointOfGetSubCategory = '/rot/api/get_sub_category';
-  static const String endPointOfGetProduct = '/rot/api/get_product';
-  static const String endPointOfGetAllProduct = '/rot/api/get_all_product';
-  static const String endPointOfGetProductDetail =
-      '/rot/api/get_product_details';
-  static const String endPointOfDeleteProduct = '/rot/api/delete_product';
-  static const String endPointOfProductLikeUnlike =
-      '/rot/api/product_like_unlike';
-  static const String endPointOfProductSoldReserved = '/rot/api/sold_reserved';
-  static const String endPointOfGetFavoriteProduct =
-      '/rot/api/get_like_product';
-  static const String endPointOfGetProductByUserId =
-      '/rot/api/get_product_user_id';
-  static const String endPointOfGetMyLikeUser = '/rot/api/get_like_user';
-  static const String endPointOfGetUserDetails = '/rot/api/get_user_details';
-  static const String endPointOfUserLikeUnlike = '/rot/api/user_like_unlike';
-  static const String endPointOfGetProfile = '/rot/api/get_profile';
-  static const String endPointOfGetStates = '/rot/api/get_states';
-  static const String endPointOfGetCity = '/rot/api/get_city';
-  static const String endPointOfGetBanner = '${baseUrl}get_banner';
-  static const String endPointOfGetCountry = '${baseUrl}get_country';
-  static const String endPointOfGetHashTag = '${baseUrl}get_hash_tag';
-  static const String endPointOfGetProductStatus =
-      '${baseUrl}get_product_status';
+  static const String endPointOfGetProfile = '${baseUrl}get_profile';
   static const String endPointOfUpdateProfile = '${baseUrl}update_profile';
-  static const String endPointOfGetConversation = '${baseUrl}get_conversation';
-  static const String endPointOfGetChat = '${baseUrl}get_chat';
-  static const String endPointOfInsertChat = '${baseUrl}insert_chat';
-  static const String endPointOfSubscriptionPurchase =
-      '${baseUrl}subcription_purcharge';
-  static const String endPointOfGetMyPurchasedSubscription =
-      '/rot/api/get_my_purcharge';
-  static const String endPointOfAddProduct = '${baseUrl}add_product';
-  static const String endPointOfBuyProductDelivery =
-      '/rot/api/product_delivery';
-  static const String endPointOfGetProductDelivery =
-      '/rot/api/get_product_delivery';
-  static const String endPointOfGetProductUser = '/rot/api/get_product_user';
-  static const String endPointOfGetNotification = '/rot/api/get_notification';
-  static const String endPointOfAddReview = '/rot/api/add_review';
-  static const String endPointOfGetReview = '/rot/api/get_review';
-  static const String endPointOfAddCard = '/rot/api/add_card';
-  static const String endPointOfDeleteCard = '/rot/api/delete_card';
-  static const String endPointOfGetCard = '/rot/api/get_card';
-  static const String endPointOfGetToken = '/rot/api/get_token';
-  static const String endPointOfAddWallet = '/rot/api/add_wallet';
+  static const String endPointOfCheckOtp = '${baseUrl}check_otp';
+  static const String endPointOfForgot = '${baseUrl}forgot_password';
+  static const String endPointOfResetPassword = '${baseUrl}reset_password';
+  static const String endPointOfAddEvent = '${baseUrl}add_event';
+  static const String endPointOfUpdateEvent = '${baseUrl}update_event';
+  static const String endPointOfAddListRequest = '${baseUrl}add_list_request';
+  static const String endPointOfGetEventClubRequest =
+      '/BlueCrownAccess/webservice/get_event_club_request';
+  static const String endPointOfGetEvent =
+      '/BlueCrownAccess/webservice/get_my_publish_event';
+  static const String endPointOfGetEarnMorePoint =
+      '${baseUrl}get_earn_more_point';
+
+  static const String endPointOfGetClubInfo = '${baseUrl}get_club_info';
+  static const String endPointOfEventActiveDeactivate =
+      '${baseUrl}event_activate_deactivate';
+  static const String endPointOfClubRequestList = '${baseUrl}club_request_list';
+  static const String endPointOfAcceptCancelRequest =
+      '${baseUrl}accept_cancel_request';
+  static const String endPointOfGetAllUser = '${baseUrl}get_all_user';
+  static const String endPointOfClubAddCostomerRequest =
+      '${baseUrl}add_club_friend';
+  static const String endPointOfGetClubFriendList =
+      '/BlueCrownAccess/webservice/get_club_friend_list';
+
+  static const String endPointOfAddHanger = '${baseUrl}add_club_hanger';
+  static const String endPointOfGetClubHanger =
+      '/BlueCrownAccess/webservice/get_club_hanger';
+  static const String endPointOfHangJacket = '${baseUrl}hang_jacket';
+  static const String endPointOfGetCurrentJacket =
+      '/BlueCrownAccess/webservice/get_current_jacket';
+  static const String endPointOfGetClubWallet =
+      '/BlueCrownAccess/webservice/get_club_wallet';
+  static const String endPointOfAddPurchaseEvent =
+      '${baseUrl}add_purchase_event';
+  static const String endPointOfScanEventQrCode =
+      '${baseUrl}scane_event_qrcode';
+  static const String endPointOfGetPurchaseEvent =
+      '/BlueCrownAccess/webservice/get_purchase_event';
+  static const String endPointOfGetPurchaseEventUser =
+      '/BlueCrownAccess/webservice/get_purchase_event_user';
+
+  //
+  //
+  //
+  //
+
+/*  static const String endPointOfGetParties = '${baseUrl}get_parties';
+  static const String endPointOfPrivacyPolicy = '${baseUrl}get_privacy_policy';
+  static const String endPointOfTermsCondition =
+      '${baseUrl}get_terms_conditions';
+  static const String endPointOfGetClubList = '${baseUrl}get_club';
+  static const String endPointOfSubmitFriendsRequest =
+      '${baseUrl}send_request_to_friend';
+  static const String endPointOfGetNotification = '${baseUrl}get_notification';
+  static const String endPointOfGetClubRequest = '${baseUrl}get_club_request';
+  static const String endPointOfGetWardrobeUserList =
+      '${baseUrl}get_wardrobe_user_list';
+  static const String endPointOfGetClubFriendList =
+      '${baseUrl}get_club_friend_list';
+  static const String endPointOfBookEvent = '${baseUrl}book_event';
+  static const String endPointOfGetBookingRequest =
+      '${baseUrl}get_booking_request';
+  static const String endPointOfGetMyBookingEventRequest =
+      '${baseUrl}get_user_booking_request';
+  static const String endPointOfChangeBookEventStatus =
+      '${baseUrl}book_event_status';
   static const String endPointOfGetWalletHistory =
-      '/rot/api/get_wallet_history';
-  static const String endPointOfGetPages = '/rot/api/get_pages';
-  static const String endPointOfAddHelpChat = '/rot/api/add_contact';
-  static const String endPointOfGetSubscription = '${baseUrl}get_subscription';
+      '${baseUrl}get_wallet_history';
+  static const String endPointOfClubPurchasedUserList =
+      '${baseUrl}get_purchase_event_club';
+
+  static const String endPointOfLogout = '${baseUrl}logout';
+  static const String endPointOfDeleteAccount = '${baseUrl}delete_account';
+  static const String endPointOfNotification = '${baseUrl}get_notifications';  */
 }

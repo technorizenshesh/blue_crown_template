@@ -13,27 +13,29 @@ class TableRequestView extends GetView<TableRequestController> {
   const TableRequestView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        resizeToAvoidBottomInset: false,
-        backgroundColor: Colors.black,
-        appBar: CommonWidgets.appBar(
-            wantBackButton: true, title: StringConstants.tableRequest),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        floatingActionButton: CommonWidgets.commonElevatedButton(
-            onPressed: () {
-              //controller.openNewPage(1);
-            },
-            child: Text(
-              StringConstants.sendRequest,
-              style: MyTextStyle.titleStyle16bw,
-            ),
-            borderRadius: 30.px,
-            buttonColor: primaryColor,
-            buttonMargin:
-                EdgeInsets.only(bottom: 10.px, left: 10.px, right: 10.px)),
-        body: Obx(() {
-          controller.count.value;
-          return InkWell(
+    return Obx(() {
+      controller.count.value;
+      return Scaffold(
+          resizeToAvoidBottomInset: false,
+          backgroundColor: Colors.black,
+          appBar: CommonWidgets.appBar(
+              wantBackButton: true, title: StringConstants.tableRequest),
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.centerDocked,
+          floatingActionButton: CommonWidgets.commonElevatedButton(
+              onPressed: () {
+                controller.clickOnSendRequestButton();
+              },
+              child: Text(
+                StringConstants.sendRequest,
+                style: MyTextStyle.titleStyle16bw,
+              ),
+              borderRadius: 30.px,
+              buttonColor: primaryColor,
+              isLoading: controller.isLoading.value,
+              buttonMargin:
+                  EdgeInsets.only(bottom: 10.px, left: 10.px, right: 10.px)),
+          body: InkWell(
             onTap: () {
               FocusManager.instance.primaryFocus?.unfocus();
             },
@@ -127,7 +129,7 @@ class TableRequestView extends GetView<TableRequestController> {
                 ],
               ),
             ),
-          );
-        }));
+          ));
+    });
   }
 }

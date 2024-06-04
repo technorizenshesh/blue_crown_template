@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -21,13 +23,16 @@ class ProviderPublishEventView extends GetView<ProviderPublishEventController> {
         bottomNavigationBar: Padding(
           padding: EdgeInsets.all(15.px),
           child: CommonWidgets.commonElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                controller.callingCreateEventsForm();
+              },
               child: Text(
                 StringConstants.publishEvent,
                 style: MyTextStyle.titleStyle16bw,
               ),
               borderRadius: 30.px,
-              buttonColor: primaryColor),
+              buttonColor: primaryColor,
+              isLoading: controller.isLoading.value),
         ),
         body: SingleChildScrollView(
           scrollDirection: Axis.vertical,
@@ -35,6 +40,44 @@ class ProviderPublishEventView extends GetView<ProviderPublishEventController> {
             padding: EdgeInsets.all(10.px),
             child: Column(
               children: [
+                Container(
+                  height: 150.px,
+                  width: double.infinity,
+                  margin: EdgeInsets.only(bottom: 15.px),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20.px),
+                      color: Colors.grey,
+                      border: Border.all(color: primary3Color, width: 1.px)),
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      Obx(() => controller.image.value != null
+                          ? ClipRRect(
+                              borderRadius: BorderRadius.circular(10.px),
+                              child: Image.file(
+                                height: 200.px,
+                                fit: BoxFit.fill,
+                                File(
+                                  controller.image.value!.path.toString(),
+                                ),
+                              ),
+                            )
+                          : const SizedBox()),
+                      Center(
+                        child: IconButton(
+                          onPressed: () {
+                            controller.showAlertDialog();
+                          },
+                          icon: Icon(
+                            Icons.camera_alt_outlined,
+                            size: 40.px,
+                            color: Colors.black,
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
                 CommonWidgets.commonTextFieldForLoginSignUP(
                   focusNode: controller.focusDate,
                   controller: controller.dateController,

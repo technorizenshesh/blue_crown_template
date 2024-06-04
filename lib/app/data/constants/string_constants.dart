@@ -6,13 +6,14 @@ class StringConstants {
   static const String yes = 'Yes';
   static const String no = 'No';
   static const String or = 'OR';
+  static const String done = 'DONE';
   static const String login = 'Login';
   static const String signUp = 'Sign Up';
   static const String password = 'Password';
   static const String loginToContinue = 'Log in to continue';
   static const String userData = 'User_Data';
-  static const String createAccount = 'Create Account';
-  static const String logInAsClubHost = 'Log in as club/Host';
+  static const String createAccount = 'Create account';
+  static const String logInAsClubHost = 'Log in as club/host';
   static const String loginAsAConsumer = 'Log in as a consumer';
   static const String dotHaveAnAccount = 'Don\'t have an account?  ';
   static const String alreadyRegistered = 'Already registered?  ';
@@ -21,6 +22,7 @@ class StringConstants {
   static const String sms = 'SMS';
   static const String email = 'Email';
   static const String forgotYourPassword = 'Forgot your password?';
+  static const String mobile = 'Mobile nu.';
   static const String emailAddressMobileNumber =
       'Email Address / Mobile number';
   static const String fullName = 'Full Name';
@@ -67,8 +69,10 @@ class StringConstants {
   static const String age = 'Age';
   static const String points = 'Points';
   static const String payWithBlueCrowns = 'Pay With Blue Crowns';
-  static const String tableRequest = 'Table Request';
+  static const String tableRequest = 'Table request';
+  static const String tableRequests = 'Table requests';
   static const String listRequest = 'List Request';
+  static const String listRequests = 'List requests';
   static const String howManyPersons = 'How many persons';
   static const String phoneNumber = 'Phone number';
   static const String sendRequest = 'Send Request';
@@ -80,13 +84,15 @@ class StringConstants {
   static const String crownPoints = 'Crown Points';
   static const String use = 'Use';
   static const String getMore = 'Get more';
-  static const String howDoIEarnPoints = 'How do I earn points';
+  static const String howDoIEarnPoints = 'How do I get points ?';
   static const String chooseEvents = 'Choose Events';
   static const String bio = 'Bio';
   static const String readMore = 'Read More';
   static const String clubLocation = 'Club Location';
   static const String update = 'Update';
   static const String areYouSure = 'Are You Sure?';
+  static const String areYouWantToHandInJacket =
+      'Are you want to hand in jacket?';
   static const String doYouWantToLogoutFromThisApp =
       'Do you want to logout from this app ?';
   static const String cnfPassword = 'Conform Password';
@@ -98,6 +104,7 @@ class StringConstants {
   static const String eventHistory = 'Event History';
   static const String myWalletHistory = 'My Wallet History';
   static const String currentList = 'Current List';
+  static const String currentLists = 'Current lists';
   static const String provider = 'Provider';
   static const String user = 'User';
   static const String activeEvent = 'Active Event';
@@ -108,6 +115,7 @@ class StringConstants {
   static const String activate = 'Activate';
   static const String pushNotification = 'Push Notification';
   static const String consumerRegister = 'Consumer Register';
+  static const String clubConsumerList = 'Club Consumer List';
   static const String search = 'Search';
   static const String reject = 'Reject';
   static const String register = 'Register';
@@ -118,6 +126,7 @@ class StringConstants {
   static const String entranceCost = 'Entrance Cost';
   static const String publishEvent = 'Publish Event';
   static const String download = 'Download';
+  static const String downloadQrCode = 'Download Qr Code';
   static const String hanger = 'Hanger';
   static const String submit = 'Submit';
   static const String name = 'Name';
@@ -129,6 +138,17 @@ class StringConstants {
   static const String updateEvent = 'Update Event';
   static const String everyOne = 'Every One';
   static const String sendMessage = 'Send Message';
+  static const String type = 'Type';
+  static const String checkYourMail = 'Check Your Email';
+  static const String pleasePutThe4DigitsSendToYou =
+      'Please Put The 4 Digits Send To You';
+  static const String continues = 'Continue';
+  static const String camera = 'Camera';
+  static const String gallery = 'Gallery';
+  static const String selectImage = 'Select Image';
+  static const String purchasedUser = 'Purchased User';
+  static const String chooseImageFromTheOptionsBelow =
+      'Choose Image From The Options Below';
 
   static const String pleaseAgreeGDPRRuleBecauseThisIsMandatory =
       'Please agree GDPR rules because this is mandatory.';

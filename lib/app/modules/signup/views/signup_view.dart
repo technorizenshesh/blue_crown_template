@@ -71,10 +71,22 @@ class SignupView extends GetView<SignupController> {
                         focusNode: controller.focusEmail,
                         controller: controller.emailController,
                         isCard: controller.isEmail.value,
-                        hintText: StringConstants.emailAddressMobileNumber,
+                        hintText: StringConstants.email,
                         hintStyle: MyTextStyle.titleStyle14w,
                         style: MyTextStyle.titleStyle14w,
                         keyboardType: TextInputType.emailAddress,
+                      ),
+                      SizedBox(
+                        height: 15.px,
+                      ),
+                      CommonWidgets.commonTextFieldForLoginSignUP(
+                        focusNode: controller.focusPhone,
+                        controller: controller.phoneController,
+                        isCard: controller.isPhone.value,
+                        hintText: StringConstants.mobile,
+                        hintStyle: MyTextStyle.titleStyle14w,
+                        style: MyTextStyle.titleStyle14w,
+                        keyboardType: TextInputType.number,
                       ),
                       SizedBox(
                         height: 15.px,
@@ -154,14 +166,15 @@ class SignupView extends GetView<SignupController> {
                       ),
                       CommonWidgets.commonElevatedButton(
                           onPressed: () {
-                            //controller.openNewPage(1);
+                            controller.callingSubmitRegistrationForm();
                           },
                           child: Text(
-                            StringConstants.signUpWithBankId,
+                            StringConstants.signUp,
                             style: MyTextStyle.titleStyle16bw,
                           ),
                           borderRadius: 30.px,
-                          buttonColor: primaryColor),
+                          buttonColor: primaryColor,
+                          isLoading: controller.isLoading.value),
                       SizedBox(
                         height: 15.px,
                       ),

@@ -1,14 +1,22 @@
+import 'dart:convert';
+
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:time_range_picker/time_range_picker.dart';
 
 import '../../../../common/colors.dart';
 import '../../../../common/common_widgets.dart';
 import '../../../../common/date_picker.dart';
 import '../../../../common/text_styles.dart';
+import '../../../data/apis/api_constants/api_key_constants.dart';
+import '../../../data/apis/api_methods/api_methods.dart';
+import '../../../data/apis/api_models/get_add_event_model.dart';
+import '../../../data/apis/api_models/get_event_model.dart';
+import '../../../data/apis/api_models/get_login_model.dart';
 import '../../../data/constants/string_constants.dart';
 
 class ProviderEditEventController extends GetxController {
@@ -34,16 +42,20 @@ class ProviderEditEventController extends GetxController {
   final isDate = false.obs;
   final isEventName = false.obs;
   final isStyle = false.obs;
+  final isLoading = false.obs;
   List<DateTime?> datesList = [];
   String fromDate = '', toDate = '';
   String fromTime = '10:00', toTime = '12:00';
-
-  Map<String, String?> parameters = Get.parameters;
+  Map<String, String> bodyParamsForEditEventsForm = {};
+  GetEventsResult getEventsResult = Get.arguments;
+  late SharedPreferences sharedPreferences;
+  late LogInModel userData;
   @override
   void onInit() {
     super.onInit();
     startListener();
     setPreviousData();
+    getLocalData();
   }
 
   @override
@@ -86,21 +98,27 @@ class ProviderEditEventController extends GetxController {
     isDescription.value = focusDescription.hasFocus;
   }
 
-  setPreviousData() {
-    eventNameController.text = parameters['event'] ?? '';
-    dateController.text = parameters['date'] ?? '';
-    timeController.text = parameters['time'] ?? '';
+  getLocalData() async {
+    sharedPreferences = await SharedPreferences.getInstance();
+    Map<String, dynamic> jsonData =
+        jsonDecode(sharedPreferences.getString(StringConstants.userData)!);
+    userData = LogInModel.fromJson(jsonData);
+  }
 
-    print("Edit data:-${parameters['name']}");
+  setPreviousData() {
+    eventNameController.text = getEventsResult.name ?? '';
+    descriptionController.text = getEventsResult.description ?? '';
+    dateController.text =
+        '${getEventsResult.fromDate} to ${getEventsResult.toDate}';
+    timeController.text = '${getEventsResult.fromTime}';
+    fromTime = '${getEventsResult.fromTime}';
+    toTime = '${getEventsResult.fromTime}';
+    fromDate = '${getEventsResult.fromDate}';
+    toDate = '${getEventsResult.toDate}';
     increment();
   }
 
   clickOnDate() async {
-    final DateTime? picked = await PickDate.pickDateView(color: primaryColor);
-    dateController.text = DateFormat('yyyy-MM-dd').format(picked!);
-  }
-
-  clickOnTime() async {
     final DateTime? picked = await PickDate.pickDateView(color: primaryColor);
     dateController.text = DateFormat('yyyy-MM-dd').format(picked!);
   }
@@ -237,5 +255,51 @@ class ProviderEditEventController extends GetxController {
           fontStyle: FontStyle.italic,
           fontWeight: FontWeight.bold),
     );
+  }
+
+  Future<void> callingEditEventsForm() async {
+    if (eventNameController.text.isNotEmpty &&
+        descriptionController.text.isNotEmpty &&
+        dateController.text.isNotEmpty &&
+        timeController.text.isNotEmpty) {
+      try {
+        bodyParamsForEditEventsForm = {
+          ApiKeyConstants.userId: userData.result!.id ?? '',
+          ApiKeyConstants.eventId: getEventsResult.id ?? '',
+          ApiKeyConstants.token: userData.result!.token ?? '',
+          ApiKeyConstants.name: eventNameController.text.toString(),
+          ApiKeyConstants.style: styleController.text.toString(),
+          ApiKeyConstants.description: descriptionController.text.toString(),
+          ApiKeyConstants.fromDate: fromDate,
+          ApiKeyConstants.toDate: toDate,
+          ApiKeyConstants.minAge: minAge.value.toString(),
+          ApiKeyConstants.maxAge: maxAge.value.toString(),
+          ApiKeyConstants.points: points.value.toStringAsFixed(0),
+          ApiKeyConstants.fromTime: timeController.text.toString(),
+          ApiKeyConstants.entranceCost: entraceCost.value.toStringAsFixed(0),
+        };
+        isLoading.value = true;
+        print(
+            "bodyParamsForGetEditEventParams:::::$bodyParamsForEditEventsForm");
+        AddEventModel? addEventModel = await ApiMethods.editEventsApi(
+            bodyParams: bodyParamsForEditEventsForm);
+        if (addEventModel!.status != "0" ?? false) {
+          print("Edit events Successfully complete...");
+          Get.back();
+          Get.back(result: true);
+          CommonWidgets.showMyToastMessage(addEventModel!.message!);
+        } else {
+          print("Edit events Failed....");
+          CommonWidgets.showMyToastMessage(addEventModel!.message!);
+        }
+      } catch (e) {
+        isLoading.value = false;
+        print('Error :-${e.toString()}');
+        CommonWidgets.showMyToastMessage(e.toString());
+      }
+    } else {
+      CommonWidgets.showMyToastMessage('Please enter all fields...');
+    }
+    isLoading.value = false;
   }
 }

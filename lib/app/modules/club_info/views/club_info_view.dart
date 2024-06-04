@@ -1,3 +1,4 @@
+import 'package:blue_crown_template/app/data/apis/api_models/get_club_info_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -17,57 +18,63 @@ class ClubInfoView extends GetView<ClubInfoController> {
         backgroundColor: backgroundColor,
         appBar: CommonWidgets.appBar(
             title: StringConstants.clubInfo, wantBackButton: true),
-        body: Container(
-          padding: EdgeInsets.all(20.px),
-          decoration: const BoxDecoration(color: backgroundColor),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(
-                height: 20.px,
-              ),
-              Text(
-                StringConstants.bio,
-                style: MyTextStyle.titleStyle18bw,
-              ),
-              Text(
-                StringConstants.test,
-                style: MyTextStyle.titleStyle14w,
-              ),
-              Text(
-                StringConstants.readMore,
-                style: MyTextStyle.titleStyleCustom(
-                    16, FontWeight.bold, primaryColor),
-              ),
-              SizedBox(
-                height: 10.px,
-              ),
-              Container(
-                  height: 100.px,
-                  alignment: Alignment.center,
-                  child: SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: showClubPhotos())),
-              SizedBox(
-                height: 10.px,
-              ),
-              Text(
-                StringConstants.clubLocation,
-                style: MyTextStyle.titleStyle18bw,
-              ),
-              CommonWidgets.appIcons(
-                  assetName: ImageConstants.imageGoogleMap,
-                  height: 150.px,
-                  width: MediaQuery.of(context).size.width,
-                  fit: BoxFit.fill),
-            ],
-          ),
-        ));
+        body: Obx(() {
+          return CommonWidgets.customProgressBar(
+              inAsyncCall: controller.inAsyncCall.value,
+              child: Container(
+                padding: EdgeInsets.all(20.px),
+                decoration: const BoxDecoration(color: backgroundColor),
+                child: controller.clubInfoData != null
+                    ? Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            height: 20.px,
+                          ),
+                          Text(
+                            StringConstants.bio,
+                            style: MyTextStyle.titleStyle18bw,
+                          ),
+                          Text(
+                            StringConstants.test,
+                            style: MyTextStyle.titleStyle14w,
+                          ),
+                          Text(
+                            StringConstants.readMore,
+                            style: MyTextStyle.titleStyleCustom(
+                                16, FontWeight.bold, primaryColor),
+                          ),
+                          SizedBox(
+                            height: 10.px,
+                          ),
+                          Container(
+                              height: 100.px,
+                              alignment: Alignment.center,
+                              child: SingleChildScrollView(
+                                  scrollDirection: Axis.horizontal,
+                                  child: showClubPhotos())),
+                          SizedBox(
+                            height: 10.px,
+                          ),
+                          Text(
+                            StringConstants.clubLocation,
+                            style: MyTextStyle.titleStyle18bw,
+                          ),
+                          CommonWidgets.appIcons(
+                              assetName: ImageConstants.imageGoogleMap,
+                              height: 150.px,
+                              width: MediaQuery.of(context).size.width,
+                              fit: BoxFit.fill),
+                        ],
+                      )
+                    : CommonWidgets.dataNotFound(),
+              ));
+        }));
   }
 
   /// Show C Photos ...
   Widget showClubPhotos() {
-    return Obx(() => controller.showEventsProgressBar.value
+    return Obx(() => controller.inAsyncCall.value
         ? CommonWidgets.commonShimmer(
             itemCount: 4,
             shimmerWidget: Container(
@@ -86,9 +93,9 @@ class ClubInfoView extends GetView<ClubInfoController> {
             shrinkWrap: true,
             padding: EdgeInsets.zero,
             scrollDirection: Axis.horizontal,
-            itemCount: controller.clubPhotos.length,
+            itemCount: controller.clubInfoData!.result!.images!.length,
             itemBuilder: (context, int index) {
-              //  GetClubsResult item = controller.getClubsModel!.result![index];
+              Images item = controller.clubInfoData!.result!.images![index];
               return Container(
                 height: 100.px,
                 width: 100.px,
@@ -99,11 +106,12 @@ class ClubInfoView extends GetView<ClubInfoController> {
                 margin: EdgeInsets.only(
                     left: 5.px, right: 5.px, top: 5.px, bottom: 5.px),
                 clipBehavior: Clip.hardEdge,
-                child: CommonWidgets.appIcons(
-                    assetName: controller.clubPhotos[index],
+                child: CommonWidgets.imageView(
+                    image: item.image ?? '',
                     height: 90.px,
                     width: 90.px,
-                    fit: BoxFit.fill),
+                    fit: BoxFit.fill,
+                    borderRadius: BorderRadius.circular(10.px)),
               );
             },
           ));

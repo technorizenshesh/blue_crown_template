@@ -120,7 +120,8 @@ class LoginView extends GetView<LoginController> {
                           style: MyTextStyle.titleStyle16bw,
                         ),
                         borderRadius: 30.px,
-                        buttonColor: primaryColor),
+                        buttonColor: primaryColor,
+                        isLoading: controller.isLoading.value),
                     SizedBox(
                       height: 15.px,
                     ),

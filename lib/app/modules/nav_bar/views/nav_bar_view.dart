@@ -15,10 +15,12 @@ class NavBarView extends GetView<NavBarController> {
   const NavBarView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    controller.count.value;
     return Obx(() {
+      controller.count.value;
       return Scaffold(
-          drawer: CustomDrawer.drawer(),
+          drawer: controller.isLoading.value
+              ? null
+              : CustomDrawer.drawer(controller.userData),
           floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
           floatingActionButton: Builder(builder: (context) {
             return GestureDetector(

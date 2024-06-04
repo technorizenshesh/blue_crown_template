@@ -1,29 +1,40 @@
+import 'dart:math';
+
+import 'package:blue_crown_template/common/common_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../common/colors.dart';
 import '../../../../common/date_picker.dart';
+import '../../../data/apis/api_constants/api_key_constants.dart';
+import '../../../data/apis/api_methods/api_methods.dart';
+import '../../../data/apis/api_models/get_signup_model.dart';
 
 class SignupController extends GetxController {
   TextEditingController fullNameController = TextEditingController();
   TextEditingController dobController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   FocusNode focusFullName = FocusNode();
   FocusNode focusEmail = FocusNode();
+  FocusNode focusPhone = FocusNode();
   FocusNode focusPassword = FocusNode();
   FocusNode focusDob = FocusNode();
   final isFullName = true.obs;
   final isEmail = false.obs;
+  final isPhone = false.obs;
   final isPassword = false.obs;
   final passwordHide = true.obs;
   final isDob = false.obs;
   final checkBox = false.obs;
+  final isLoading = false.obs;
 
   void startListener() {
     focusFullName.addListener(onFocusChange);
     focusEmail.addListener(onFocusChange);
+    focusPhone.addListener(onFocusChange);
     focusPassword.addListener(onFocusChange);
     focusDob.addListener(onFocusChange);
   }
@@ -31,10 +42,13 @@ class SignupController extends GetxController {
   void onFocusChange() {
     isFullName.value = focusFullName.hasFocus;
     isEmail.value = focusEmail.hasFocus;
+    isPhone.value = focusPhone.hasFocus;
     isPassword.value = focusPassword.hasFocus;
     isDob.value = focusDob.hasFocus;
   }
 
+  Map<String, dynamic> bodyParamsForSubmitRegistrationForm = {};
+  SignUpModel? getSingUpModel;
   final count = 0.obs;
   @override
   void onInit() {
@@ -68,5 +82,51 @@ class SignupController extends GetxController {
   clickOnDate() async {
     final DateTime? picked = await PickDate.pickDateView(color: primaryColor);
     dobController.text = DateFormat('yyyy-MM-dd').format(picked!);
+  }
+
+  String generateRandomString(int len) {
+    var r = Random();
+    return String.fromCharCodes(
+        List.generate(len, (index) => r.nextInt(33) + 89));
+  }
+
+  Future<void> callingSubmitRegistrationForm() async {
+    if (fullNameController.text.isNotEmpty &&
+        emailController.text.isNotEmpty &&
+        phoneController.text.isNotEmpty &&
+        passwordController.text.isNotEmpty &&
+        dobController.text.isNotEmpty) {
+      try {
+        bodyParamsForSubmitRegistrationForm = {
+          ApiKeyConstants.fullName: fullNameController.text.toString(),
+          ApiKeyConstants.email: emailController.text.toString(),
+          ApiKeyConstants.password: passwordController.text.toString(),
+          ApiKeyConstants.dob: dobController.text.toString(),
+          ApiKeyConstants.mobile: phoneController.text.toString(),
+          ApiKeyConstants.lat: "22.7196",
+          ApiKeyConstants.lon: "75.8577",
+          ApiKeyConstants.registerId: generateRandomString(25),
+        };
+        isLoading.value = true;
+        print(
+            "bodyParamsForGetEducationLevel:::::$bodyParamsForSubmitRegistrationForm");
+        getSingUpModel = await ApiMethods.submitRegistrationForm(
+            bodyParams: bodyParamsForSubmitRegistrationForm);
+        if (getSingUpModel!.status != "0" ?? false) {
+          print("Registration Successfully complete...");
+          CommonWidgets.showMyToastMessage(
+              "Registration Successfully complete...");
+          Get.back();
+        } else {
+          print("Registration Failed....");
+          CommonWidgets.showMyToastMessage(getSingUpModel!.message!);
+        }
+      } catch (e) {
+        print("Error:- $e");
+      }
+      isLoading.value = false;
+    } else {
+      CommonWidgets.showMyToastMessage("Please fill all the fields");
+    }
   }
 }

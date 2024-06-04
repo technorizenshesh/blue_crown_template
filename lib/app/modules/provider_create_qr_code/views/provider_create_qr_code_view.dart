@@ -13,27 +13,28 @@ class ProviderCreateQrCodeView extends GetView<ProviderCreateQrCodeController> {
   const ProviderCreateQrCodeView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        resizeToAvoidBottomInset: false,
-        backgroundColor: backgroundColor,
-        appBar: CommonWidgets.appBar(
-            title: StringConstants.createQrCode, wantBackButton: true),
-        bottomNavigationBar: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.px, vertical: 10.px),
-          child: CommonWidgets.commonElevatedButton(
-              onPressed: () {
-                //controller.openNewPage(1);
-              },
-              child: Text(
-                StringConstants.submit,
-                style: MyTextStyle.titleStyle16bw,
-              ),
-              borderRadius: 30.px,
-              buttonColor: primaryColor),
-        ),
-        body: Obx(() {
-          controller.count.value;
-          return Padding(
+    return Obx(() {
+      controller.count.value;
+      return Scaffold(
+          resizeToAvoidBottomInset: false,
+          backgroundColor: backgroundColor,
+          appBar: CommonWidgets.appBar(
+              title: StringConstants.createQrCode, wantBackButton: true),
+          bottomNavigationBar: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20.px, vertical: 10.px),
+            child: CommonWidgets.commonElevatedButton(
+                onPressed: () {
+                  controller.addHangerForm();
+                },
+                child: Text(
+                  StringConstants.submit,
+                  style: MyTextStyle.titleStyle16bw,
+                ),
+                borderRadius: 30.px,
+                buttonColor: primaryColor,
+                isLoading: controller.isLoading.value),
+          ),
+          body: Padding(
             padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
             child: SingleChildScrollView(
               scrollDirection: Axis.vertical,
@@ -85,7 +86,7 @@ class ProviderCreateQrCodeView extends GetView<ProviderCreateQrCodeController> {
                 ],
               ),
             ),
-          );
-        }));
+          ));
+    });
   }
 }

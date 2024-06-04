@@ -1,11 +1,16 @@
+import 'dart:ui' as ui;
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:screenshot/screenshot.dart';
 
 import '../../../../common/colors.dart';
 import '../../../../common/common_widgets.dart';
 import '../../../../common/text_styles.dart';
-import '../../../data/constants/icons_constant.dart';
+import '../../../data/apis/api_constants/api_key_constants.dart';
 import '../../../data/constants/string_constants.dart';
 import '../controllers/provider_download_qr_code_controller.dart';
 
@@ -14,58 +19,79 @@ class ProviderDownloadQrCodeView
   const ProviderDownloadQrCodeView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    final FutureBuilder<ui.Image> qrFutureBuilder = FutureBuilder<ui.Image>(
+      future: controller.loadOverlayImage(),
+      builder: (BuildContext ctx, AsyncSnapshot<ui.Image> snapshot) {
+        const double size = 230.0;
+        if (!snapshot.hasData) {
+          return const SizedBox(width: size, height: size);
+        }
+        return CustomPaint(
+          size: const Size.square(size),
+          painter: QrPainter(
+            data: controller.parameters[ApiKeyConstants.qrCode] ?? '0',
+            version: QrVersions.auto,
+            eyeStyle: const QrEyeStyle(
+              eyeShape: QrEyeShape.square,
+              color: Color(0xff1f1f1f),
+            ),
+            dataModuleStyle: const QrDataModuleStyle(
+              dataModuleShape: QrDataModuleShape.circle,
+              color: Color(0xff1f1f1f),
+            ),
+            // size: 320.0,
+            embeddedImage: snapshot.data,
+            embeddedImageStyle: const QrEmbeddedImageStyle(
+              size: Size.square(60),
+            ),
+          ),
+        );
+      },
+    );
     return Scaffold(
-        resizeToAvoidBottomInset: false,
-        backgroundColor: backgroundColor,
-        appBar: CommonWidgets.appBar(
-            title: StringConstants.download, wantBackButton: true),
-        bottomNavigationBar: Padding(
+      backgroundColor: backgroundColor,
+      appBar: CommonWidgets.appBar(
+          title: StringConstants.download, wantBackButton: true),
+      bottomNavigationBar: Obx(() {
+        controller.isLoading.value;
+        return Padding(
           padding: EdgeInsets.symmetric(horizontal: 20.px, vertical: 10.px),
           child: CommonWidgets.commonElevatedButton(
               onPressed: () {
-                //controller.openNewPage(1);
+                controller.clickOnDownloadButton();
               },
               child: Text(
                 StringConstants.download,
                 style: MyTextStyle.titleStyle16bw,
               ),
               borderRadius: 30.px,
+              isLoading: controller.isLoading.value,
               buttonColor: primaryColor),
-        ),
-        body: Obx(() {
-          controller.count.value;
-          return Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                SizedBox(
-                  height: 10.px,
+        );
+      }),
+      body: SafeArea(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Center(
+              child: Screenshot(
+                controller: controller.screenshotController,
+                child: Container(
+                  width: 250.px,
+                  height: 250.px,
+                  padding: EdgeInsets.all(10.px),
+                  margin: EdgeInsets.all(20.px),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(10.px)),
+                      border: Border.all(color: text2Color, width: 2.px),
+                      color: Colors.white),
+                  child: qrFutureBuilder,
                 ),
-                Align(
-                  alignment: Alignment.center,
-                  child: Container(
-                    height: 254.px,
-                    width: 254.px,
-                    alignment: Alignment.center,
-                    padding: EdgeInsets.all(2.px),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10.px),
-                        border: Border.all(color: primary3Color, width: 2.px)),
-                    child: CommonWidgets.appIcons(
-                        assetName: IconConstants.icQrCode,
-                        width: 250.px,
-                        height: 250.px,
-                        fit: BoxFit.fill),
-                  ),
-                ),
-                SizedBox(
-                  height: 50.px,
-                ),
-              ],
+              ),
             ),
-          );
-        }));
+          ],
+        ),
+      ),
+    );
   }
 }

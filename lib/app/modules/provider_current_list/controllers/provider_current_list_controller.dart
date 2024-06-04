@@ -1,50 +1,21 @@
 import 'package:get/get.dart';
 
-class ProviderCurrentListController extends GetxController {
-  final showProgressBar = false.obs;
+import '../../../../common/common_widgets.dart';
+import '../../../data/apis/api_constants/api_key_constants.dart';
+import '../../../data/apis/api_methods/api_methods.dart';
+import '../../../data/apis/api_models/get_club_request_model.dart';
 
-  List<Map<String, String>> currentList = [
-    {
-      "event": "Birthday Party",
-      "name": "Johan Smiths",
-      "date": "2024-01-04-2024-01-10",
-      "people": "+5",
-      "status": "Pending"
-    },
-    {
-      "event": "Friends Party",
-      "name": "Johan Smiths",
-      "date": "2024-01-04-2024-01-10",
-      "people": "+2",
-      "status": "Pending"
-    },
-    {
-      "event": "Night Party",
-      "name": "Jordyn Bator",
-      "date": "2024-01-04-2024-01-10",
-      "people": "+1",
-      "status": "Pending"
-    },
-    {
-      "event": "Farewell Party",
-      "name": "Johan Smiths",
-      "date": "2024-01-04-2024-01-10",
-      "people": "+5",
-      "status": "Pending"
-    },
-    {
-      "event": "Birthday Party",
-      "name": "Jordyn Bator",
-      "date": "2024-01-04-2024-01-10",
-      "people": "+4",
-      "status": "Pending"
-    },
-  ];
+class ProviderCurrentListController extends GetxController {
+  final showListProgressBar = true.obs;
+
+  ClubRequestResult? listRequestResult;
+  Map<String, String?> parameters = Get.parameters;
 
   final count = 0.obs;
   @override
   void onInit() {
     super.onInit();
+    getListRequestList();
   }
 
   @override
@@ -58,4 +29,35 @@ class ProviderCurrentListController extends GetxController {
   }
 
   void increment() => count.value++;
+
+  Future<void> getListRequestList() async {
+    try {
+      Map<String, String> bodyParamsForListRequests = {
+        ApiKeyConstants.clubId: parameters[ApiKeyConstants.clubId] ?? '',
+        ApiKeyConstants.eventId: parameters[ApiKeyConstants.eventId] ?? '',
+        ApiKeyConstants.type: 'ListRequest',
+        ApiKeyConstants.status: 'Accept'
+      };
+      print("bodyParamsForListRequests:::::$bodyParamsForListRequests");
+      showListProgressBar.value = true;
+
+      ClubRequestModel? clubRequestModel =
+          await ApiMethods.getClubRequestListApi(
+              bodyParams: bodyParamsForListRequests);
+      if (clubRequestModel!.status != "0" ?? false) {
+        listRequestResult = clubRequestModel.result!;
+        print(
+            "Successfully get  request  list ... ${listRequestResult!.eventReqData!.length.toString()}");
+      } else {
+        print("Add request Failed....");
+        CommonWidgets.showMyToastMessage(clubRequestModel.message!);
+      }
+    } catch (e) {
+      print('Error:-' + e.toString());
+      CommonWidgets.showMyToastMessage(
+          'Server issue please try again after some time ');
+    }
+    showListProgressBar.value = false;
+    increment();
+  }
 }

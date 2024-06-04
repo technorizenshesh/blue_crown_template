@@ -5,6 +5,7 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import '../../../../common/colors.dart';
 import '../../../../common/common_widgets.dart';
 import '../../../../common/text_styles.dart';
+import '../../../data/apis/api_models/get_event_model.dart';
 import '../../../data/constants/icons_constant.dart';
 import '../../../data/constants/string_constants.dart';
 import '../controllers/provider_all_event_controller.dart';
@@ -103,33 +104,177 @@ class ProviderAllEventView extends GetView<ProviderAllEventController> {
     });
   }
 
-  /// Show Club Events...
+  /// Show Active Club Events...
   Widget showClubEvents() {
-    return Obx(() => controller.showEventsProgressBar.value
+    return Obx(() => controller.showActiveEventsProgressBar.value
         ? CommonWidgets.commonShimmer(
             itemCount: 4,
             shimmerWidget: Container(
-              height: 200.px,
+              height: 120.px,
               width: double.infinity,
-              decoration: BoxDecoration(
-                color: Colors.black,
-                borderRadius: BorderRadius.all(Radius.circular(10.px)),
-              ),
               margin: EdgeInsets.only(
-                  left: 20.px, right: 20.px, top: 5.px, bottom: 2.px),
-              clipBehavior: Clip.hardEdge,
+                  left: 20.px, right: 20.px, top: 5.px, bottom: 5.px),
+              child: Row(
+                children: [
+                  Expanded(
+                      flex: 4,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.black87,
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(10.px)),
+                        ),
+                      )),
+                  Expanded(
+                      flex: 5,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Container(
+                            height: 15.px,
+                            margin: EdgeInsets.symmetric(
+                                horizontal: 3.px, vertical: 0.px),
+                            decoration: BoxDecoration(
+                              color: Colors.black87,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(2.px)),
+                            ),
+                          ),
+                          Row(
+                            children: [
+                              Container(
+                                height: 15.px,
+                                width: 15.px,
+                                margin: EdgeInsets.symmetric(
+                                    horizontal: 3.px, vertical: 0.px),
+                                decoration: BoxDecoration(
+                                  color: Colors.black87,
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(2.px)),
+                                ),
+                              ),
+                              Expanded(
+                                child: Container(
+                                  height: 15.px,
+                                  width: 120.px,
+                                  decoration: BoxDecoration(
+                                    color: Colors.black87,
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(2.px)),
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Container(
+                                height: 15.px,
+                                width: 15.px,
+                                margin: EdgeInsets.symmetric(
+                                    horizontal: 3.px, vertical: 0.px),
+                                decoration: BoxDecoration(
+                                  color: Colors.black87,
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(2.px)),
+                                ),
+                              ),
+                              Container(
+                                height: 15.px,
+                                width: 110.px,
+                                decoration: BoxDecoration(
+                                  color: Colors.black87,
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(2.px)),
+                                ),
+                              )
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Container(
+                                height: 15.px,
+                                width: 15.px,
+                                margin: EdgeInsets.symmetric(
+                                    horizontal: 3.px, vertical: 0.px),
+                                decoration: BoxDecoration(
+                                  color: Colors.black87,
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(2.px)),
+                                ),
+                              ),
+                              Container(
+                                height: 15.px,
+                                width: 80.px,
+                                decoration: BoxDecoration(
+                                  color: Colors.black87,
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(2.px)),
+                                ),
+                              )
+                            ],
+                          ),
+                        ],
+                      )),
+                  Expanded(
+                      flex: 1,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(
+                            height: 15.px,
+                            width: 15.px,
+                            margin: EdgeInsets.symmetric(
+                                horizontal: 3.px, vertical: 5.px),
+                            decoration: BoxDecoration(
+                              color: Colors.black87,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(2.px)),
+                            ),
+                          ),
+                          Column(
+                            children: [
+                              Container(
+                                height: 20.px,
+                                width: 25.px,
+                                margin: EdgeInsets.symmetric(
+                                    horizontal: 3.px, vertical: 0.px),
+                                decoration: BoxDecoration(
+                                  color: Colors.black87,
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(2.px)),
+                                ),
+                              ),
+                              Container(
+                                height: 10.px,
+                                width: 25.px,
+                                margin: EdgeInsets.symmetric(
+                                    horizontal: 3.px, vertical: 5.px),
+                                decoration: BoxDecoration(
+                                  color: Colors.black87,
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(2.px)),
+                                ),
+                              ),
+                            ],
+                          )
+                        ],
+                      ))
+                ],
+              ),
             ))
         : ListView.builder(
             physics: const BouncingScrollPhysics(),
             shrinkWrap: true,
             padding: EdgeInsets.zero,
             scrollDirection: Axis.vertical,
-            itemCount: controller.eventsDetails.length,
+            itemCount: controller.activeEventList.length,
             itemBuilder: (context, int index) {
-              //  GetClubsResult item = controller.getClubsModel!.result![index];
+              GetEventsResult item = controller.activeEventList[index];
               return GestureDetector(
                 onTap: () {
-                  controller.openEventDetail(index, 'Active Event');
+                  controller.openActiveEventDetail(index, 'Active Event');
                 },
                 child: Container(
                   height: 120.px,
@@ -146,11 +291,15 @@ class ProviderAllEventView extends GetView<ProviderAllEventController> {
                     children: [
                       Expanded(
                           flex: 4,
-                          child: CommonWidgets.appIcons(
-                            assetName: controller.eventsImages[index],
-                            fit: BoxFit.fill,
-                            height: 100.px,
-                            width: 150.px,
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 5.px, vertical: 0.px),
+                            child: CommonWidgets.imageView(
+                              image: item.image ?? '',
+                              fit: BoxFit.fill,
+                              height: 100.px,
+                              width: 150.px,
+                            ),
                           )),
                       Expanded(
                           flex: 5,
@@ -159,8 +308,8 @@ class ProviderAllEventView extends GetView<ProviderAllEventController> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                controller.eventsDetails[index]['name'] ?? '',
-                                style: MyTextStyle.titleStyle16bw,
+                                item.name ?? '',
+                                style: MyTextStyle.titleStyle16w,
                                 maxLines: 1,
                               ),
                               SizedBox(
@@ -175,8 +324,7 @@ class ProviderAllEventView extends GetView<ProviderAllEventController> {
                                   ),
                                   Expanded(
                                     child: Text(
-                                      controller.eventsDetails[index]['date'] ??
-                                          '',
+                                      '${item.fromDate} to ${item.toDate}',
                                       style: MyTextStyle.titleStyle12w,
                                       maxLines: 2,
                                     ),
@@ -195,8 +343,7 @@ class ProviderAllEventView extends GetView<ProviderAllEventController> {
                                   ),
                                   Expanded(
                                     child: Text(
-                                      controller.eventsDetails[index]['time'] ??
-                                          '',
+                                      item.fromTime ?? '',
                                       style: MyTextStyle.titleStyle12w,
                                       maxLines: 2,
                                     ),
@@ -215,9 +362,7 @@ class ProviderAllEventView extends GetView<ProviderAllEventController> {
                                   ),
                                   Expanded(
                                     child: Text(
-                                      controller.eventsDetails[index]
-                                              ['location'] ??
-                                          '',
+                                      'location',
                                       style: MyTextStyle.titleStyle12w,
                                       maxLines: 2,
                                     ),
@@ -244,7 +389,7 @@ class ProviderAllEventView extends GetView<ProviderAllEventController> {
                                       height: 14.px,
                                       fit: BoxFit.fill),
                                   Text(
-                                    '50 P',
+                                    '${item.points} P',
                                     style: MyTextStyle.titleStyle12bb,
                                   )
                                 ],
@@ -261,31 +406,175 @@ class ProviderAllEventView extends GetView<ProviderAllEventController> {
 
   /// Show Inactive Events...
   Widget showInactiveEvents() {
-    return Obx(() => controller.showEventsProgressBar.value
+    return Obx(() => controller.showInactiveEventsProgressBar.value
         ? CommonWidgets.commonShimmer(
             itemCount: 4,
             shimmerWidget: Container(
-              height: 200.px,
+              height: 120.px,
               width: double.infinity,
-              decoration: BoxDecoration(
-                color: Colors.black,
-                borderRadius: BorderRadius.all(Radius.circular(10.px)),
-              ),
               margin: EdgeInsets.only(
-                  left: 20.px, right: 20.px, top: 5.px, bottom: 2.px),
-              clipBehavior: Clip.hardEdge,
+                  left: 20.px, right: 20.px, top: 5.px, bottom: 5.px),
+              child: Row(
+                children: [
+                  Expanded(
+                      flex: 4,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.black87,
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(10.px)),
+                        ),
+                      )),
+                  Expanded(
+                      flex: 5,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Container(
+                            height: 15.px,
+                            margin: EdgeInsets.symmetric(
+                                horizontal: 3.px, vertical: 0.px),
+                            decoration: BoxDecoration(
+                              color: Colors.black87,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(2.px)),
+                            ),
+                          ),
+                          Row(
+                            children: [
+                              Container(
+                                height: 15.px,
+                                width: 15.px,
+                                margin: EdgeInsets.symmetric(
+                                    horizontal: 3.px, vertical: 0.px),
+                                decoration: BoxDecoration(
+                                  color: Colors.black87,
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(2.px)),
+                                ),
+                              ),
+                              Expanded(
+                                child: Container(
+                                  height: 15.px,
+                                  width: 120.px,
+                                  decoration: BoxDecoration(
+                                    color: Colors.black87,
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(2.px)),
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Container(
+                                height: 15.px,
+                                width: 15.px,
+                                margin: EdgeInsets.symmetric(
+                                    horizontal: 3.px, vertical: 0.px),
+                                decoration: BoxDecoration(
+                                  color: Colors.black87,
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(2.px)),
+                                ),
+                              ),
+                              Container(
+                                height: 15.px,
+                                width: 110.px,
+                                decoration: BoxDecoration(
+                                  color: Colors.black87,
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(2.px)),
+                                ),
+                              )
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Container(
+                                height: 15.px,
+                                width: 15.px,
+                                margin: EdgeInsets.symmetric(
+                                    horizontal: 3.px, vertical: 0.px),
+                                decoration: BoxDecoration(
+                                  color: Colors.black87,
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(2.px)),
+                                ),
+                              ),
+                              Container(
+                                height: 15.px,
+                                width: 80.px,
+                                decoration: BoxDecoration(
+                                  color: Colors.black87,
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(2.px)),
+                                ),
+                              )
+                            ],
+                          ),
+                        ],
+                      )),
+                  Expanded(
+                      flex: 1,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(
+                            height: 15.px,
+                            width: 15.px,
+                            margin: EdgeInsets.symmetric(
+                                horizontal: 3.px, vertical: 5.px),
+                            decoration: BoxDecoration(
+                              color: Colors.black87,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(2.px)),
+                            ),
+                          ),
+                          Column(
+                            children: [
+                              Container(
+                                height: 20.px,
+                                width: 25.px,
+                                margin: EdgeInsets.symmetric(
+                                    horizontal: 3.px, vertical: 0.px),
+                                decoration: BoxDecoration(
+                                  color: Colors.black87,
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(2.px)),
+                                ),
+                              ),
+                              Container(
+                                height: 10.px,
+                                width: 25.px,
+                                margin: EdgeInsets.symmetric(
+                                    horizontal: 3.px, vertical: 5.px),
+                                decoration: BoxDecoration(
+                                  color: Colors.black87,
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(2.px)),
+                                ),
+                              ),
+                            ],
+                          )
+                        ],
+                      ))
+                ],
+              ),
             ))
         : ListView.builder(
             physics: const BouncingScrollPhysics(),
             shrinkWrap: true,
             padding: EdgeInsets.zero,
             scrollDirection: Axis.vertical,
-            itemCount: controller.eventsDetails.length,
+            itemCount: controller.inactiveEventList.length,
             itemBuilder: (context, int index) {
-              //  GetClubsResult item = controller.getClubsModel!.result![index];
+              GetEventsResult item = controller.inactiveEventList[index];
               return GestureDetector(
                 onTap: () {
-                  controller.openEventDetail(index, 'Inactive Event');
+                  controller.openInactiveEventDetail(index, 'Inactive Event');
                 },
                 child: Container(
                   height: 120.px,
@@ -302,11 +591,15 @@ class ProviderAllEventView extends GetView<ProviderAllEventController> {
                     children: [
                       Expanded(
                           flex: 4,
-                          child: CommonWidgets.appIcons(
-                            assetName: controller.eventsImages[index],
-                            fit: BoxFit.fill,
-                            height: 100.px,
-                            width: 150.px,
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 5.px, vertical: 0.px),
+                            child: CommonWidgets.imageView(
+                              image: item.image ?? '',
+                              fit: BoxFit.fill,
+                              height: 100.px,
+                              width: 150.px,
+                            ),
                           )),
                       Expanded(
                           flex: 5,
@@ -315,8 +608,8 @@ class ProviderAllEventView extends GetView<ProviderAllEventController> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                controller.eventsDetails[index]['name'] ?? '',
-                                style: MyTextStyle.titleStyle16bw,
+                                item.name ?? '',
+                                style: MyTextStyle.titleStyle16w,
                                 maxLines: 1,
                               ),
                               SizedBox(
@@ -331,8 +624,7 @@ class ProviderAllEventView extends GetView<ProviderAllEventController> {
                                   ),
                                   Expanded(
                                     child: Text(
-                                      controller.eventsDetails[index]['date'] ??
-                                          '',
+                                      '${item.fromDate} to ${item.toDate}',
                                       style: MyTextStyle.titleStyle12w,
                                       maxLines: 2,
                                     ),
@@ -351,8 +643,7 @@ class ProviderAllEventView extends GetView<ProviderAllEventController> {
                                   ),
                                   Expanded(
                                     child: Text(
-                                      controller.eventsDetails[index]['time'] ??
-                                          '',
+                                      item.fromTime ?? '',
                                       style: MyTextStyle.titleStyle12w,
                                       maxLines: 2,
                                     ),
@@ -371,9 +662,7 @@ class ProviderAllEventView extends GetView<ProviderAllEventController> {
                                   ),
                                   Expanded(
                                     child: Text(
-                                      controller.eventsDetails[index]
-                                              ['location'] ??
-                                          '',
+                                      'location',
                                       style: MyTextStyle.titleStyle12w,
                                       maxLines: 2,
                                     ),
@@ -400,7 +689,7 @@ class ProviderAllEventView extends GetView<ProviderAllEventController> {
                                       height: 14.px,
                                       fit: BoxFit.fill),
                                   Text(
-                                    '50 P',
+                                    '${item.points} P',
                                     style: MyTextStyle.titleStyle12bb,
                                   )
                                 ],

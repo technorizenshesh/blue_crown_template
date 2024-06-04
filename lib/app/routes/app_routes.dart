@@ -47,6 +47,11 @@ abstract class Routes {
   static const PROVIDER_EDIT_EVENT = _Paths.PROVIDER_EDIT_EVENT;
   static const PROVIDER_PUSH_NOTIFICATION = _Paths.PROVIDER_PUSH_NOTIFICATION;
   static const NOTIFICATIONS = _Paths.NOTIFICATIONS;
+  static const OTP = _Paths.OTP;
+  static const NEW_PASSWORD = _Paths.NEW_PASSWORD;
+  static const HOW_GET_POINT = _Paths.HOW_GET_POINT;
+  static const PROVIDER_CONSUMER_LIST = _Paths.PROVIDER_CONSUMER_LIST;
+  static const PROVIDER_PURCHASED_USERS = _Paths.PROVIDER_PURCHASED_USERS;
 }
 
 abstract class _Paths {
@@ -95,4 +100,9 @@ abstract class _Paths {
   static const PROVIDER_EDIT_EVENT = '/provider-edit-event';
   static const PROVIDER_PUSH_NOTIFICATION = '/provider-push-notification';
   static const NOTIFICATIONS = '/notifications';
+  static const OTP = '/otp';
+  static const NEW_PASSWORD = '/new-password';
+  static const HOW_GET_POINT = '/how-get-point';
+  static const PROVIDER_CONSUMER_LIST = '/provider-consumer-list';
+  static const PROVIDER_PURCHASED_USERS = '/provider-purchased-users';
 }

@@ -20,7 +20,7 @@ class WardrobeView extends GetView<WardrobeController> {
         body: Obx(() {
           controller.count.value;
           return Padding(
-            padding: EdgeInsets.all(20.px),
+            padding: EdgeInsets.all(20.0.px),
             child: Column(
               children: [
                 Card(
@@ -163,7 +163,7 @@ class WardrobeView extends GetView<WardrobeController> {
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(20.px))),
         content: SizedBox(
-          height: 200.px,
+          height: 300.px,
           child: Card(
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(20.px))),
@@ -171,50 +171,52 @@ class WardrobeView extends GetView<WardrobeController> {
             color: cartColor,
             margin: EdgeInsets.all(1.px),
             child: Center(
-              child: Obx(() => controller.showProgressbar.value
-                  ? const Center(
-                      child: CircularProgressIndicator(),
-                    )
-                  : Obx(
-                      () => controller.presentData.value
-                          ? Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                SizedBox(
-                                  height: 20.px,
-                                ),
-                                Text(
-                                  StringConstants.youHaveNumber,
-                                  style: MyTextStyle.titleStyle20bw,
-                                ),
-                                SizedBox(
-                                  height: 20.px,
-                                ),
-                                Text('85',
-                                    style: MyTextStyle.titleStyleCustom(
-                                        80, FontWeight.bold, primaryColor)),
-                                /*  CommonWidgets.commonElevatedButton(
-                                    onPressed: () {},
-                                    child: Text(
-                                      StringConstants.takeOutJacket,
-                                      style: MyTextStyle.titleStyle16bw,
-                                    ),
-                                    borderRadius: 10.px,
-                                    height: 50.px,
-                                    buttonColor: primaryColor,
-                                    buttonMargin: EdgeInsets.only(
-                                        top: 20.px,
-                                        left: 20.px,
-                                        right: 20.px,
-                                        bottom: 20.px))*/
-                              ],
-                            )
-                          : Text(
-                              '\n\n\nThere are not present your current jacket',
-                              style: MyTextStyle.titleStyle20bb,
-                              textAlign: TextAlign.center,
-                            ),
-                    )),
+              child: Obx(
+                () => controller.presentData.value
+                    ? Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            height: 20.px,
+                          ),
+                          Text(
+                            StringConstants.youHaveNumber,
+                            style: MyTextStyle.titleStyle20bw,
+                          ),
+                          SizedBox(
+                            height: 20.px,
+                          ),
+                          Text(
+                              controller
+                                  .currentJacketList[
+                                      controller.currentJacketList.length - 1]
+                                  .qrcode!,
+                              style: MyTextStyle.titleStyleCustom(
+                                  80, FontWeight.bold, primaryColor)),
+                          CommonWidgets.commonElevatedButton(
+                              onPressed: () {
+                                Get.back();
+                              },
+                              child: Text(
+                                StringConstants.done,
+                                style: MyTextStyle.titleStyle16bw,
+                              ),
+                              borderRadius: 10.px,
+                              height: 50.px,
+                              buttonColor: primaryColor,
+                              buttonMargin: EdgeInsets.only(
+                                  top: 20.px,
+                                  left: 20.px,
+                                  right: 20.px,
+                                  bottom: 20.px))
+                        ],
+                      )
+                    : Text(
+                        '\n\n\nThere are not present your current jacket',
+                        style: MyTextStyle.titleStyle20bb,
+                        textAlign: TextAlign.center,
+                      ),
+              ),
             ),
           ),
         ),

@@ -1,3 +1,4 @@
+import 'package:blue_crown_template/app/data/apis/api_constants/api_key_constants.dart';
 import 'package:blue_crown_template/app/data/constants/icons_constant.dart';
 import 'package:blue_crown_template/app/data/constants/string_constants.dart';
 import 'package:blue_crown_template/app/routes/app_pages.dart';
@@ -7,13 +8,16 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
+import '../app/data/apis/api_models/get_login_model.dart';
+
 class CustomDrawer {
-  static Widget drawer() {
+  static Widget drawer(LogInModel userData) {
+    Map<String, String> data = {
+      ApiKeyConstants.userId: userData.result!.id ?? ''
+    };
     return Drawer(
       backgroundColor: Colors.black87,
       child: Column(
-        // Remove any padding from the ListView.
-        //padding: EdgeInsets.zero,
         children: [
           DrawerHeader(
             decoration: const BoxDecoration(
@@ -32,28 +36,31 @@ class CustomDrawer {
                     SizedBox(
                       height: 84.px,
                       width: 84.px,
-                      child: CommonWidgets.appIcons(
-                          assetName: 'assets/un_used_images/ic_girl.png',
+                      child: CommonWidgets.imageView(
+                          image: userData.result!.image ?? '',
                           width: 84.px,
                           height: 84.px,
-                          fit: BoxFit.cover,
-                          borderRadius: 46.px),
+                          borderRadius: BorderRadius.circular(42.px),
+                          fit: BoxFit.fill),
                     ),
-                    Padding(
-                      padding: EdgeInsets.only(left: 10.px),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Maren Rosser',
-                            style: MyTextStyle.titleStyle20bw,
-                          ),
-                          Text(
-                            StringConstants.editAccount,
-                            style: MyTextStyle.titleStyle14w,
-                          ),
-                        ],
+                    Expanded(
+                      child: Padding(
+                        padding: EdgeInsets.only(left: 10.px),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              userData.result!.fullName ?? '',
+                              style: MyTextStyle.titleStyle20bw,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            Text(
+                              StringConstants.editAccount,
+                              style: MyTextStyle.titleStyle14w,
+                            ),
+                          ],
+                        ),
                       ),
                     )
                   ],
@@ -81,7 +88,7 @@ class CustomDrawer {
                         fit: BoxFit.fill),
                     onTap: () {
                       Get.back();
-                      Get.toNamed(Routes.MY_PROFILE);
+                      Get.toNamed(Routes.MY_PROFILE, parameters: data);
                     },
                   ),
                   ListTile(
@@ -101,7 +108,7 @@ class CustomDrawer {
                         fit: BoxFit.fill),
                     onTap: () {
                       Get.back();
-                      Get.toNamed(Routes.CLUB_INFO);
+                      Get.toNamed(Routes.CLUB_INFO, parameters: data);
                     },
                   ),
                   ListTile(
@@ -121,7 +128,8 @@ class CustomDrawer {
                         fit: BoxFit.fill),
                     onTap: () {
                       Get.back();
-                      Get.toNamed(Routes.REQUEST_LIST_HISTORY);
+                      Get.toNamed(Routes.REQUEST_LIST_HISTORY,
+                          parameters: data);
                     },
                   ),
                   ListTile(
@@ -141,7 +149,7 @@ class CustomDrawer {
                         fit: BoxFit.fill),
                     onTap: () {
                       Get.back();
-                      Get.toNamed(Routes.BLUECROWN_POINT);
+                      Get.toNamed(Routes.BLUECROWN_POINT, parameters: data);
                     },
                   ),
                   ListTile(
@@ -161,7 +169,7 @@ class CustomDrawer {
                         fit: BoxFit.fill),
                     onTap: () {
                       Get.back();
-                      Get.toNamed(Routes.CHANGE_PASSWORD);
+                      Get.toNamed(Routes.CHANGE_PASSWORD, parameters: data);
                     },
                   ),
                   ListTile(
@@ -181,7 +189,7 @@ class CustomDrawer {
                         fit: BoxFit.fill),
                     onTap: () {
                       Get.back();
-                      Get.toNamed(Routes.NOTIFICATIONS);
+                      Get.toNamed(Routes.NOTIFICATIONS, parameters: data);
                     },
                   ),
                   ListTile(
@@ -201,7 +209,8 @@ class CustomDrawer {
                         fit: BoxFit.fill),
                     onTap: () {
                       Get.back();
-                      Get.toNamed(Routes.EVENT_WALLET_HISTORY);
+                      Get.toNamed(Routes.EVENT_WALLET_HISTORY,
+                          parameters: data);
                     },
                   ),
                   ListTile(
@@ -221,7 +230,7 @@ class CustomDrawer {
                         fit: BoxFit.fill),
                     onTap: () {
                       Get.back();
-                      Get.toNamed(Routes.CLUB_EVENTS);
+                      Get.toNamed(Routes.CLUB_EVENTS, parameters: data);
                     },
                   ),
                   ListTile(
@@ -241,7 +250,7 @@ class CustomDrawer {
                         fit: BoxFit.fill),
                     onTap: () {
                       Get.back();
-                      Get.toNamed(Routes.CONTACT_US);
+                      Get.toNamed(Routes.CONTACT_US, parameters: data);
                     },
                   ),
                   ListTile(
@@ -261,7 +270,7 @@ class CustomDrawer {
                         fit: BoxFit.fill),
                     onTap: () {
                       Get.back();
-                      Get.toNamed(Routes.TERMS_CONDITION);
+                      Get.toNamed(Routes.TERMS_CONDITION, parameters: data);
                     },
                   ),
                   ListTile(
@@ -281,7 +290,7 @@ class CustomDrawer {
                         fit: BoxFit.fill),
                     onTap: () {
                       Get.back();
-                      Get.toNamed(Routes.PRIVACY_POLICY);
+                      Get.toNamed(Routes.PRIVACY_POLICY, parameters: data);
                     },
                   ),
                   ListTile(
@@ -301,7 +310,7 @@ class CustomDrawer {
                         fit: BoxFit.fill),
                     onTap: () {
                       Get.back();
-                      Get.toNamed(Routes.LOGOUT);
+                      Get.toNamed(Routes.LOGOUT, parameters: data);
                     },
                   ),
                 ],

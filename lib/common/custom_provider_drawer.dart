@@ -7,8 +7,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
+import '../app/data/apis/api_constants/api_key_constants.dart';
+import '../app/data/apis/api_models/get_login_model.dart';
+
 class CustomProviderDrawer {
-  static Widget drawer() {
+  static Widget drawer(LogInModel userData) {
+    Map<String, String> data = {
+      ApiKeyConstants.userId: userData.result!.id ?? '',
+      ApiKeyConstants.token: userData.result!.token ?? '',
+    };
     return Drawer(
       backgroundColor: Colors.black87,
       child: Column(
@@ -32,12 +39,12 @@ class CustomProviderDrawer {
                     SizedBox(
                       height: 84.px,
                       width: 84.px,
-                      child: CommonWidgets.appIcons(
-                          assetName: IconConstants.icClubImg,
+                      child: CommonWidgets.imageView(
+                          image: userData.result!.image ?? '',
                           width: 84.px,
                           height: 84.px,
-                          fit: BoxFit.cover,
-                          borderRadius: 46.px),
+                          borderRadius: BorderRadius.circular(42.px),
+                          fit: BoxFit.fill),
                     ),
                     Padding(
                       padding: EdgeInsets.only(left: 10.px),
@@ -46,7 +53,7 @@ class CustomProviderDrawer {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Maren Rosser',
+                            userData!.result!.fullName ?? '',
                             style: MyTextStyle.titleStyle20bw,
                           ),
                           Text(
@@ -81,7 +88,7 @@ class CustomProviderDrawer {
                         fit: BoxFit.fill),
                     onTap: () {
                       Get.back();
-                      Get.toNamed(Routes.MY_PROFILE);
+                      Get.toNamed(Routes.MY_PROFILE, parameters: data);
                     },
                   ),
                   ListTile(
@@ -101,7 +108,7 @@ class CustomProviderDrawer {
                         fit: BoxFit.fill),
                     onTap: () {
                       Get.back();
-                      Get.toNamed(Routes.CLUB_INFO);
+                      Get.toNamed(Routes.CLUB_INFO, parameters: data);
                     },
                   ),
                   ListTile(
@@ -121,7 +128,7 @@ class CustomProviderDrawer {
                         fit: BoxFit.fill),
                     onTap: () {
                       Get.back();
-                      Get.toNamed(Routes.PROVIDER_ALL_EVENT);
+                      Get.toNamed(Routes.PROVIDER_ALL_EVENT, parameters: data);
                     },
                   ),
                   ListTile(
@@ -141,7 +148,7 @@ class CustomProviderDrawer {
                         fit: BoxFit.fill),
                     onTap: () {
                       Get.back();
-                      Get.toNamed(Routes.CHANGE_PASSWORD);
+                      Get.toNamed(Routes.CHANGE_PASSWORD, parameters: data);
                     },
                   ),
                   ListTile(
@@ -161,7 +168,28 @@ class CustomProviderDrawer {
                         fit: BoxFit.fill),
                     onTap: () {
                       Get.back();
-                      Get.toNamed(Routes.NOTIFICATIONS);
+                      Get.toNamed(Routes.NOTIFICATIONS, parameters: data);
+                    },
+                  ),
+                  ListTile(
+                    leading: CommonWidgets.appIcons(
+                        assetName: IconConstants.icMyProfile,
+                        height: 40.px,
+                        width: 40.px,
+                        fit: BoxFit.fill),
+                    title: Text(
+                      StringConstants.clubConsumerList,
+                      style: MyTextStyle.titleStyle14w,
+                    ),
+                    trailing: CommonWidgets.appIcons(
+                        assetName: IconConstants.icRightArrow,
+                        height: 24.px,
+                        width: 24.px,
+                        fit: BoxFit.fill),
+                    onTap: () {
+                      Get.back();
+                      Get.toNamed(Routes.PROVIDER_CONSUMER_LIST,
+                          parameters: data);
                     },
                   ),
                   ListTile(
@@ -181,7 +209,7 @@ class CustomProviderDrawer {
                         fit: BoxFit.fill),
                     onTap: () {
                       Get.back();
-                      Get.toNamed(Routes.PROVIDER_CONTACT_US);
+                      Get.toNamed(Routes.PROVIDER_CONTACT_US, parameters: data);
                     },
                   ),
                   ListTile(
@@ -201,7 +229,7 @@ class CustomProviderDrawer {
                         fit: BoxFit.fill),
                     onTap: () {
                       Get.back();
-                      Get.toNamed(Routes.TERMS_CONDITION);
+                      Get.toNamed(Routes.TERMS_CONDITION, parameters: data);
                     },
                   ),
                   ListTile(
@@ -221,7 +249,7 @@ class CustomProviderDrawer {
                         fit: BoxFit.fill),
                     onTap: () {
                       Get.back();
-                      Get.toNamed(Routes.PRIVACY_POLICY);
+                      Get.toNamed(Routes.PRIVACY_POLICY, parameters: data);
                     },
                   ),
                   ListTile(
@@ -241,7 +269,7 @@ class CustomProviderDrawer {
                         fit: BoxFit.fill),
                     onTap: () {
                       Get.back();
-                      Get.toNamed(Routes.LOGOUT);
+                      Get.toNamed(Routes.LOGOUT, parameters: data);
                     },
                   ),
                 ],

@@ -33,10 +33,10 @@ class LoginTypeView extends GetView<LoginTypeController> {
               children: [
                 CommonWidgets.commonElevatedButton(
                     onPressed: () {
-                      controller.openNewPage(0);
+                      controller.openNewPage(1);
                     },
                     child: Text(
-                      StringConstants.logInAsClubHost,
+                      StringConstants.loginAsAConsumer,
                       style: MyTextStyle.titleStyle16bb,
                     ),
                     borderRadius: 30.px),
@@ -45,10 +45,10 @@ class LoginTypeView extends GetView<LoginTypeController> {
                 ),
                 CommonWidgets.commonElevatedButton(
                     onPressed: () {
-                      controller.openNewPage(1);
+                      controller.openNewPage(0);
                     },
                     child: Text(
-                      StringConstants.loginAsAConsumer,
+                      StringConstants.logInAsClubHost,
                       style: MyTextStyle.titleStyle16bb,
                     ),
                     borderRadius: 30.px),

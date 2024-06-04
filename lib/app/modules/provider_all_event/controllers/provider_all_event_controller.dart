@@ -1,60 +1,25 @@
 import 'package:get/get.dart';
 
+import '../../../../common/common_widgets.dart';
+import '../../../data/apis/api_constants/api_key_constants.dart';
+import '../../../data/apis/api_methods/api_methods.dart';
+import '../../../data/apis/api_models/get_event_model.dart';
 import '../../../routes/app_pages.dart';
 
 class ProviderAllEventController extends GetxController {
-  final showEventsProgressBar = false.obs;
+  final showActiveEventsProgressBar = true.obs;
+  final showInactiveEventsProgressBar = true.obs;
   final count = 0.obs;
   final tabIndex = 0.obs;
-  List<String> eventsImages = [
-    'assets/un_used_images/party1.png',
-    'assets/un_used_images/party2.png',
-    'assets/un_used_images/party3.png',
-    'assets/un_used_images/party4.png',
-    'assets/un_used_images/party1.png',
-    'assets/un_used_images/party2.png',
-    'assets/un_used_images/party1.png',
-  ];
-  List<Map<String, String>> eventsDetails = [
-    {
-      "name": "BirthDay Party",
-      "date": "2024-01-01 to 2024-01-15",
-      "time": "10:00 - 12:00 PM",
-      "location": "indore,Madhya Pradesh",
-      "amount": "50 P"
-    },
-    {
-      "name": "Night Party",
-      "date": "2024-02-18 to 2024-02-25",
-      "time": "10:00 - 12:00 PM",
-      "location": "indore,Madhya Pradesh",
-      "amount": "120 P"
-    },
-    {
-      "name": "Farewell Party",
-      "date": "2024-08-01",
-      "time": "6:00 - 12:00 PM",
-      "location": "indore,Madhya Pradesh",
-      "amount": "80 P"
-    },
-    {
-      "name": "Friend Party",
-      "date": "2024-03-10 to 2024-03-15",
-      "time": "10:00 - 12:30 AM",
-      "location": "indore,Madhya Pradesh",
-      "amount": "100 P"
-    },
-    {
-      "name": "BirthDay Party",
-      "date": "2024-01-01 to 2024-01-15",
-      "time": "10:00 - 12:00 PM",
-      "location": "indore,Madhya Pradesh",
-      "amount": "50 P"
-    },
-  ];
+  Map<String, dynamic> queryParamsForGetEvent = {};
+  List<GetEventsResult> activeEventList = [];
+  List<GetEventsResult> inactiveEventList = [];
+  Map<String, String?> parameters = Get.parameters;
   @override
   void onInit() {
     super.onInit();
+    getActiveEventsList();
+    getInactiveEventsList();
   }
 
   @override
@@ -73,12 +38,73 @@ class ProviderAllEventController extends GetxController {
     increment();
   }
 
-  openEventDetail(int index, String type) {
+  openActiveEventDetail(int index, String type) {
     Map<String, String> data = {
-      "image": eventsImages[index],
-      "type": type,
-      "event": eventsDetails[index]['name'] ?? '',
+      ApiKeyConstants.userId: parameters[ApiKeyConstants.userId] ?? '',
+      ApiKeyConstants.type: type,
     };
-    Get.toNamed(Routes.PROVIDER_EVENT_DETAIL, parameters: data);
+    Get.toNamed(Routes.PROVIDER_EVENT_DETAIL,
+        parameters: data, arguments: activeEventList[index]);
+  }
+
+  openInactiveEventDetail(int index, String type) {
+    Map<String, String> data = {
+      ApiKeyConstants.userId: parameters[ApiKeyConstants.userId] ?? '',
+      ApiKeyConstants.type: type,
+    };
+    Get.toNamed(Routes.PROVIDER_EVENT_DETAIL,
+        parameters: data, arguments: inactiveEventList[index]);
+  }
+
+  changeActiveProgressbarStatus(bool value) {
+    showActiveEventsProgressBar.value = value;
+  }
+
+  changeInactiveProgressbarStatus(bool value) {
+    showInactiveEventsProgressBar.value = value;
+  }
+
+  Future<void> getActiveEventsList() async {
+    try {
+      queryParamsForGetEvent = {
+        ApiKeyConstants.userId: parameters[ApiKeyConstants.userId] ?? '',
+        ApiKeyConstants.status: 'Active'
+      };
+      GetEventsModel? model =
+          await ApiMethods.getEventApi(queryParameters: queryParamsForGetEvent);
+      if (model!.status != "0" ?? false) {
+        activeEventList = model.result!;
+        print("Get My published events Successfully complete...");
+      } else {
+        print("Get My published events Failed....");
+        CommonWidgets.showMyToastMessage(model.message!);
+      }
+      changeActiveProgressbarStatus(false);
+    } catch (e) {
+      print('Error:-${e.toString()}');
+      changeActiveProgressbarStatus(false);
+    }
+  }
+
+  Future<void> getInactiveEventsList() async {
+    try {
+      queryParamsForGetEvent = {
+        ApiKeyConstants.userId: parameters[ApiKeyConstants.userId] ?? '',
+        ApiKeyConstants.status: 'Deactive'
+      };
+      GetEventsModel? model =
+          await ApiMethods.getEventApi(queryParameters: queryParamsForGetEvent);
+      if (model!.status != "0" ?? false) {
+        inactiveEventList = model.result!;
+        print("Get My published events Successfully complete...");
+      } else {
+        print("Get My published events Failed....");
+        CommonWidgets.showMyToastMessage(model.message!);
+      }
+      changeInactiveProgressbarStatus(false);
+    } catch (e) {
+      print('Error:-${e.toString()}');
+      changeInactiveProgressbarStatus(false);
+    }
   }
 }

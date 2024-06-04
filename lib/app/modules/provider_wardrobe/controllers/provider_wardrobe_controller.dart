@@ -1,22 +1,21 @@
+import 'package:blue_crown_template/app/data/apis/api_constants/api_key_constants.dart';
 import 'package:blue_crown_template/app/routes/app_pages.dart';
+import 'package:blue_crown_template/common/common_widgets.dart';
 import 'package:get/get.dart';
 
-class ProviderWardrobeController extends GetxController {
-  final showProgressBar = false.obs;
+import '../../../data/apis/api_methods/api_methods.dart';
+import '../../../data/apis/api_models/get_club_hanger.dart';
 
-  List<Map<String, String>> wardrobeList = [
-    {"qr_code": "01", "name": "Johan Smiths", "status": "Active"},
-    {"qr_code": "02", "name": "Thomas Dow", "status": "Active"},
-    {"qr_code": "03", "name": "Johan Smiths", "status": "Active"},
-    {"qr_code": "04", "name": "Thomas Dow", "status": "Active"},
-    {"qr_code": "05", "name": " ", "status": "Inactive"},
-    {"qr_code": "06", "name": " ", "status": "Inactive"},
-  ];
+class ProviderWardrobeController extends GetxController {
+  final showProgressBar = true.obs;
+  List<GetClubHangerResult> wardrobeList = [];
+  Map<String, String?> parameters = Get.parameters;
 
   final count = 0.obs;
   @override
   void onInit() {
     super.onInit();
+    getClubHangers();
   }
 
   @override
@@ -30,11 +29,45 @@ class ProviderWardrobeController extends GetxController {
   }
 
   void increment() => count.value++;
-  clickOnCreateQrNumber() {
-    Get.toNamed(Routes.PROVIDER_CREATE_QR_CODE);
+  clickOnCreateQrNumber() async {
+    Map<String, String> data = {
+      ApiKeyConstants.userId: parameters[ApiKeyConstants.userId] ?? '',
+      ApiKeyConstants.token: parameters[ApiKeyConstants.token] ?? '',
+    };
+    dynamic result =
+        await Get.toNamed(Routes.PROVIDER_CREATE_QR_CODE, parameters: data);
+    if (result) {
+      showProgressBar.value = true;
+      getClubHangers();
+    }
   }
 
   clickOnDownload(int index) {
-    Get.toNamed(Routes.PROVIDER_DOWNLOAD_QR_CODE);
+    Map<String, String> data = {
+      ApiKeyConstants.qrCode: wardrobeList[index].qrcode ?? ''
+    };
+    Get.toNamed(Routes.PROVIDER_DOWNLOAD_QR_CODE, parameters: data);
+  }
+
+  getClubHangers() async {
+    try {
+      Map<String, String> parameterData = {
+        ApiKeyConstants.clubId: parameters[ApiKeyConstants.userId] ?? ''
+      };
+      GetClubHangerModel? getClubHangerModel =
+          await ApiMethods.getClubHangerApi(queryParameters: parameterData);
+      if (getClubHangerModel!.status != "0" ?? false) {
+        wardrobeList = getClubHangerModel.result!;
+        print(" Get Clubs Hanger Successfully complete...");
+      } else {
+        print("Get Clubs Hanger Failed....");
+        CommonWidgets.showMyToastMessage(getClubHangerModel!.message!);
+      }
+    } catch (e) {
+      print("Error:-${e.toString()}");
+      CommonWidgets.showMyToastMessage('Error:-${e.toString()}');
+    }
+    showProgressBar.value = false;
+    increment();
   }
 }
