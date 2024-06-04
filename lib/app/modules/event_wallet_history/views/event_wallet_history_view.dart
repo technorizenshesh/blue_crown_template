@@ -209,7 +209,7 @@ class EventWalletHistoryView extends GetView<EventWalletHistoryController> {
                                         height: 15.px,
                                         fit: BoxFit.fill),
                                     Text(
-                                      '${item.amount}',
+                                      '${item.amount} P',
                                       style: MyTextStyle.titleStyle12w,
                                     ),
                                   ],

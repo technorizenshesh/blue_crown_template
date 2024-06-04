@@ -26,22 +26,21 @@ import '../api_models/get_my_purchased_event_model.dart';
 import '../api_models/get_otp_model.dart';
 import '../api_models/get_purchase_event_model.dart';
 import '../api_models/get_scan_event_qr_model.dart';
-import '../api_models/get_signup_model.dart';
 
 class ApiMethods {
   /// Registration Api Calling .....
-  static Future<SignUpModel?> submitRegistrationForm({
+  static Future<LogInModel?> submitRegistrationForm({
     void Function(int)? checkResponse,
     Map<String, dynamic>? bodyParams,
   }) async {
-    SignUpModel? signUpModel;
+    LogInModel? signUpModel;
     http.Response? response = await MyHttp.postMethod(
       bodyParams: bodyParams,
       url: ApiUrlConstants.endPointOfSignUp,
       checkResponse: checkResponse,
     );
     if (response != null) {
-      signUpModel = SignUpModel.fromJson(jsonDecode(response.body));
+      signUpModel = LogInModel.fromJson(jsonDecode(response.body));
       return signUpModel;
     }
     return null;

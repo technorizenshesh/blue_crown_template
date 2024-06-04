@@ -1,15 +1,19 @@
+import 'dart:convert';
 import 'dart:math';
 
 import 'package:blue_crown_template/common/common_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../common/colors.dart';
 import '../../../../common/date_picker.dart';
 import '../../../data/apis/api_constants/api_key_constants.dart';
 import '../../../data/apis/api_methods/api_methods.dart';
-import '../../../data/apis/api_models/get_signup_model.dart';
+import '../../../data/apis/api_models/get_login_model.dart';
+import '../../../data/constants/string_constants.dart';
+import '../../../routes/app_pages.dart';
 
 class SignupController extends GetxController {
   TextEditingController fullNameController = TextEditingController();
@@ -31,6 +35,8 @@ class SignupController extends GetxController {
   final checkBox = false.obs;
   final isLoading = false.obs;
 
+  late SharedPreferences sharedPreferences;
+
   void startListener() {
     focusFullName.addListener(onFocusChange);
     focusEmail.addListener(onFocusChange);
@@ -48,7 +54,7 @@ class SignupController extends GetxController {
   }
 
   Map<String, dynamic> bodyParamsForSubmitRegistrationForm = {};
-  SignUpModel? getSingUpModel;
+  LogInModel? getSingUpModel;
   final count = 0.obs;
   @override
   void onInit() {
@@ -114,9 +120,7 @@ class SignupController extends GetxController {
             bodyParams: bodyParamsForSubmitRegistrationForm);
         if (getSingUpModel!.status != "0" ?? false) {
           print("Registration Successfully complete...");
-          CommonWidgets.showMyToastMessage(
-              "Registration Successfully complete...");
-          Get.back();
+          saveDataSharedPreference(getSingUpModel);
         } else {
           print("Registration Failed....");
           CommonWidgets.showMyToastMessage(getSingUpModel!.message!);
@@ -128,5 +132,15 @@ class SignupController extends GetxController {
     } else {
       CommonWidgets.showMyToastMessage("Please fill all the fields");
     }
+  }
+
+  saveDataSharedPreference(LogInModel? userdata) async {
+    sharedPreferences = await SharedPreferences.getInstance();
+    CommonWidgets.showMyToastMessage("Successfully SignUp Complete");
+    print("SignUp Successfully complete...");
+    String userDataString = jsonEncode(userdata);
+    sharedPreferences.setString(StringConstants.userData, userDataString);
+    isLoading.value = false;
+    Get.offNamed(Routes.NAVBAR);
   }
 }

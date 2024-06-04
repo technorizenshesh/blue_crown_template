@@ -35,99 +35,94 @@ class ListRequestView extends GetView<ListRequestController> {
               isLoading: controller.isLoading.value,
               buttonMargin:
                   EdgeInsets.only(bottom: 10.px, left: 10.px, right: 10.px)),
-          body: InkWell(
-            onTap: () {
-              FocusManager.instance.primaryFocus?.unfocus();
-            },
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    height: 30.px,
-                  ),
-                  CommonWidgets.commonTextFieldForLoginSignUP(
-                    focusNode: controller.focusName,
-                    controller: controller.nameController,
-                    isCard: controller.isName.value,
-                    hintText: StringConstants.fullName,
+          body: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                SizedBox(
+                  height: 30.px,
+                ),
+                CommonWidgets.commonTextFieldForLoginSignUP(
+                  focusNode: controller.focusName,
+                  controller: controller.nameController,
+                  isCard: controller.isName.value,
+                  hintText: StringConstants.fullName,
+                  hintStyle: MyTextStyle.titleStyle14w,
+                  style: MyTextStyle.titleStyle14w,
+                ),
+                SizedBox(
+                  height: 15.px,
+                ),
+                CommonWidgets.commonTextFieldForLoginSignUP(
+                    focusNode: controller.focusPerson,
+                    controller: controller.personController,
+                    isCard: controller.isPerson.value,
+                    readOnly: true,
+                    hintText: StringConstants.howManyPersons,
                     hintStyle: MyTextStyle.titleStyle14w,
                     style: MyTextStyle.titleStyle14w,
-                  ),
-                  SizedBox(
-                    height: 15.px,
-                  ),
-                  CommonWidgets.commonTextFieldForLoginSignUP(
-                      focusNode: controller.focusPerson,
-                      controller: controller.personController,
-                      isCard: controller.isPerson.value,
-                      readOnly: true,
-                      hintText: StringConstants.howManyPersons,
-                      hintStyle: MyTextStyle.titleStyle14w,
-                      style: MyTextStyle.titleStyle14w,
-                      suffixIcon: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          GestureDetector(
-                            onTap: () {
-                              controller.clickOnPlusIcon();
-                            },
-                            child: CommonWidgets.appIcons(
-                                assetName: IconConstants.icPlus,
-                                width: 25.px,
-                                height: 25.px,
-                                fit: BoxFit.fill),
+                    suffixIcon: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            controller.clickOnPlusIcon();
+                          },
+                          child: CommonWidgets.appIcons(
+                              assetName: IconConstants.icPlus,
+                              width: 25.px,
+                              height: 25.px,
+                              fit: BoxFit.fill),
+                        ),
+                        Container(
+                          constraints:
+                              BoxConstraints(minWidth: 20.px, maxWidth: 50.px),
+                          padding: EdgeInsets.only(left: 5.px),
+                          child: Text(
+                            controller.personCount.value.toString(),
+                            style: MyTextStyle.titleStyle14bw,
                           ),
-                          Container(
-                            constraints: BoxConstraints(
-                                minWidth: 20.px, maxWidth: 50.px),
-                            padding: EdgeInsets.only(left: 5.px),
-                            child: Text(
-                              controller.personCount.value.toString(),
-                              style: MyTextStyle.titleStyle14bw,
-                            ),
-                          ),
-                          GestureDetector(
-                            onTap: () {
-                              controller.clickOnMinusIcon();
-                            },
-                            child: CommonWidgets.appIcons(
-                                assetName: IconConstants.icMinus,
-                                width: 25.px,
-                                height: 25.px,
-                                fit: BoxFit.fill),
-                          )
-                        ],
-                      )),
-                  SizedBox(
-                    height: 15.px,
-                  ),
-                  CommonWidgets.commonTextFieldForLoginSignUP(
-                    focusNode: controller.focusEmail,
-                    controller: controller.emailController,
-                    isCard: controller.isEmail.value,
-                    hintText: StringConstants.email,
-                    hintStyle: MyTextStyle.titleStyle14w,
-                    style: MyTextStyle.titleStyle14w,
-                  ),
-                  SizedBox(
-                    height: 15.px,
-                  ),
-                  CommonWidgets.commonTextFieldForLoginSignUP(
-                    focusNode: controller.focusPhone,
-                    controller: controller.phoneController,
-                    isCard: controller.isPhone.value,
-                    hintText: StringConstants.phoneNumber,
-                    keyboardType: TextInputType.number,
-                    hintStyle: MyTextStyle.titleStyle14w,
-                    style: MyTextStyle.titleStyle14w,
-                  ),
-                  SizedBox(
-                    height: 25.px,
-                  ),
-                ],
-              ),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            controller.clickOnMinusIcon();
+                          },
+                          child: CommonWidgets.appIcons(
+                              assetName: IconConstants.icMinus,
+                              width: 25.px,
+                              height: 25.px,
+                              fit: BoxFit.fill),
+                        )
+                      ],
+                    )),
+                SizedBox(
+                  height: 15.px,
+                ),
+                CommonWidgets.commonTextFieldForLoginSignUP(
+                  focusNode: controller.focusEmail,
+                  controller: controller.emailController,
+                  isCard: controller.isEmail.value,
+                  hintText: StringConstants.email,
+                  hintStyle: MyTextStyle.titleStyle14w,
+                  style: MyTextStyle.titleStyle14w,
+                ),
+                SizedBox(
+                  height: 15.px,
+                ),
+                CommonWidgets.commonTextFieldForLoginSignUP(
+                  focusNode: controller.focusPhone,
+                  controller: controller.phoneController,
+                  isCard: controller.isPhone.value,
+                  hintText: StringConstants.phoneNumber,
+                  keyboardType: TextInputType.number,
+                  hintStyle: MyTextStyle.titleStyle14w,
+                  style: MyTextStyle.titleStyle14w,
+                ),
+                SizedBox(
+                  height: 25.px,
+                ),
+              ],
             ),
           ));
     });
