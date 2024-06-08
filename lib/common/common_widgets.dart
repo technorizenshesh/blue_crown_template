@@ -372,8 +372,6 @@ class CommonWidgets {
                   errorStyle: errorStyle ??
                       Theme.of(Get.context!).textTheme.titleMedium?.copyWith(
                           color: Theme.of(Get.context!).colorScheme.error),
-                  // suffixIcon: suffixIcon,
-                  // prefixIcon: prefixIcon,
                   hintText: hintText,
                   labelText: labelText,
                   labelStyle: labelStyle,
