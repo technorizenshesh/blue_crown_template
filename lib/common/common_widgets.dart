@@ -6,7 +6,6 @@ import 'package:blue_crown_template/common/text_styles.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -353,10 +352,8 @@ class CommonWidgets {
                       }
                     },
                 validator: validator,
-                keyboardType: defaultTargetPlatform == TargetPlatform.iOS
-                    ? const TextInputType.numberWithOptions(
-                        decimal: true, signed: true)
-                    : keyboardType ?? TextInputType.streetAddress,
+                keyboardType: keyboardType ??
+                    TextInputType.streetAddress,
                 readOnly: readOnly,
                 autofocus: autofocus,
                 inputFormatters: inputFormatters,

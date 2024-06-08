@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -86,7 +87,9 @@ class SignupView extends GetView<SignupController> {
                         hintText: StringConstants.mobile,
                         hintStyle: MyTextStyle.titleStyle14w,
                         style: MyTextStyle.titleStyle14w,
-                        keyboardType: TextInputType.number,
+                        keyboardType:defaultTargetPlatform == TargetPlatform.iOS
+                            ? TextInputType.numberWithOptions(decimal: true, signed: true)
+                            : TextInputType.number,
                       ),
                       SizedBox(
                         height: 15.px,
