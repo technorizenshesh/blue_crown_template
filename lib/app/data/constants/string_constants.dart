@@ -60,6 +60,7 @@ class StringConstants {
   static const String eventWalletHistory = 'Event & Wallet History';
   static const String clubEvents = 'Club Events';
   static const String contact = 'Contact';
+  static const String contactToSupport = 'Contact To Support';
   static const String termsAndCondition = 'Terms and Condition';
   static const String handInJacket = 'hand in jacket';
   static const String currentJacket = 'current jacket';
@@ -146,7 +147,9 @@ class StringConstants {
   static const String camera = 'Camera';
   static const String gallery = 'Gallery';
   static const String selectImage = 'Select Image';
+  static const String selectEventImage = 'Select Event Image';
   static const String purchasedUser = 'Purchased User';
+  static const String thankYouForRequest = ' Thank you for the request';
   static const String chooseImageFromTheOptionsBelow =
       'Choose Image From The Options Below';
 
@@ -165,6 +168,10 @@ class StringConstants {
       'Establish data processing agreements with third-party processors, ensuring compliance with GDPR regulations for all types of data collected and processed.';
   static const String terms6 =
       'Ensure that any international transfers of user data, including email addresses and contact numbers, comply with GDPR requirements, such as implementing appropriate safeguards.';
+  static const String terms7 =
+      'Push notifications will be used to send you important updates, reminders, and alerts relevant to the app\'s functionality and your interactions within it. \n'
+      'We are committed to protecting your privacy. The data collected for push notifications will be handled in accordance with our Privacy Policy,';
+
   static const String test =
       'Lorem ipsum dolor sit amet consectetur. Sem amet morbi in magna scelerisque tristique enim. Hac suspendisse varius mattis pellentesque consequat. Volutpat'
       ' tristique tellus at quis etiam elementum varius netus accumsan. Nisl maecenas risus sed morbi faucibus. Nec sapien urna et tristique nec.';

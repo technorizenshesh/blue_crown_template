@@ -67,6 +67,25 @@ class TableRequestView extends GetView<TableRequestController> {
                       children: [
                         GestureDetector(
                           onTap: () {
+                            controller.clickOnMinusIcon();
+                          },
+                          child: CommonWidgets.appIcons(
+                              assetName: IconConstants.icMinus,
+                              width: 25.px,
+                              height: 25.px,
+                              fit: BoxFit.fill),
+                        ),
+                        Container(
+                          constraints:
+                              BoxConstraints(minWidth: 20.px, maxWidth: 50.px),
+                          padding: EdgeInsets.only(left: 5.px, right: 5.px),
+                          child: Text(
+                            controller.personCount.value.toString(),
+                            style: MyTextStyle.titleStyle14bw,
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () {
                             controller.clickOnPlusIcon();
                           },
                           child: CommonWidgets.appIcons(
@@ -75,25 +94,6 @@ class TableRequestView extends GetView<TableRequestController> {
                               height: 25.px,
                               fit: BoxFit.fill),
                         ),
-                        Container(
-                          constraints:
-                              BoxConstraints(minWidth: 20.px, maxWidth: 50.px),
-                          padding: EdgeInsets.only(left: 5.px),
-                          child: Text(
-                            controller.personCount.value.toString(),
-                            style: MyTextStyle.titleStyle14bw,
-                          ),
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            controller.clickOnMinusIcon();
-                          },
-                          child: CommonWidgets.appIcons(
-                              assetName: IconConstants.icMinus,
-                              width: 25.px,
-                              height: 25.px,
-                              fit: BoxFit.fill),
-                        )
                       ],
                     )),
                 SizedBox(
@@ -105,6 +105,7 @@ class TableRequestView extends GetView<TableRequestController> {
                   isCard: controller.isEmail.value,
                   hintText: StringConstants.email,
                   hintStyle: MyTextStyle.titleStyle14w,
+                  readOnly: true,
                   style: MyTextStyle.titleStyle14w,
                 ),
                 SizedBox(
@@ -117,6 +118,7 @@ class TableRequestView extends GetView<TableRequestController> {
                   hintText: StringConstants.phoneNumber,
                   keyboardType: TextInputType.number,
                   hintStyle: MyTextStyle.titleStyle14w,
+                  readOnly: true,
                   style: MyTextStyle.titleStyle14w,
                 ),
                 SizedBox(

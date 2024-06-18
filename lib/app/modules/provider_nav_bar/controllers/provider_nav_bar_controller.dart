@@ -82,7 +82,10 @@ class ProviderNavBarController extends GetxController {
 
     if (result) {
       changeActiveProgressbarStatus(true);
-      getActiveEventsList(userData.result!.id ?? '');
+      changeInactiveProgressbarStatus(true);
+      await getActiveEventsList(userData.result!.id ?? '');
+      await getInactiveEventsList(userData.result!.id ?? '');
+      increment();
     }
   }
 
@@ -95,7 +98,10 @@ class ProviderNavBarController extends GetxController {
         parameters: data, arguments: inactiveEventList[index]);
     if (result) {
       changeInactiveProgressbarStatus(true);
-      getInactiveEventsList(userData.result!.id ?? '');
+      changeActiveProgressbarStatus(true);
+      await getActiveEventsList(userData.result!.id ?? '');
+      await getInactiveEventsList(userData.result!.id ?? '');
+      increment();
     }
   }
 

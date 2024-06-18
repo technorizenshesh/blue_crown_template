@@ -76,6 +76,8 @@ import '../modules/provider_wardrobe/bindings/provider_wardrobe_binding.dart';
 import '../modules/provider_wardrobe/views/provider_wardrobe_view.dart';
 import '../modules/request_list_history/bindings/request_list_history_binding.dart';
 import '../modules/request_list_history/views/request_list_history_view.dart';
+import '../modules/scanner_second/bindings/scanner_second_binding.dart';
+import '../modules/scanner_second/views/scanner_second_view.dart';
 import '../modules/screens/change_password_view.dart';
 import '../modules/screens/wardrobe_availability_view.dart';
 import '../modules/signup/bindings/signup_binding.dart';
@@ -332,6 +334,11 @@ class AppPages {
       name: _Paths.PROVIDER_PURCHASED_USERS,
       page: () => const ProviderPurchasedUsersView(),
       binding: ProviderPurchasedUsersBinding(),
+    ),
+    GetPage(
+      name: _Paths.SCANNER_SECOND,
+      page: () => const ScannerSecondView(),
+      binding: ScannerSecondBinding(),
     ),
   ];
 }

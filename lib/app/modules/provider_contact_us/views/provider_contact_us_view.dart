@@ -17,7 +17,7 @@ class ProviderContactUsView extends GetView<ProviderContactUsController> {
         resizeToAvoidBottomInset: false,
         backgroundColor: backgroundColor,
         appBar: CommonWidgets.appBar(
-            title: StringConstants.contact, wantBackButton: true),
+            title: StringConstants.contactToSupport, wantBackButton: true),
         bottomNavigationBar: Padding(
           padding: EdgeInsets.symmetric(horizontal: 20.px, vertical: 10.px),
           child: CommonWidgets.commonElevatedButton(

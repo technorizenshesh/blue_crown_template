@@ -176,8 +176,8 @@ class ProviderWardrobeView extends GetView<ProviderWardrobeController> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Text(
-                                item.status ?? '',
-                                style: item.status == 'Active'
+                                item.booked == 'Yes' ? 'Active' : 'Deactive',
+                                style: item.booked == 'Yes'
                                     ? MyTextStyle.titleStyleCustom(
                                         14, FontWeight.normal, greenColor)
                                     : MyTextStyle.titleStyleCustom(

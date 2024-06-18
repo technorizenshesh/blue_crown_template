@@ -131,7 +131,7 @@ class CustomProviderDrawer {
                       Get.toNamed(Routes.PROVIDER_ALL_EVENT, parameters: data);
                     },
                   ),
-                  ListTile(
+                  /*   ListTile(
                     leading: CommonWidgets.appIcons(
                         assetName: IconConstants.icChangePassword,
                         height: 40.px,
@@ -150,7 +150,7 @@ class CustomProviderDrawer {
                       Get.back();
                       Get.toNamed(Routes.CHANGE_PASSWORD, parameters: data);
                     },
-                  ),
+                  ),*/
                   ListTile(
                     leading: CommonWidgets.appIcons(
                         assetName: IconConstants.icNotification,

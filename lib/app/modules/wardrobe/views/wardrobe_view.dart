@@ -16,7 +16,7 @@ class WardrobeView extends GetView<WardrobeController> {
     return Scaffold(
         backgroundColor: Colors.black87,
         appBar: CommonWidgets.appBar(
-            title: StringConstants.wardrobe, wantBackButton: false),
+            title: StringConstants.wardrobe, wantBackButton: true),
         body: Obx(() {
           controller.count.value;
           return Padding(

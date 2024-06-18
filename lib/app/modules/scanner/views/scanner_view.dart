@@ -19,7 +19,7 @@ class ScannerView extends GetView<ScannerController> {
       return Scaffold(
         backgroundColor: Colors.black87,
         appBar: CommonWidgets.appBar(
-            title: StringConstants.scanQrCode, wantBackButton: false),
+            title: StringConstants.scanQrCode, wantBackButton: true),
         bottomNavigationBar: Padding(
             padding: EdgeInsets.only(bottom: 10.px),
             child: Obx(() => controller.isLoading.value

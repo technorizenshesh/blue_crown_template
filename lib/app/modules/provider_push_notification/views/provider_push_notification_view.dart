@@ -6,6 +6,7 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import '../../../../common/colors.dart';
 import '../../../../common/common_widgets.dart';
 import '../../../../common/text_styles.dart';
+import '../../../data/apis/api_models/get_all_user_model.dart';
 import '../../../data/constants/string_constants.dart';
 import '../controllers/provider_push_notification_controller.dart';
 
@@ -107,41 +108,72 @@ class ProviderPushNotificationView
 
   /// Show Registered User List ...
   Widget showRegisteredUserList() {
-    return ListView.builder(
-      physics: const NeverScrollableScrollPhysics(),
-      shrinkWrap: true,
-      padding: EdgeInsets.symmetric(horizontal: 5.px, vertical: 0.px),
-      scrollDirection: Axis.vertical,
-      itemCount: controller.usersList.length,
-      itemBuilder: (context, int index) {
-        return Container(
-          height: 60.px,
-          padding: EdgeInsets.all(5.px),
-          margin: EdgeInsets.all(5.px),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                controller.usersList[index],
-                style: MyTextStyle.titleStyle14w,
+    return controller.inAsyncCall.value
+        ? CommonWidgets.commonShimmer(
+            itemCount: 5,
+            shimmerWidget: Container(
+              height: 60.px,
+              padding: EdgeInsets.all(5.px),
+              margin: EdgeInsets.all(5.px),
+              decoration: BoxDecoration(
+                  border: Border.all(color: Colors.black87, width: 1.px),
+                  borderRadius: BorderRadius.circular(10.px)),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    height: 15.px,
+                    width: 150.px,
+                    decoration: BoxDecoration(
+                        color: Colors.black87,
+                        borderRadius: BorderRadius.circular(2.px)),
+                  ),
+                  Container(
+                    height: 25.px,
+                    width: 50.px,
+                    decoration: BoxDecoration(
+                        color: Colors.black87,
+                        borderRadius: BorderRadius.circular(12.px)),
+                  )
+                ],
               ),
-              FlutterSwitch(
-                height: 25.px,
-                width: 50.px,
-                padding: 4.0.px,
-                toggleSize: 20.0.px,
-                borderRadius: 13.0.px,
-                activeColor: primaryColor,
-                activeToggleColor: primary3Color,
-                value: controller.selectedUsersStatus[index],
-                onToggle: (value) {
-                  controller.changeNotificationStatus(index, value);
-                },
-              ),
-            ],
-          ),
-        );
-      },
-    );
+            ))
+        : ListView.builder(
+            physics: const NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            padding: EdgeInsets.symmetric(horizontal: 5.px, vertical: 0.px),
+            scrollDirection: Axis.vertical,
+            itemCount: controller.userList.length,
+            itemBuilder: (context, int index) {
+              AllUsersResult user = controller.userList[index];
+              return Container(
+                height: 60.px,
+                padding: EdgeInsets.all(5.px),
+                margin: EdgeInsets.all(5.px),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      user.fullName ?? '',
+                      style: MyTextStyle.titleStyle14w,
+                    ),
+                    FlutterSwitch(
+                      height: 25.px,
+                      width: 50.px,
+                      padding: 4.0.px,
+                      toggleSize: 20.0.px,
+                      borderRadius: 13.0.px,
+                      activeColor: primaryColor,
+                      activeToggleColor: primary3Color,
+                      value: user.selected,
+                      onToggle: (value) {
+                        controller.changeNotificationStatus(index, value);
+                      },
+                    ),
+                  ],
+                ),
+              );
+            },
+          );
   }
 }

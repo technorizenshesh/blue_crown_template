@@ -77,9 +77,13 @@ class ProviderAddListController extends GetxController {
   }
 
   clickOnPlusIcon() {
-    personCount.value = ++personCount.value;
-    increment();
-    print("personCount:...${personCount.value}");
+    if (personCount.value < 15) {
+      personCount.value = ++personCount.value;
+      increment();
+      print("personCount:...${personCount.value}");
+    } else {
+      CommonWidgets.showMyToastMessage('You can not add more than 15 peoples.');
+    }
   }
 
   clickOnMinusIcon() {

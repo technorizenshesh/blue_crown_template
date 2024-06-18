@@ -74,7 +74,7 @@ class ProviderEventDetailController extends GetxController {
           bodyParams: bodyParamsForStatusChange);
       if (getEventsModel!.status != "0" ?? false) {
         print("Successfully update  event  status ...");
-        CommonWidgets.showMyToastMessage(getEventsModel.message!);
+        CommonWidgets.showMyToastMessage('Successfully update event status.');
         Get.back(result: true);
       } else {
         print("update  event  status Failed....");

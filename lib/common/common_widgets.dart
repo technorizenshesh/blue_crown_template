@@ -191,7 +191,7 @@ class CommonWidgets {
 
   static Widget dataNotFound() {
     return Center(
-      child: Image.asset(ImageConstants.imageBlack),
+      child: Image.asset(ImageConstants.imageDataNotFound),
     );
   }
 

@@ -38,7 +38,9 @@ class SplashView extends GetView<SplashController> {
             child: Padding(
           padding: const EdgeInsets.all(3.0),
           child: CommonWidgets.appIcons(
-              assetName: IconConstants.icLogo, width: 230.px, height: 120.px),
+              assetName: IconConstants.icLogoRitz,
+              width: 230.px,
+              height: 200.px),
         ));
       }),
     );

@@ -17,6 +17,7 @@ import '../../../data/apis/api_constants/api_key_constants.dart';
 import '../../../data/apis/api_methods/api_methods.dart';
 import '../../../data/apis/api_models/get_login_model.dart';
 import '../../../data/constants/string_constants.dart';
+import '../../../routes/app_pages.dart';
 
 class MyProfileController extends GetxController {
   late SharedPreferences sharedPreferences;
@@ -91,11 +92,12 @@ class MyProfileController extends GetxController {
     increment();
   }
 
-  clickOnLoginButton() {
-    Get.back();
+  clickOnChangeButton() {
+    Map<String, String> data = {
+      ApiKeyConstants.userId: userData.result!.id ?? ''
+    };
+    Get.toNamed(Routes.CHANGE_PASSWORD, parameters: data);
   }
-
-  clickOnSignUpButton() {}
 
   clickOnDate() async {
     final DateTime? picked = await PickDate.pickDateView(color: primaryColor);

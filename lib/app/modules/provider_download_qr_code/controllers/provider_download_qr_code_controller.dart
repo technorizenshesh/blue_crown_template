@@ -3,12 +3,16 @@ import 'dart:io';
 import 'dart:ui' as ui;
 
 import 'package:blue_crown_template/app/data/constants/icons_constant.dart';
+import 'package:blue_crown_template/app/data/constants/string_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:intl/intl.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:screenshot/screenshot.dart';
+
+import '../../../../common/common_widgets.dart';
+import '../../../data/apis/api_constants/api_key_constants.dart';
 
 class ProviderDownloadQrCodeController extends GetxController {
   late FutureBuilder<ui.Image> qrFutureBuilde;
@@ -38,7 +42,7 @@ class ProviderDownloadQrCodeController extends GetxController {
     screenshotController
         .capture(delay: const Duration(milliseconds: 10))
         .then((capturedImage) async {
-      showCapturedWidget(Get.context!, capturedImage!);
+      downloadQrCode(Get.context!, capturedImage!);
     }).catchError((onError) {
       print("Catch Error:-" + onError);
     });
@@ -57,19 +61,38 @@ class ProviderDownloadQrCodeController extends GetxController {
     String formattedDate =
         DateFormat('yyyy-MM-dd_HH:mm:ss').format(DateTime.now());
     String fileName = 'qr_code_$formattedDate.png';
-    //File('my_image.jpg').writeAsBytes(capturedImage);
-    /*  print("File Name:-$fileName");
+    print("File Name:-$fileName");
     final result = await ImageGallerySaver.saveImage(
         Uint8List.fromList(capturedImage),
         name: fileName,
-        quality: 100);*/
-    var directory = await getExternalStorageDirectory();
-    String filePath = '${directory!.path}/$formattedDate.png';
-    File file = File(filePath);
-    await file.writeAsBytes(capturedImage);
-
-    print('Image saved to $filePath');
+        quality: 100);
     isLoading.value = false;
-    //print("Result:-" + result.toString());
+    print("Result:-" + result.toString());
+  }
+
+  void downloadQrCode(BuildContext context, Uint8List capturedImage) async {
+    Directory? downloadsDirectory = Directory('/storage/emulated/0/Download');
+    if (downloadsDirectory != null) {
+      String shortFileName = '';
+      if (parameters[ApiKeyConstants.type] == StringConstants.hanger) {
+        shortFileName =
+            'BlueCrown_Hanger_QrCode_${parameters[ApiKeyConstants.qrCode]}';
+      } else {
+        shortFileName =
+            'BlueCrown_Event_QrCode_${parameters[ApiKeyConstants.qrCode]}';
+      }
+      String filePath = "${downloadsDirectory.path}/$shortFileName.jpg";
+
+      File(filePath)
+        ..createSync(recursive: true)
+        ..writeAsBytesSync(capturedImage);
+
+      print("QrCode saved at: $filePath");
+      CommonWidgets.showMyToastMessage('QrCode saved at: $filePath');
+    } else {
+      print("Failed to get downloads directory");
+      CommonWidgets.showMyToastMessage('Failed to get downloads directory');
+    }
+    isLoading.value = false;
   }
 }

@@ -9,7 +9,7 @@ void main() {
   CommonMethods.unFocsKeyBoard();
   runApp(
     GetMaterialApp(
-      title: "Blue Crown",
+      title: "Ritz Nightclub",
       initialRoute: AppPages.INITIAL,
       getPages: AppPages.routes,
       debugShowCheckedModeBanner: false,

@@ -1,5 +1,6 @@
 class IconConstants {
   static const String icLogo = 'assets/icons/ic_logo.png';
+  static const String icLogoRitz = 'assets/icons/ic_logo_ritz.jpeg';
   static const String icBack = 'assets/icons/ic_back.png';
   static const String icGoogle = 'assets/icons/ic_google.png';
   static const String icEmail = 'assets/icons/ic_email.png';

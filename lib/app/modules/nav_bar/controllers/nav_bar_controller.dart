@@ -1,26 +1,25 @@
 import 'dart:convert';
 
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../../common/common_widgets.dart';
+import '../../../data/apis/api_constants/api_key_constants.dart';
+import '../../../data/apis/api_methods/api_methods.dart';
+import '../../../data/apis/api_models/get_event_model.dart';
 import '../../../data/apis/api_models/get_login_model.dart';
 import '../../../data/constants/string_constants.dart';
-import '../../home/views/home_view.dart';
-import '../../scanner/views/scanner_view.dart';
-import '../../wardrobe/views/wardrobe_view.dart';
+import '../../../routes/app_pages.dart';
 
 class NavBarController extends GetxController {
   final count = 0.obs;
   final tabIndex = 1.obs;
   late SharedPreferences sharedPreferences;
   late LogInModel userData;
+  final showEventsProgressBar = true.obs;
+  Map<String, dynamic> queryParamsForGetEvent = {};
+  List<GetEventsResult> eventList = [];
   final isLoading = true.obs;
-  List<Widget> pages = [
-    const WardrobeView(),
-    const HomeView(),
-    const ScannerView()
-  ];
   @override
   void onInit() {
     super.onInit();
@@ -40,8 +39,20 @@ class NavBarController extends GetxController {
   void increment() => count.value++;
 
   changeIndex(int index) {
-    tabIndex.value = index;
-    increment();
+    switch (index) {
+      case 0:
+        Get.toNamed(Routes.WARDROBE);
+        break;
+      case 1:
+        Get.toNamed(Routes.HOME);
+        break;
+      case 2:
+        Get.toNamed(Routes.SCANNER_SECOND);
+        break;
+      default:
+        Get.toNamed(Routes.HOME);
+        break;
+    }
   }
 
   getLocalData() async {
@@ -50,8 +61,42 @@ class NavBarController extends GetxController {
         jsonDecode(sharedPreferences.getString(StringConstants.userData)!);
     if (jsonData != null) {
       userData = LogInModel.fromJson(jsonData);
+      getEventsList(userData.result!.id!);
       isLoading.value = false;
-      increment();
+    }
+  }
+
+  openEventDetail(int index) {
+    Get.toNamed(Routes.EVENT_DETAIL, arguments: eventList[index]);
+  }
+
+  clickOnCrownIcon() {
+    Get.toNamed(Routes.BLUECROWN_POINT);
+  }
+
+  changeProgressbarStatus(bool value) {
+    showEventsProgressBar.value = value;
+  }
+
+  Future<void> getEventsList(String userId) async {
+    try {
+      queryParamsForGetEvent = {
+        ApiKeyConstants.userId: userId,
+        ApiKeyConstants.status: 'Active'
+      };
+      GetEventsModel? model =
+          await ApiMethods.getEventApi(queryParameters: queryParamsForGetEvent);
+      if (model!.status != "0" ?? false) {
+        eventList = model.result!;
+        print("Get My published events Successfully complete...");
+      } else {
+        print("Get My published events Failed....");
+        CommonWidgets.showMyToastMessage(model.message!);
+      }
+      changeProgressbarStatus(false);
+    } catch (e) {
+      print('Error:-${e.toString()}');
+      changeProgressbarStatus(false);
     }
   }
 }

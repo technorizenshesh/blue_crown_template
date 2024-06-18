@@ -1,4 +1,5 @@
 import 'package:blue_crown_template/app/data/apis/api_constants/api_key_constants.dart';
+import 'package:blue_crown_template/app/data/constants/string_constants.dart';
 import 'package:blue_crown_template/app/routes/app_pages.dart';
 import 'package:blue_crown_template/common/common_widgets.dart';
 import 'package:get/get.dart';
@@ -44,7 +45,8 @@ class ProviderWardrobeController extends GetxController {
 
   clickOnDownload(int index) {
     Map<String, String> data = {
-      ApiKeyConstants.qrCode: wardrobeList[index].qrcode ?? ''
+      ApiKeyConstants.qrCode: wardrobeList[index].qrcode ?? '',
+      ApiKeyConstants.type: StringConstants.hanger
     };
     Get.toNamed(Routes.PROVIDER_DOWNLOAD_QR_CODE, parameters: data);
   }

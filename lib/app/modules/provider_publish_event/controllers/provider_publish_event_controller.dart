@@ -158,12 +158,7 @@ class ProviderPublishEventController extends GetxController {
                 calendarType: CalendarDatePicker2Type.range,
               ),
               value: datesList,
-              onValueChanged: (dates) => {
-                if (dates.length > 1)
-                  {changeDateList(dates)}
-                else
-                  {CommonWidgets.showMyToastMessage("enter minimum 2 days.")}
-              },
+              onValueChanged: (dates) => {changeDateList(dates)},
             )),
         alignment: Alignment.center,
         actions: <Widget>[
@@ -340,8 +335,6 @@ class ProviderPublishEventController extends GetxController {
   Future<void> callingCreateEventsForm() async {
     if (eventNameController.text.isNotEmpty &&
         descriptionController.text.isNotEmpty &&
-        dateController.text.isNotEmpty &&
-        timeController.text.isNotEmpty &&
         image.value != null) {
       try {
         imageMap = {
@@ -377,10 +370,12 @@ class ProviderPublishEventController extends GetxController {
       } catch (e) {
         isLoading.value = false;
         print('Error :-${e.toString()}');
-        CommonWidgets.showMyToastMessage(e.toString());
+        CommonWidgets.showMyToastMessage(
+            'Event name,description and image are required..');
       }
     } else {
-      CommonWidgets.showMyToastMessage('Please enter all fields...');
+      CommonWidgets.showMyToastMessage(
+          'Please enter at least event name,image and description...');
     }
     isLoading.value = false;
   }

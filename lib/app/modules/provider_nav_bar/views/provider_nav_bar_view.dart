@@ -16,8 +16,8 @@ class ProviderNavBarView extends GetView<ProviderNavBarController> {
   const ProviderNavBarView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    controller.count.value;
     return Obx(() {
+      controller.count.value;
       return Scaffold(
         backgroundColor: backgroundColor,
         endDrawer: controller.isLoading.value
@@ -25,16 +25,19 @@ class ProviderNavBarView extends GetView<ProviderNavBarController> {
             : CustomProviderDrawer.drawer(controller.userData),
         floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
         floatingActionButton: Builder(builder: (context) {
-          return GestureDetector(
-            onTap: () {
-              print("hiii....");
-              Scaffold.of(context).openEndDrawer();
-            },
-            child: CommonWidgets.appIcons(
-              assetName: IconConstants.icMenu,
-              height: 25.px,
-              width: 25.px,
-              fit: BoxFit.fill,
+          return Padding(
+            padding: EdgeInsets.only(top: 5.px),
+            child: GestureDetector(
+              onTap: () {
+                print("hiii....");
+                Scaffold.of(context).openEndDrawer();
+              },
+              child: CommonWidgets.appIcons(
+                assetName: IconConstants.icMenu,
+                height: 30.px,
+                width: 30.px,
+                fit: BoxFit.fill,
+              ),
             ),
           );
         }),
@@ -144,7 +147,7 @@ class ProviderNavBarView extends GetView<ProviderNavBarController> {
               alignment: Alignment.center,
               children: [
                 CommonWidgets.appIcons(
-                  assetName: 'assets/un_used_images/image1.png',
+                  assetName: ImageConstants.imageClubHome,
                   height: 300.px,
                   width: double.infinity,
                   fit: BoxFit.fill,

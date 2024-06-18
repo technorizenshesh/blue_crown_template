@@ -26,12 +26,13 @@ class ProviderAddListView extends GetView<ProviderAddListController> {
             children: [
               CommonWidgets.commonElevatedButton(
                   onPressed: () {
-                    //controller.openNewPage(1);
+                    controller.clickOnSendRequestButton();
                   },
                   child: Text(
                     StringConstants.submit,
                     style: MyTextStyle.titleStyle16bw,
                   ),
+                  isLoading: controller.isLoading.value,
                   borderRadius: 30.px,
                   buttonColor: primaryColor,
                   buttonMargin: EdgeInsets.only(
@@ -109,6 +110,25 @@ class ProviderAddListView extends GetView<ProviderAddListController> {
                     children: [
                       GestureDetector(
                         onTap: () {
+                          controller.clickOnMinusIcon();
+                        },
+                        child: CommonWidgets.appIcons(
+                            assetName: IconConstants.icMinus,
+                            width: 25.px,
+                            height: 25.px,
+                            fit: BoxFit.fill),
+                      ),
+                      Container(
+                        constraints:
+                            BoxConstraints(minWidth: 20.px, maxWidth: 50.px),
+                        padding: EdgeInsets.only(left: 5.px, right: 5.px),
+                        child: Text(
+                          controller.personCount.value.toString(),
+                          style: MyTextStyle.titleStyle14bw,
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () {
                           controller.clickOnPlusIcon();
                         },
                         child: CommonWidgets.appIcons(
@@ -117,25 +137,6 @@ class ProviderAddListView extends GetView<ProviderAddListController> {
                             height: 25.px,
                             fit: BoxFit.fill),
                       ),
-                      Container(
-                        constraints:
-                            BoxConstraints(minWidth: 20.px, maxWidth: 50.px),
-                        padding: EdgeInsets.only(left: 5.px),
-                        child: Text(
-                          controller.personCount.value.toString(),
-                          style: MyTextStyle.titleStyle14bw,
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          controller.clickOnMinusIcon();
-                        },
-                        child: CommonWidgets.appIcons(
-                            assetName: IconConstants.icMinus,
-                            width: 25.px,
-                            height: 25.px,
-                            fit: BoxFit.fill),
-                      )
                     ],
                   )),
               SizedBox(

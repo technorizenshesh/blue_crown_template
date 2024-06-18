@@ -92,7 +92,6 @@ class LoginController extends GetxController {
             await ApiMethods.logInApi(bodyParams: bodyParamsForSubmitLoginForm);
         if (logInModel!.status != "0" ?? false) {
           print("LOGIN Type:- ${logInModel!.result!.type}");
-          CommonWidgets.showMyToastMessage(logInModel!.message!);
           saveDataSharedPreference(logInModel);
         } else {
           print("LogIn Failed....");

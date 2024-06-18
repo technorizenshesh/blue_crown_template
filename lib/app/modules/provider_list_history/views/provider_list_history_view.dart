@@ -225,7 +225,7 @@ class ProviderListHistoryView extends GetView<ProviderListHistoryController> {
                 ],
               ),
             ))
-        : controller.tableRequestResult != null
+        : controller.tableRequestResult!.eventReqData!.isNotEmpty
             ? ListView.builder(
                 physics: const BouncingScrollPhysics(),
                 shrinkWrap: true,
@@ -295,7 +295,7 @@ class ProviderListHistoryView extends GetView<ProviderListHistoryController> {
                                         ),
                                         Text(
                                           '${controller.tableRequestResult!.fromDate} to ${controller.tableRequestResult!.toDate}',
-                                          style: MyTextStyle.titleStyle14w,
+                                          style: MyTextStyle.titleStyle12w,
                                           maxLines: 1,
                                         ),
                                       ],
@@ -343,7 +343,10 @@ class ProviderListHistoryView extends GetView<ProviderListHistoryController> {
                   );
                 },
               )
-            : CommonWidgets.dataNotFound());
+            : Padding(
+                padding: EdgeInsets.all(20.px),
+                child: CommonWidgets.dataNotFound(),
+              ));
   }
 
   /// Show Request List  ...
@@ -435,7 +438,7 @@ class ProviderListHistoryView extends GetView<ProviderListHistoryController> {
                 ],
               ),
             ))
-        : controller.listRequestResult != null
+        : controller.listRequestResult!.eventReqData!.isNotEmpty
             ? ListView.builder(
                 physics: const BouncingScrollPhysics(),
                 shrinkWrap: true,
@@ -506,7 +509,7 @@ class ProviderListHistoryView extends GetView<ProviderListHistoryController> {
                                         ),
                                         Text(
                                           '${controller.listRequestResult!.fromDate} to ${controller.listRequestResult!.toDate}',
-                                          style: MyTextStyle.titleStyle14w,
+                                          style: MyTextStyle.titleStyle12w,
                                           maxLines: 1,
                                         ),
                                       ],
@@ -554,7 +557,10 @@ class ProviderListHistoryView extends GetView<ProviderListHistoryController> {
                   );
                 },
               )
-            : CommonWidgets.dataNotFound());
+            : Padding(
+                padding: EdgeInsets.all(20.px),
+                child: CommonWidgets.dataNotFound(),
+              ));
   }
 
   /// Show Alert Box...

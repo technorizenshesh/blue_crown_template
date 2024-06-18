@@ -182,51 +182,62 @@ class LoginView extends GetView<LoginController> {
             ), //this right here
             content: SizedBox(
               height: 500,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    '1 Transparency and Consent:',
-                    style: MyTextStyle.titleStyle13bw,
-                  ),
-                  Text(
-                    StringConstants.terms1,
-                    style: MyTextStyle.titleStyle12w,
-                  ),
-                  Text(
-                    '2 Lawful Basis and Purpose:',
-                    style: MyTextStyle.titleStyle13bw,
-                  ),
-                  Text(
-                    StringConstants.terms2,
-                    style: MyTextStyle.titleStyle12w,
-                  ),
-                  Text(
-                    '3 Security and Retention:',
-                    style: MyTextStyle.titleStyle13bw,
-                  ),
-                  Text(
-                    StringConstants.terms3,
-                    style: MyTextStyle.titleStyle12w,
-                  ),
-                  Text(
-                    '4 User Rights and Privacy by Design:',
-                    style: MyTextStyle.titleStyle13bw,
-                  ),
-                  Text(
-                    StringConstants.terms4,
-                    style: MyTextStyle.titleStyle12w,
-                  ),
-                  Text(
-                    '5 Data Processing Agreements and International Transfers:',
-                    style: MyTextStyle.titleStyle13bw,
-                  ),
-                  Text(
-                    StringConstants.terms5,
-                    style: MyTextStyle.titleStyle12w,
-                  ),
-                ],
+              child: SingleChildScrollView(
+                scrollDirection: Axis.vertical,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      '1 Transparency and Consent:',
+                      style: MyTextStyle.titleStyle13bw,
+                    ),
+                    Text(
+                      StringConstants.terms1,
+                      style: MyTextStyle.titleStyle12w,
+                    ),
+                    Text(
+                      '2 Lawful Basis and Purpose:',
+                      style: MyTextStyle.titleStyle13bw,
+                    ),
+                    Text(
+                      StringConstants.terms2,
+                      style: MyTextStyle.titleStyle12w,
+                    ),
+                    Text(
+                      '3 Security and Retention:',
+                      style: MyTextStyle.titleStyle13bw,
+                    ),
+                    Text(
+                      StringConstants.terms3,
+                      style: MyTextStyle.titleStyle12w,
+                    ),
+                    Text(
+                      '4 User Rights and Privacy by Design:',
+                      style: MyTextStyle.titleStyle13bw,
+                    ),
+                    Text(
+                      StringConstants.terms4,
+                      style: MyTextStyle.titleStyle12w,
+                    ),
+                    Text(
+                      '5 Data Processing Agreements and International Transfers:',
+                      style: MyTextStyle.titleStyle13bw,
+                    ),
+                    Text(
+                      StringConstants.terms5,
+                      style: MyTextStyle.titleStyle12w,
+                    ),
+                    Text(
+                      '6 Push Notification:',
+                      style: MyTextStyle.titleStyle13bw,
+                    ),
+                    Text(
+                      StringConstants.terms7,
+                      style: MyTextStyle.titleStyle12w,
+                    ),
+                  ],
+                ),
               ),
             ),
             actions: [

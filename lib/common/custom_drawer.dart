@@ -152,7 +152,7 @@ class CustomDrawer {
                       Get.toNamed(Routes.BLUECROWN_POINT, parameters: data);
                     },
                   ),
-                  ListTile(
+                  /*  ListTile(
                     leading: CommonWidgets.appIcons(
                         assetName: IconConstants.icChangePassword,
                         height: 40.px,
@@ -171,7 +171,7 @@ class CustomDrawer {
                       Get.back();
                       Get.toNamed(Routes.CHANGE_PASSWORD, parameters: data);
                     },
-                  ),
+                  ),  */
                   ListTile(
                     leading: CommonWidgets.appIcons(
                         assetName: IconConstants.icNotification,

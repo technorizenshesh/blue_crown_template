@@ -52,6 +52,7 @@ class AllUsersResult {
   String? otp;
   String? request;
   String? hostMember;
+  bool selected = false;
 
   AllUsersResult(
       {this.id,
