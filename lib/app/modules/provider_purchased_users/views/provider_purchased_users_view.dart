@@ -245,7 +245,11 @@ class ProviderPurchasedUsersView
                   );
                 },
               ),
-              if (controller.userList.isEmpty) CommonWidgets.dataNotFound()
+              if (controller.userList.isEmpty)
+                Padding(
+                  padding: EdgeInsets.all(15.px),
+                  child: CommonWidgets.dataNotFound(),
+                )
             ],
           ));
   }

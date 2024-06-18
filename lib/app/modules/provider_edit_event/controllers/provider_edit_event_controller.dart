@@ -159,12 +159,7 @@ class ProviderEditEventController extends GetxController {
                 calendarType: CalendarDatePicker2Type.range,
               ),
               value: datesList,
-              onValueChanged: (dates) => {
-                if (dates.length > 1)
-                  {changeDateList(dates)}
-                else
-                  {CommonWidgets.showMyToastMessage("enter minimum 2 days.")}
-              },
+              onValueChanged: (dates) => {changeDateList(dates)},
             )),
         alignment: Alignment.center,
         actions: <Widget>[
@@ -287,15 +282,14 @@ class ProviderEditEventController extends GetxController {
           print("Edit events Successfully complete...");
           Get.back();
           Get.back(result: true);
-          CommonWidgets.showMyToastMessage(addEventModel!.message!);
         } else {
           print("Edit events Failed....");
-          CommonWidgets.showMyToastMessage(addEventModel!.message!);
         }
       } catch (e) {
         isLoading.value = false;
         print('Error :-${e.toString()}');
-        CommonWidgets.showMyToastMessage(e.toString());
+        CommonWidgets.showMyToastMessage(
+            'Event name,description and image are required..');
       }
     } else {
       CommonWidgets.showMyToastMessage('Please enter all fields...');

@@ -247,6 +247,7 @@ class ApiMethods {
     AddRequestModel? addRequestModel;
     http.Response? response = await MyHttp.postMethod(
       bodyParams: bodyParams,
+      wantSnackBar: false,
       url: ApiUrlConstants.endPointOfAddListRequest,
       checkResponse: checkResponse,
     );
@@ -284,6 +285,7 @@ class ApiMethods {
     ClubRequestModel? clubRequestModel;
     http.Response? response = await MyHttp.postMethod(
       bodyParams: bodyParams,
+      wantSnackBar: false,
       url: ApiUrlConstants.endPointOfClubRequestList,
       checkResponse: checkResponse,
     );

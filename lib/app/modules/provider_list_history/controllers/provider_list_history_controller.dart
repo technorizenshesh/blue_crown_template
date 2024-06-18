@@ -6,6 +6,7 @@ import '../../../../common/common_widgets.dart';
 import '../../../data/apis/api_constants/api_key_constants.dart';
 import '../../../data/apis/api_methods/api_methods.dart';
 import '../../../data/apis/api_models/add_request_model.dart';
+import '../../../data/constants/string_constants.dart';
 
 class ProviderListHistoryController extends GetxController {
   final showListProgressBar = true.obs;
@@ -50,7 +51,11 @@ class ProviderListHistoryController extends GetxController {
   }
 
   clickOnAddToListButton() {
-    Get.toNamed(Routes.PROVIDER_ADD_LIST);
+    Map<String, String> data = {
+      ApiKeyConstants.clubId: parameters[ApiKeyConstants.clubId] ?? '',
+      ApiKeyConstants.eventId: parameters[ApiKeyConstants.eventId] ?? '',
+    };
+    Get.toNamed(Routes.PROVIDER_ADD_LIST, parameters: data);
   }
 
   Future<void> getTableRequestList() async {
@@ -70,6 +75,7 @@ class ProviderListHistoryController extends GetxController {
       if (clubRequestModel!.status != "0" ?? false) {
         tableRequestResult = clubRequestModel.result!;
         print("Successfully get  request  list ...");
+        CommonWidgets.showMyToastMessage(StringConstants.thankYouForRequest);
       } else {
         print("Add request Failed....");
         CommonWidgets.showMyToastMessage(clubRequestModel.message!);
@@ -100,6 +106,7 @@ class ProviderListHistoryController extends GetxController {
       if (clubRequestModel!.status != "0" ?? false) {
         print("Successfully get  request  list ...");
         listRequestResult = clubRequestModel.result!;
+        CommonWidgets.showMyToastMessage(StringConstants.thankYouForRequest);
       } else {
         print("Add request Failed....");
         CommonWidgets.showMyToastMessage(clubRequestModel.message!);

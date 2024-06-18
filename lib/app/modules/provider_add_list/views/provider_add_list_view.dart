@@ -26,12 +26,13 @@ class ProviderAddListView extends GetView<ProviderAddListController> {
             children: [
               CommonWidgets.commonElevatedButton(
                   onPressed: () {
-                    //controller.openNewPage(1);
+                    controller.clickOnSendRequestButton();
                   },
                   child: Text(
                     StringConstants.submit,
                     style: MyTextStyle.titleStyle16bw,
                   ),
+                  isLoading: controller.isLoading.value,
                   borderRadius: 30.px,
                   buttonColor: primaryColor,
                   buttonMargin: EdgeInsets.only(

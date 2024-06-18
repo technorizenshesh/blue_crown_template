@@ -40,6 +40,13 @@ class ProviderPublishEventView extends GetView<ProviderPublishEventController> {
             padding: EdgeInsets.all(10.px),
             child: Column(
               children: [
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    StringConstants.selectEventImage,
+                    style: MyTextStyle.titleStyle16w,
+                  ),
+                ),
                 Container(
                   height: 150.px,
                   width: double.infinity,

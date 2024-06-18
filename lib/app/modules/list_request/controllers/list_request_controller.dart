@@ -51,8 +51,8 @@ class ListRequestController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    startListener();
     getLocalData();
+    startListener();
   }
 
   @override
@@ -72,6 +72,9 @@ class ListRequestController extends GetxController {
         jsonDecode(sharedPreferences.getString(StringConstants.userData)!);
     if (jsonData != null) {
       userData = LogInModel.fromJson(jsonData);
+      emailController.text = userData.result!.email ?? '';
+      phoneController.text = userData.result!.mobile ?? '';
+      nameController.text = userData.result!.fullName ?? '';
     }
   }
 
@@ -112,7 +115,7 @@ class ListRequestController extends GetxController {
             bodyParams: bodyParamsForRequestListForm);
         if (addRequestModel!.status != "0" ?? false) {
           print("Successfully added request ...");
-          CommonWidgets.showMyToastMessage(addRequestModel.message!);
+          CommonWidgets.showMyToastMessage(StringConstants.thankYouForRequest);
         } else {
           print("Add request Failed....");
           CommonWidgets.showMyToastMessage(addRequestModel.message!);

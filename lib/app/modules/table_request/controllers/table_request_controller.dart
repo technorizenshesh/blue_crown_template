@@ -71,6 +71,9 @@ class TableRequestController extends GetxController {
         jsonDecode(sharedPreferences.getString(StringConstants.userData)!);
     if (jsonData != null) {
       userData = LogInModel.fromJson(jsonData);
+      emailController.text = userData.result!.email ?? '';
+      phoneController.text = userData.result!.mobile ?? '';
+      nameController.text = userData.result!.fullName ?? '';
     }
   }
 
@@ -111,7 +114,7 @@ class TableRequestController extends GetxController {
             bodyParams: bodyParamsForTableRequestForm);
         if (addRequestModel!.status != "0" ?? false) {
           print("Successfully added request ...");
-          CommonWidgets.showMyToastMessage(addRequestModel.message!);
+          CommonWidgets.showMyToastMessage(StringConstants.thankYouForRequest);
         } else {
           print("Add request Failed....");
           CommonWidgets.showMyToastMessage(addRequestModel.message!);

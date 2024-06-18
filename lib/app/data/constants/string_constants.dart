@@ -60,6 +60,7 @@ class StringConstants {
   static const String eventWalletHistory = 'Event & Wallet History';
   static const String clubEvents = 'Club Events';
   static const String contact = 'Contact';
+  static const String contactToSupport = 'Contact To Support';
   static const String termsAndCondition = 'Terms and Condition';
   static const String handInJacket = 'hand in jacket';
   static const String currentJacket = 'current jacket';
@@ -146,7 +147,9 @@ class StringConstants {
   static const String camera = 'Camera';
   static const String gallery = 'Gallery';
   static const String selectImage = 'Select Image';
+  static const String selectEventImage = 'Select Event Image';
   static const String purchasedUser = 'Purchased User';
+  static const String thankYouForRequest = ' Thank you for the request';
   static const String chooseImageFromTheOptionsBelow =
       'Choose Image From The Options Below';
 

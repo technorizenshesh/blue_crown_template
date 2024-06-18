@@ -67,6 +67,25 @@ class ListRequestView extends GetView<ListRequestController> {
                       children: [
                         GestureDetector(
                           onTap: () {
+                            controller.clickOnMinusIcon();
+                          },
+                          child: CommonWidgets.appIcons(
+                              assetName: IconConstants.icMinus,
+                              width: 25.px,
+                              height: 25.px,
+                              fit: BoxFit.fill),
+                        ),
+                        Container(
+                          constraints:
+                              BoxConstraints(minWidth: 20.px, maxWidth: 50.px),
+                          padding: EdgeInsets.only(left: 5.px, right: 5.px),
+                          child: Text(
+                            controller.personCount.value.toString(),
+                            style: MyTextStyle.titleStyle14bw,
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () {
                             controller.clickOnPlusIcon();
                           },
                           child: CommonWidgets.appIcons(
@@ -75,25 +94,6 @@ class ListRequestView extends GetView<ListRequestController> {
                               height: 25.px,
                               fit: BoxFit.fill),
                         ),
-                        Container(
-                          constraints:
-                              BoxConstraints(minWidth: 20.px, maxWidth: 50.px),
-                          padding: EdgeInsets.only(left: 5.px),
-                          child: Text(
-                            controller.personCount.value.toString(),
-                            style: MyTextStyle.titleStyle14bw,
-                          ),
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            controller.clickOnMinusIcon();
-                          },
-                          child: CommonWidgets.appIcons(
-                              assetName: IconConstants.icMinus,
-                              width: 25.px,
-                              height: 25.px,
-                              fit: BoxFit.fill),
-                        )
                       ],
                     )),
                 SizedBox(
@@ -104,6 +104,7 @@ class ListRequestView extends GetView<ListRequestController> {
                   controller: controller.emailController,
                   isCard: controller.isEmail.value,
                   hintText: StringConstants.email,
+                  readOnly: true,
                   hintStyle: MyTextStyle.titleStyle14w,
                   style: MyTextStyle.titleStyle14w,
                 ),
@@ -116,6 +117,7 @@ class ListRequestView extends GetView<ListRequestController> {
                   isCard: controller.isPhone.value,
                   hintText: StringConstants.phoneNumber,
                   keyboardType: TextInputType.number,
+                  readOnly: true,
                   hintStyle: MyTextStyle.titleStyle14w,
                   style: MyTextStyle.titleStyle14w,
                 ),

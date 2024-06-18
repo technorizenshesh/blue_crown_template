@@ -52,6 +52,7 @@ abstract class Routes {
   static const HOW_GET_POINT = _Paths.HOW_GET_POINT;
   static const PROVIDER_CONSUMER_LIST = _Paths.PROVIDER_CONSUMER_LIST;
   static const PROVIDER_PURCHASED_USERS = _Paths.PROVIDER_PURCHASED_USERS;
+  static const SCANNER_SECOND = _Paths.SCANNER_SECOND;
 }
 
 abstract class _Paths {
@@ -105,4 +106,5 @@ abstract class _Paths {
   static const HOW_GET_POINT = '/how-get-point';
   static const PROVIDER_CONSUMER_LIST = '/provider-consumer-list';
   static const PROVIDER_PURCHASED_USERS = '/provider-purchased-users';
+  static const SCANNER_SECOND = '/scanner-second';
 }
