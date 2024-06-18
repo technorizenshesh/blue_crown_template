@@ -87,9 +87,7 @@ class SignupView extends GetView<SignupController> {
                         hintText: StringConstants.mobile,
                         hintStyle: MyTextStyle.titleStyle14w,
                         style: MyTextStyle.titleStyle14w,
-                        keyboardType:defaultTargetPlatform == TargetPlatform.iOS
-                            ? TextInputType.numberWithOptions(decimal: true, signed: true)
-                            : TextInputType.number,
+                        keyboardType: TextInputType.number,
                       ),
                       SizedBox(
                         height: 15.px,
