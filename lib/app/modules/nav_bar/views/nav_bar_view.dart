@@ -454,26 +454,19 @@ class NavBarView extends GetView<NavBarController> {
                           Expanded(
                               flex: 1,
                               child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   CommonWidgets.appIcons(
-                                      assetName: IconConstants.icStar,
+                                      assetName: IconConstants.icCrown,
                                       width: 25.px,
-                                      height: 25.px,
+                                      height: 14.px,
                                       fit: BoxFit.fill),
-                                  Column(
-                                    children: [
-                                      CommonWidgets.appIcons(
-                                          assetName: IconConstants.icCrown,
-                                          width: 25.px,
-                                          height: 14.px,
-                                          fit: BoxFit.fill),
-                                      Text(
-                                        '${item.points} P',
-                                        style: MyTextStyle.titleStyle12bb,
-                                      )
-                                    ],
+                                  SizedBox(
+                                    height: 5.px,
+                                  ),
+                                  Text(
+                                    '${item.points} P',
+                                    style: MyTextStyle.titleStyle12bb,
                                   )
                                 ],
                               ))
