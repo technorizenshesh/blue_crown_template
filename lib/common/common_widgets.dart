@@ -676,7 +676,7 @@ class CommonWidgets {
       width: width ?? double.infinity,
       alignment: Alignment.center,
       decoration: BoxDecoration(
-        color: inAsyncCall ? Colors.grey.withOpacity(0.5) : primary3Color,
+        color: inAsyncCall ? Colors.grey.withOpacity(0.5) : backgroundColor,
       ),
       child: inAsyncCall
           ? Stack(

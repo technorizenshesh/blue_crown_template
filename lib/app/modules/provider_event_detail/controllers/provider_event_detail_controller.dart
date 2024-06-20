@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 
 import '../../../../common/common_widgets.dart';
 import '../../../data/apis/api_methods/api_methods.dart';
+import '../../../data/apis/api_models/get_common_response_model.dart';
 import '../../../data/apis/api_models/get_event_model.dart';
 
 class ProviderEventDetailController extends GetxController {
@@ -87,5 +88,31 @@ class ProviderEventDetailController extends GetxController {
     }
     inAsyncCall.value = false;
     increment();
+  }
+
+  Future<void> eventDelete() async {
+    try {
+      Map<String, String> bodyParamsForDeleteEvent = {
+        ApiKeyConstants.eventId: getEventsResult.id ?? '',
+      };
+      print("bodyParamsForDeleteEvent:::::$bodyParamsForDeleteEvent");
+      inAsyncCall.value = true;
+      CommonResponseModel? commonResponseModel =
+          await ApiMethods.deleteEventApi(
+              queryParameters: bodyParamsForDeleteEvent);
+      if (commonResponseModel!.status != "0" ?? false) {
+        print("Successfully delete event ...");
+        CommonWidgets.showMyToastMessage('Successfully delete event.');
+        Get.back(result: true);
+      } else {
+        print(" Failed delete event....");
+        CommonWidgets.showMyToastMessage(commonResponseModel.message!);
+      }
+    } catch (e) {
+      print('Error:-' + e.toString());
+      CommonWidgets.showMyToastMessage(
+          'Server issue please try again after some time ');
+    }
+    inAsyncCall.value = false;
   }
 }

@@ -47,6 +47,10 @@ class ApiUrlConstants {
       '${baseUrl}scane_event_qrcode';
   static const String endPointOfGetPurchaseEvent =
       '/BlueCrownAccess/webservice/get_purchase_event';
+  static const String endPointOfDeleteEventClubRequest =
+      '/BlueCrownAccess/webservice/delete_event_club_request';
+  static const String endPointOfDeleteEvent =
+      '/BlueCrownAccess/webservice/delete_event';
   static const String endPointOfGetPurchaseEventUser =
       '/BlueCrownAccess/webservice/get_purchase_event_user';
 

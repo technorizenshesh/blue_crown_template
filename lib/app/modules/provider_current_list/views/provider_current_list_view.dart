@@ -35,82 +35,84 @@ class ProviderCurrentListView extends GetView<ProviderCurrentListController> {
         body: Obx(() {
           controller.count.value;
           return Padding(
-            padding: EdgeInsets.all(5.px),
-            child: Column(
-              children: [
-                SizedBox(height: 5.px),
-                Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(
-                          flex: 1,
-                          child: GestureDetector(
-                            onTap: () {
-                              controller.changeTabIndex(0);
-                            },
-                            child: Container(
-                              height: 60.px,
-                              margin: EdgeInsets.all(5.px),
-                              padding: EdgeInsets.all(5.px),
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                  color: controller.tabIndex.value == 0
-                                      ? primaryColor
-                                      : cartColor,
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(30.px)),
-                                  border: Border.all(
+              padding: EdgeInsets.all(5.px),
+              child: CommonWidgets.customProgressBar(
+                inAsyncCall: controller.inAsyncCall.value,
+                child: Column(
+                  children: [
+                    SizedBox(height: 5.px),
+                    Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                              flex: 1,
+                              child: GestureDetector(
+                                onTap: () {
+                                  controller.changeTabIndex(0);
+                                },
+                                child: Container(
+                                  height: 60.px,
+                                  margin: EdgeInsets.all(5.px),
+                                  padding: EdgeInsets.all(5.px),
+                                  alignment: Alignment.center,
+                                  decoration: BoxDecoration(
                                       color: controller.tabIndex.value == 0
                                           ? primaryColor
-                                          : primary3Color,
-                                      width: 1.px)),
-                              child: Text(
-                                StringConstants.listRequests,
-                                style: MyTextStyle.titleStyle16bw,
-                              ),
-                            ),
-                          )),
-                      Expanded(
-                          flex: 1,
-                          child: GestureDetector(
-                            onTap: () {
-                              controller.changeTabIndex(1);
-                            },
-                            child: Container(
-                              height: 60.px,
-                              margin: EdgeInsets.all(5.px),
-                              padding: EdgeInsets.all(5.px),
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                  color: controller.tabIndex.value == 1
-                                      ? primaryColor
-                                      : cartColor,
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(30.px)),
-                                  border: Border.all(
+                                          : cartColor,
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(30.px)),
+                                      border: Border.all(
+                                          color: controller.tabIndex.value == 0
+                                              ? primaryColor
+                                              : primary3Color,
+                                          width: 1.px)),
+                                  child: Text(
+                                    StringConstants.listRequests,
+                                    style: MyTextStyle.titleStyle16bw,
+                                  ),
+                                ),
+                              )),
+                          Expanded(
+                              flex: 1,
+                              child: GestureDetector(
+                                onTap: () {
+                                  controller.changeTabIndex(1);
+                                },
+                                child: Container(
+                                  height: 60.px,
+                                  margin: EdgeInsets.all(5.px),
+                                  padding: EdgeInsets.all(5.px),
+                                  alignment: Alignment.center,
+                                  decoration: BoxDecoration(
                                       color: controller.tabIndex.value == 1
                                           ? primaryColor
-                                          : primary3Color,
-                                      width: 1.px)),
-                              child: Text(
-                                StringConstants.tableRequests,
-                                style: MyTextStyle.titleStyle16bw,
-                              ),
-                            ),
-                          ))
-                    ]),
-                SizedBox(height: 10.px),
-                Expanded(
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.vertical,
-                    child: controller.tabIndex.value == 0
-                        ? requestList()
-                        : tableRequestList(),
-                  ),
-                )
-              ],
-            ),
-          );
+                                          : cartColor,
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(30.px)),
+                                      border: Border.all(
+                                          color: controller.tabIndex.value == 1
+                                              ? primaryColor
+                                              : primary3Color,
+                                          width: 1.px)),
+                                  child: Text(
+                                    StringConstants.tableRequests,
+                                    style: MyTextStyle.titleStyle16bw,
+                                  ),
+                                ),
+                              ))
+                        ]),
+                    SizedBox(height: 10.px),
+                    Expanded(
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.vertical,
+                        child: controller.tabIndex.value == 0
+                            ? requestList()
+                            : tableRequestList(),
+                      ),
+                    )
+                  ],
+                ),
+              ));
         }));
   }
 
@@ -215,7 +217,7 @@ class ProviderCurrentListView extends GetView<ProviderCurrentListController> {
                       controller.listRequestResult!.eventReqData![index];
                   return GestureDetector(
                     onTap: () {
-                      // showAlertBox(context, item);
+                      controller.clickOnList(item.id ?? '', index);
                     },
                     child: Card(
                       shape: RoundedRectangleBorder(
@@ -429,7 +431,7 @@ class ProviderCurrentListView extends GetView<ProviderCurrentListController> {
                       controller.tableRequestResult!.eventReqData![index];
                   return GestureDetector(
                     onTap: () {
-                      // showAlertBox(context, item);
+                      controller.clickOnList(item.id ?? '', index);
                     },
                     child: Card(
                       shape: RoundedRectangleBorder(

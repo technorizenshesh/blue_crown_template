@@ -185,6 +185,9 @@ class NavBarView extends GetView<NavBarController> {
                         )),
                   ],
                 ),
+                SizedBox(
+                  height: 15.px,
+                ),
                 Expanded(
                   child: SingleChildScrollView(
                     scrollDirection: Axis.vertical,
@@ -420,7 +423,9 @@ class NavBarView extends GetView<NavBarController> {
                                         ),
                                         Expanded(
                                           child: Text(
-                                            '${item.fromDate} to ${item.toDate}',
+                                            item.fromDate != item.toDate
+                                                ? '${item.fromDate} to ${item.toDate}'
+                                                : '${item.fromDate}',
                                             style: MyTextStyle.titleStyle12w,
                                             maxLines: 2,
                                           ),

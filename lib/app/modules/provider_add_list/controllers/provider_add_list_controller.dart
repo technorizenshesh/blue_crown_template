@@ -95,15 +95,13 @@ class ProviderAddListController extends GetxController {
   }
 
   Future<void> clickOnSendRequestButton() async {
-    if (emailController.text.isNotEmpty &&
-        nameController.text.isNotEmpty &&
-        phoneController.text.isNotEmpty) {
+    if (nameController.text.isNotEmpty) {
       try {
         bodyParamsForRequestListForm = {
           ApiKeyConstants.userId: userData.result!.id,
           ApiKeyConstants.eventId: parameters[ApiKeyConstants.eventId],
-          ApiKeyConstants.email: emailController.text.toString(),
-          ApiKeyConstants.phone: phoneController.text.toString(),
+          ApiKeyConstants.email: emailController.text ?? '',
+          ApiKeyConstants.phone: phoneController.text ?? '',
           ApiKeyConstants.people: personCount.value.toString(),
           ApiKeyConstants.name: nameController.text.toString(),
           ApiKeyConstants.manual: StringConstants.yes,
@@ -119,6 +117,7 @@ class ProviderAddListController extends GetxController {
         if (addRequestModel!.status != "0" ?? false) {
           print("Successfully added request ...");
           CommonWidgets.showMyToastMessage(addRequestModel.message!);
+          Get.back();
         } else {
           print("Add request Failed....");
           CommonWidgets.showMyToastMessage(addRequestModel.message!);
@@ -130,7 +129,7 @@ class ProviderAddListController extends GetxController {
       }
       isLoading.value = false;
     } else {
-      CommonWidgets.showMyToastMessage("Please enter all fields...");
+      CommonWidgets.showMyToastMessage("Please enter user name...");
     }
   }
 }

@@ -2,6 +2,9 @@ class StringConstants {
   static const String appCreateBy = 'App Create By';
   static const String blueCrownAccessAb = '@Blue Crown Access AB';
   static const String wouldYouLikeToLogout = 'Would you like to log out';
+  static const String removeUser = 'Remove User';
+  static const String wouldYouLikeToRemoveUserFromList =
+      'Would you like to remove user from list';
   static const String logout = 'Log out';
   static const String yes = 'Yes';
   static const String no = 'No';
@@ -140,6 +143,7 @@ class StringConstants {
   static const String everyOne = 'Every One';
   static const String sendMessage = 'Send Message';
   static const String type = 'Type';
+  static const String deleteEvent = 'Delete Event';
   static const String checkYourMail = 'Check Your Email';
   static const String pleasePutThe4DigitsSendToYou =
       'Please Put The 4 Digits Send To You';

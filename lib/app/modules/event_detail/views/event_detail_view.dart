@@ -125,7 +125,7 @@ class EventDetailView extends GetView<EventDetailController> {
                         height: 8.px,
                       ),
                       Text(
-                        '${controller.getEventsResult.minAge} years',
+                        '${double.parse(controller.getEventsResult.minAge ?? '18').toStringAsFixed(0)} years',
                         style: MyTextStyle.titleStyle12w,
                       )
                     ],
@@ -174,7 +174,7 @@ class EventDetailView extends GetView<EventDetailController> {
                   ),
                   Expanded(
                     child: Text(
-                      ': ${controller.getEventsResult.minAge}+',
+                      ': ${double.parse(controller.getEventsResult.minAge ?? '18').toStringAsFixed(0)}+',
                       style: MyTextStyle.titleStyle13w,
                     ),
                   )

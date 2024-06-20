@@ -561,4 +561,43 @@ class ApiMethods {
     }
     return null;
   }
+
+  /// Remove current list by id....
+  static Future<CommonResponseModel?> removeCurrentListUser(
+      {void Function(int)? checkResponse,
+      required Map<String, dynamic> queryParameters}) async {
+    CommonResponseModel? commonResponseModel;
+    http.Response? response = await MyHttp.getMethodParams(
+      queryParameters: queryParameters,
+      baseUri: ApiUrlConstants.baseUrlForGetMethodParams,
+      endPointUri: ApiUrlConstants.endPointOfDeleteEventClubRequest,
+      checkResponse: checkResponse,
+    );
+
+    if (response != null) {
+      commonResponseModel =
+          CommonResponseModel.fromJson(jsonDecode(response.body));
+      return commonResponseModel;
+    }
+    return null;
+  }
+
+  /// Delete event ....
+  static Future<CommonResponseModel?> deleteEventApi(
+      {void Function(int)? checkResponse,
+      required Map<String, dynamic> queryParameters}) async {
+    CommonResponseModel? commonResponseModel;
+    http.Response? response = await MyHttp.getMethodParams(
+      queryParameters: queryParameters,
+      baseUri: ApiUrlConstants.baseUrlForGetMethodParams,
+      endPointUri: ApiUrlConstants.endPointOfDeleteEvent,
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      commonResponseModel =
+          CommonResponseModel.fromJson(jsonDecode(response.body));
+      return commonResponseModel;
+    }
+    return null;
+  }
 }

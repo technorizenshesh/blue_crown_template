@@ -1,8 +1,10 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:blue_crown_template/app/data/apis/api_models/get_common_response_model.dart';
 import 'package:excel/excel.dart';
 import 'package:get/get.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import '../../../../common/common_widgets.dart';
@@ -15,6 +17,7 @@ class ProviderCurrentListController extends GetxController {
   final showListProgressBar = true.obs;
   final showTableProgressBar = true.obs;
   final isLoading = false.obs;
+  final inAsyncCall = false.obs;
   List<Map<String, String>> listOfJson = [];
   ClubRequestResult? listRequestResult;
   ClubRequestResult? tableRequestResult;
@@ -134,20 +137,30 @@ class ProviderCurrentListController extends GetxController {
   clickOnDownloadButton() {
     if (tabIndex.value == 0) {
       if (listRequestResult!.eventReqData!.isNotEmpty) {
-        jsonToExcel();
+        checkPlatForm();
       } else {
         CommonWidgets.showMyToastMessage('Current list user not present.');
       }
     } else {
       if (tableRequestResult!.eventReqData!.isNotEmpty) {
-        jsonToExcel();
+        checkPlatForm();
       } else {
         CommonWidgets.showMyToastMessage('Current table user not present.');
       }
     }
   }
 
-  Future<void> jsonToExcel() async {
+  checkPlatForm() {
+    if (Platform.isAndroid) {
+      jsonToExcelAndroid();
+    } else {
+      if (Platform.isIOS) {
+        jsonToExcelIos();
+      }
+    }
+  }
+
+  Future<void> jsonToExcelAndroid() async {
     isLoading.value = true;
     tabIndex.value == 0
         ? await convertJsonListRequest()
@@ -160,8 +173,6 @@ class ProviderCurrentListController extends GetxController {
       List<dynamic> data = jsonDecode(jsonData);
       var excel = Excel.createExcel();
       Sheet sheetObject = excel['Sheet1'];
-
-      // Add column headers (optional)
       List<String> headers = data[0].keys.toList();
       sheetObject.appendRow(headers);
 
@@ -172,7 +183,6 @@ class ProviderCurrentListController extends GetxController {
         });
         sheetObject.appendRow(row);
       }
-
       Directory? downloadsDirectory = Directory('/storage/emulated/0/Download');
       if (downloadsDirectory != null) {
         String shortFileName = '';
@@ -202,5 +212,90 @@ class ProviderCurrentListController extends GetxController {
       print("Permission denied");
     }
     isLoading.value = false;
+  }
+
+  Future<void> jsonToExcelIos() async {
+    isLoading.value = true;
+    tabIndex.value == 0
+        ? await convertJsonListRequest()
+        : await convertJsonTableRequest();
+    String jsonData = jsonEncode(listOfJson).toString();
+    List<dynamic> data = jsonDecode(jsonData);
+    var excel = Excel.createExcel();
+    Sheet sheetObject = excel['Sheet1'];
+    List<String> headers = data[0].keys.toList();
+    sheetObject.appendRow(headers);
+
+    for (var item in data) {
+      List<dynamic> row = [];
+      item.forEach((key, value) {
+        row.add(value);
+      });
+      sheetObject.appendRow(row);
+    }
+    Directory? downloadsDirectory = await getApplicationDocumentsDirectory();
+    if (downloadsDirectory != null) {
+      String shortFileName = '';
+      if (tabIndex.value == 0) {
+        shortFileName =
+            'BlueCrown_${listRequestResult!.name!.removeAllWhitespace}_list';
+      } else {
+        shortFileName =
+            'BlueCrown_${tableRequestResult!.name!.removeAllWhitespace}_table';
+      }
+      String filePath = "${downloadsDirectory.path}/$shortFileName.xlsx";
+      var fileBytes = excel.save(fileName: filePath);
+      File(filePath)
+        ..createSync(recursive: true)
+        ..writeAsBytesSync(fileBytes!);
+
+      print("Excel file saved at: $filePath");
+      CommonWidgets.showMyToastMessage('Excel file saved at: $filePath');
+    } else {
+      print("Failed to get downloads directory");
+      CommonWidgets.showMyToastMessage('Failed to download excel file');
+    }
+    isLoading.value = false;
+  }
+
+  clickOnList(String id, int index) {
+    CommonWidgets.showAlertDialog(
+        onPressedYes: () {
+          Get.back();
+          removeListUser(id, index);
+        },
+        title: StringConstants.removeUser,
+        content: StringConstants.wouldYouLikeToRemoveUserFromList);
+  }
+
+  Future<void> removeListUser(String id, int index) async {
+    try {
+      Map<String, String> bodyParamsForStatusChange = {
+        ApiKeyConstants.eventClubRequestId: id,
+      };
+      print("bodyParamsForChangeStatus:::::$bodyParamsForStatusChange");
+      inAsyncCall.value = true;
+      CommonResponseModel? commonResponseModel =
+          await ApiMethods.removeCurrentListUser(
+              queryParameters: bodyParamsForStatusChange);
+      if (commonResponseModel!.status != "0" ?? false) {
+        print("Successfully remove user form list ...");
+        CommonWidgets.showMyToastMessage('Successfully remove user form list.');
+        if (tabIndex.value == 0) {
+          listRequestResult!.eventReqData!.removeAt(index);
+        } else {
+          tableRequestResult!.eventReqData!.removeAt(index);
+        }
+      } else {
+        print(" Failed remove user form list....");
+        CommonWidgets.showMyToastMessage(commonResponseModel.message!);
+      }
+    } catch (e) {
+      print('Error:-' + e.toString());
+      CommonWidgets.showMyToastMessage(
+          'Server issue please try again after some time ');
+    }
+    inAsyncCall.value = false;
+    increment();
   }
 }

@@ -240,6 +240,40 @@ class ProviderEventDetailView extends GetView<ProviderEventDetailController> {
                                       )),
                                 ],
                               ),
+                              SizedBox(
+                                height: 10.px,
+                              ),
+                              if (controller.getEventsResult.status != 'Active')
+                                Row(
+                                  children: [
+                                    Expanded(
+                                        flex: 1,
+                                        child: GestureDetector(
+                                          onTap: () {
+                                            showAlertBoxForDelete(context);
+                                          },
+                                          child: Container(
+                                            height: 50.px,
+                                            alignment: Alignment.center,
+                                            margin: EdgeInsets.symmetric(
+                                                horizontal: 10.px,
+                                                vertical: 5.px),
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                        25.px),
+                                                color: backgroundColor,
+                                                border: Border.all(
+                                                    width: 1.5.px,
+                                                    color: primaryColor)),
+                                            child: Text(
+                                              StringConstants.deleteEvent,
+                                              style: MyTextStyle.titleStyle14bw,
+                                            ),
+                                          ),
+                                        )),
+                                  ],
+                                ),
                             ],
                           ),
                         )
@@ -322,6 +356,100 @@ class ProviderEventDetailView extends GetView<ProviderEventDetailController> {
                           onPressed: () {
                             Get.back();
                             controller.changeEventStatus();
+                          },
+                          child: Text(
+                            StringConstants.yes,
+                            style: MyTextStyle.titleStyle16bw,
+                          ),
+                          borderRadius: 30.px,
+                          height: 40.px,
+                          buttonColor: primaryColor,
+                          buttonMargin: EdgeInsets.only(
+                              top: 10.px,
+                              left: 5.px,
+                              right: 10.px,
+                              bottom: 10.px)),
+                    ),
+                  ],
+                )
+              ],
+            ),
+          ),
+        ),
+        alignment: Alignment.center,
+      ),
+    );
+  }
+
+  /// Show Alert Box For Event Delete...
+  void showAlertBoxForDelete(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        insetPadding: EdgeInsets.symmetric(horizontal: 20.px),
+        contentPadding: EdgeInsets.zero,
+        clipBehavior: Clip.hardEdge,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(20.px))),
+        content: SizedBox(
+          height: 200.px,
+          child: Card(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(20.px))),
+            elevation: 5.px,
+            color: cartColor,
+            margin: EdgeInsets.all(1.px),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SizedBox(
+                  height: 10.px,
+                ),
+                Text(
+                  StringConstants.areYouSure,
+                  style: MyTextStyle.titleStyle20bw,
+                ),
+                SizedBox(
+                  height: 10.px,
+                ),
+                Padding(
+                  padding: EdgeInsets.all(4.0.px),
+                  child: Text(
+                    'Do you want to delete this event ?',
+                    style: MyTextStyle.titleStyle16w,
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                SizedBox(
+                  height: 30.px,
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                      flex: 1,
+                      child: CommonWidgets.commonElevatedButton(
+                          onPressed: () {
+                            Get.back();
+                          },
+                          child: Text(
+                            StringConstants.no,
+                            style: MyTextStyle.titleStyle16bw,
+                          ),
+                          borderRadius: 30.px,
+                          height: 40.px,
+                          buttonColor: errorColor,
+                          buttonMargin: EdgeInsets.only(
+                              top: 10.px,
+                              left: 10.px,
+                              right: 5.px,
+                              bottom: 10.px)),
+                    ),
+                    Expanded(
+                      flex: 1,
+                      child: CommonWidgets.commonElevatedButton(
+                          onPressed: () {
+                            Get.back();
+                            controller.eventDelete();
                           },
                           child: Text(
                             StringConstants.yes,
