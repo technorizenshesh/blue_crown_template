@@ -145,7 +145,7 @@ class ProviderCurrentListController extends GetxController {
       if (tableRequestResult!.eventReqData!.isNotEmpty) {
         checkPlatForm();
       } else {
-        CommonWidgets.showMyToastMessage('Current table user not present.');
+        CommonWidgets.showMyToastMessage('Current table user not present...');
       }
     }
   }
