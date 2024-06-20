@@ -53,7 +53,7 @@ class ProviderPublishEventView extends GetView<ProviderPublishEventController> {
                   margin: EdgeInsets.only(bottom: 15.px),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20.px),
-                      color: Colors.grey,
+                      color: Colors.grey.withOpacity(0.5),
                       border: Border.all(color: primary3Color, width: 1.px)),
                   child: Stack(
                     alignment: Alignment.center,
@@ -90,8 +90,8 @@ class ProviderPublishEventView extends GetView<ProviderPublishEventController> {
                   controller: controller.dateController,
                   isCard: controller.isDate.value,
                   hintText: StringConstants.date,
-                  hintStyle: MyTextStyle.titleStyle14w,
-                  style: MyTextStyle.titleStyle14w,
+                  hintStyle: MyTextStyle.titleStyle14blb,
+                  style: MyTextStyle.titleStyle16w,
                   keyboardType: TextInputType.datetime,
                   readOnly: true,
                   suffixIcon: GestureDetector(
@@ -113,8 +113,8 @@ class ProviderPublishEventView extends GetView<ProviderPublishEventController> {
                   controller: controller.timeController,
                   isCard: controller.isTime.value,
                   hintText: StringConstants.time,
-                  hintStyle: MyTextStyle.titleStyle14w,
-                  style: MyTextStyle.titleStyle14w,
+                  hintStyle: MyTextStyle.titleStyle14blb,
+                  style: MyTextStyle.titleStyle16w,
                   readOnly: true,
                   keyboardType: TextInputType.datetime,
                   suffixIcon: GestureDetector(
@@ -136,8 +136,8 @@ class ProviderPublishEventView extends GetView<ProviderPublishEventController> {
                   controller: controller.eventNameController,
                   isCard: controller.isEventName.value,
                   hintText: StringConstants.eventName,
-                  hintStyle: MyTextStyle.titleStyle14w,
-                  style: MyTextStyle.titleStyle14w,
+                  hintStyle: MyTextStyle.titleStyle14blb,
+                  style: MyTextStyle.titleStyle16w,
                   keyboardType: TextInputType.name,
                 ),
                 SizedBox(
@@ -148,8 +148,8 @@ class ProviderPublishEventView extends GetView<ProviderPublishEventController> {
                     controller: controller.descriptionController,
                     isCard: controller.isDescription.value,
                     hintText: StringConstants.description,
-                    hintStyle: MyTextStyle.titleStyle14w,
-                    style: MyTextStyle.titleStyle14w,
+                    hintStyle: MyTextStyle.titleStyle14blb,
+                    style: MyTextStyle.titleStyle16w,
                     keyboardType: TextInputType.text,
                     maxLines: 7),
                 SizedBox(
