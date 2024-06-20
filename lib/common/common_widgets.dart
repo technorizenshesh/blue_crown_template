@@ -355,7 +355,7 @@ class CommonWidgets {
                 validator: validator,
                 keyboardType: defaultTargetPlatform == TargetPlatform.iOS
                     ? const TextInputType.numberWithOptions(
-                        decimal: true, signed: true)
+                    decimal: true, signed: true)
                     : keyboardType ?? TextInputType.streetAddress,
                 readOnly: readOnly,
                 autofocus: autofocus,

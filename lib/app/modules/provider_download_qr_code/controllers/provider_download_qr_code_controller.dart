@@ -45,7 +45,7 @@ class ProviderDownloadQrCodeController extends GetxController {
         .then((capturedImage) async {
       downloadQrCode(Get.context!, capturedImage!);
     }).catchError((onError) {
-      print("Catch Error:-" + onError);
+      print("Catch Error:---" + onError);
     });
   }
 

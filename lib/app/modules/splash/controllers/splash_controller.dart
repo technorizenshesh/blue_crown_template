@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:blue_crown_template/common/text_styles.dart';
 import 'package:flutter/material.dart';
@@ -63,16 +64,21 @@ class SplashController extends GetxController {
 
   Future<void> checkPermissions() async {
     // var cameraStatus = await Permission.camera.status;
-    var storageStatus = await Permission.manageExternalStorage.status;
-
-    if (storageStatus.isDenied) {
-      print('Start check permissions 1 ...');
-      // showPermissionDialog();
-      requestPermissions();
-    } else if (storageStatus.isGranted) {
-      print('Start check permissions 2...');
+    if(Platform.isIOS){
       splashDuration();
+  } else if (Platform.isAndroid){
+      var storageStatus = await Permission.manageExternalStorage.status;
+
+      if (storageStatus.isDenied) {
+        print('Start check permissions 1 ...');
+        // showPermissionDialog();
+        requestPermissions();
+      } else if (storageStatus.isGranted) {
+        print('Start check permissions 2...');
+        splashDuration();
+      }
     }
+
   }
 
   void showPermissionDialog() {
