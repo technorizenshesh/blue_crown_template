@@ -305,15 +305,12 @@ class ProviderAllEventView extends GetView<ProviderAllEventController> {
                           flex: 5,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               Text(
                                 item.name ?? '',
                                 style: MyTextStyle.titleStyle16w,
                                 maxLines: 1,
-                              ),
-                              SizedBox(
-                                height: 3.px,
                               ),
                               Row(
                                 children: [
@@ -331,9 +328,6 @@ class ProviderAllEventView extends GetView<ProviderAllEventController> {
                                   )
                                 ],
                               ),
-                              SizedBox(
-                                height: 3.px,
-                              ),
                               Row(
                                 children: [
                                   Icon(
@@ -350,49 +344,21 @@ class ProviderAllEventView extends GetView<ProviderAllEventController> {
                                   )
                                 ],
                               ),
-                              SizedBox(
-                                height: 3.px,
-                              ),
-                              Row(
-                                children: [
-                                  Icon(
-                                    Icons.location_on_outlined,
-                                    size: 20.px,
-                                    color: primary3Color,
-                                  ),
-                                  Expanded(
-                                    child: Text(
-                                      'location',
-                                      style: MyTextStyle.titleStyle12w,
-                                      maxLines: 2,
-                                    ),
-                                  )
-                                ],
-                              ),
                             ],
                           )),
                       Expanded(
                           flex: 1,
                           child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               CommonWidgets.appIcons(
-                                  assetName: IconConstants.icStar,
+                                  assetName: IconConstants.icCrown,
                                   width: 25.px,
-                                  height: 25.px,
+                                  height: 14.px,
                                   fit: BoxFit.fill),
-                              Column(
-                                children: [
-                                  CommonWidgets.appIcons(
-                                      assetName: IconConstants.icCrown,
-                                      width: 25.px,
-                                      height: 14.px,
-                                      fit: BoxFit.fill),
-                                  Text(
-                                    '${item.points} P',
-                                    style: MyTextStyle.titleStyle12bb,
-                                  )
-                                ],
+                              Text(
+                                '${item.points} P',
+                                style: MyTextStyle.titleStyle12bb,
                               )
                             ],
                           ))
@@ -605,15 +571,12 @@ class ProviderAllEventView extends GetView<ProviderAllEventController> {
                           flex: 5,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               Text(
                                 item.name ?? '',
                                 style: MyTextStyle.titleStyle16w,
                                 maxLines: 1,
-                              ),
-                              SizedBox(
-                                height: 3.px,
                               ),
                               Row(
                                 children: [
@@ -631,9 +594,6 @@ class ProviderAllEventView extends GetView<ProviderAllEventController> {
                                   )
                                 ],
                               ),
-                              SizedBox(
-                                height: 3.px,
-                              ),
                               Row(
                                 children: [
                                   Icon(
@@ -650,49 +610,21 @@ class ProviderAllEventView extends GetView<ProviderAllEventController> {
                                   )
                                 ],
                               ),
-                              SizedBox(
-                                height: 3.px,
-                              ),
-                              Row(
-                                children: [
-                                  Icon(
-                                    Icons.location_on_outlined,
-                                    size: 20.px,
-                                    color: primary3Color,
-                                  ),
-                                  Expanded(
-                                    child: Text(
-                                      'location',
-                                      style: MyTextStyle.titleStyle12w,
-                                      maxLines: 2,
-                                    ),
-                                  )
-                                ],
-                              ),
                             ],
                           )),
                       Expanded(
                           flex: 1,
                           child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               CommonWidgets.appIcons(
-                                  assetName: IconConstants.icStar,
+                                  assetName: IconConstants.icCrown,
                                   width: 25.px,
-                                  height: 25.px,
+                                  height: 14.px,
                                   fit: BoxFit.fill),
-                              Column(
-                                children: [
-                                  CommonWidgets.appIcons(
-                                      assetName: IconConstants.icCrown,
-                                      width: 25.px,
-                                      height: 14.px,
-                                      fit: BoxFit.fill),
-                                  Text(
-                                    '${item.points} P',
-                                    style: MyTextStyle.titleStyle12bb,
-                                  )
-                                ],
+                              Text(
+                                '${item.points} P',
+                                style: MyTextStyle.titleStyle12bb,
                               )
                             ],
                           ))

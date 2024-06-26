@@ -193,6 +193,7 @@ class ApiMethods {
     http.Response? response = await MyHttp.postMethod(
       bodyParams: bodyParams,
       url: ApiUrlConstants.endPointOfUpdateEvent,
+      wantSnackBar: false,
       checkResponse: checkResponse,
     );
 

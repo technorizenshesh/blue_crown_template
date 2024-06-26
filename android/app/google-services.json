@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "6089230341",
+    "firebase_url": "https://bluecrown-b1a49-default-rtdb.firebaseio.com",
+    "project_id": "bluecrown-b1a49",
+    "storage_bucket": "bluecrown-b1a49.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:6089230341:android:bf0beab6d3deb27b78346c",
+        "android_client_info": {
+          "package_name": "com.blue_crown_template.blue_crown_template"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA3nQda7rWVzXgi8R-A5Qeli4ywJOzm2Jg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

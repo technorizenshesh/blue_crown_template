@@ -116,7 +116,7 @@ class ProviderAddListController extends GetxController {
             bodyParams: bodyParamsForRequestListForm);
         if (addRequestModel!.status != "0" ?? false) {
           print("Successfully added request ...");
-          CommonWidgets.showMyToastMessage(addRequestModel.message!);
+          CommonWidgets.showMyToastMessage('Successfully added request...');
           Get.back();
         } else {
           print("Add request Failed....");

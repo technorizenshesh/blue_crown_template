@@ -355,7 +355,7 @@ class CommonWidgets {
                 validator: validator,
                 keyboardType: defaultTargetPlatform == TargetPlatform.iOS
                     ? const TextInputType.numberWithOptions(
-                    decimal: true, signed: true)
+                        decimal: true, signed: true)
                     : keyboardType ?? TextInputType.streetAddress,
                 readOnly: readOnly,
                 autofocus: autofocus,
@@ -710,7 +710,7 @@ class CommonWidgets {
     //required Widget child
   }) {
     return Shimmer.fromColors(
-        baseColor: Colors.grey[300]!,
+        baseColor: Colors.grey.withOpacity(0.3),
         highlightColor: Colors.white,
         enabled: enabled,
         child: ListView.builder(

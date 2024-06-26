@@ -213,7 +213,7 @@ class ProviderEventDetailView extends GetView<ProviderEventDetailController> {
                                           ),
                                         ),
                                       )),
-                                  Expanded(
+                                  /* Expanded(
                                       flex: 1,
                                       child: GestureDetector(
                                         onTap: () {
@@ -237,15 +237,9 @@ class ProviderEventDetailView extends GetView<ProviderEventDetailController> {
                                             style: MyTextStyle.titleStyle14bw,
                                           ),
                                         ),
-                                      )),
-                                ],
-                              ),
-                              SizedBox(
-                                height: 10.px,
-                              ),
-                              if (controller.getEventsResult.status != 'Active')
-                                Row(
-                                  children: [
+                                      )), */
+                                  if (controller.getEventsResult.status !=
+                                      'Active')
                                     Expanded(
                                         flex: 1,
                                         child: GestureDetector(
@@ -272,8 +266,11 @@ class ProviderEventDetailView extends GetView<ProviderEventDetailController> {
                                             ),
                                           ),
                                         )),
-                                  ],
-                                ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 10.px,
+                              ),
                             ],
                           ),
                         )

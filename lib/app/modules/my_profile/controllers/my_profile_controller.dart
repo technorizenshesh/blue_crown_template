@@ -219,7 +219,8 @@ class MyProfileController extends GetxController {
             bodyParams: bodyParamsForUpdateProfile, imageMap: imageMap);
         if (logInModel!.status != "0" ?? false) {
           saveDataSharedPreference(logInModel);
-          CommonWidgets.showMyToastMessage(logInModel.message!);
+          CommonWidgets.showMyToastMessage(
+              'Successfully updated your profile...');
         } else {
           isLoading.value = false;
           print("Profile Update Failed....");

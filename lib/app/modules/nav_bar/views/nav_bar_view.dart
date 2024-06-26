@@ -40,24 +40,24 @@ class NavBarView extends GetView<NavBarController> {
             );
           }),
           bottomNavigationBar: Container(
-            height: 85.px,
+            height: 100.px,
             alignment: Alignment.bottomCenter,
             decoration: const BoxDecoration(color: Colors.black87),
             child: Stack(
               alignment: Alignment.center,
               children: [
                 Padding(
-                  padding: EdgeInsets.only(top: 15.px),
+                  padding: EdgeInsets.only(top: 10.px),
                   child: CommonWidgets.appIcons(
                       assetName: ImageConstants.imageBottomBar,
                       fit: BoxFit.fill,
-                      height: 70.px,
+                      height: 90.px,
                       width: double
                           .infinity //MediaQuery.of(context).size.width + 40.px,
                       ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(top: 18.px),
+                  padding: EdgeInsets.only(top: 25.px),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
@@ -68,21 +68,21 @@ class NavBarView extends GetView<NavBarController> {
                         child: Column(
                           children: [
                             SizedBox(
-                              height: 10.px,
+                              height: 8.px,
                             ),
                             CommonWidgets.appIcons(
                               assetName: controller.tabIndex.value == 0
                                   ? IconConstants.icWardrobeBlue
                                   : IconConstants.icWardrobe,
                               fit: BoxFit.cover,
-                              height: 25.px,
-                              width: 25.px,
+                              height: 27.px,
+                              width: 27.px,
                             ),
                             Text(
                               StringConstants.wardrobe,
                               style: controller.tabIndex.value == 0
                                   ? MyTextStyle.titleStyleCustom(
-                                      14, FontWeight.normal, primaryColor)
+                                      15, FontWeight.normal, primaryColor)
                                   : MyTextStyle.titleStyle14w,
                             )
                           ],
@@ -98,19 +98,19 @@ class NavBarView extends GetView<NavBarController> {
                         child: Column(
                           children: [
                             SizedBox(
-                              height: 10.px,
+                              height: 8.px,
                             ),
                             CommonWidgets.appIcons(
                               assetName: IconConstants.icScanner,
                               fit: BoxFit.cover,
-                              height: 25.px,
-                              width: 25.px,
+                              height: 27.px,
+                              width: 27.px,
                             ),
                             Text(
                               StringConstants.scanner,
                               style: controller.tabIndex.value == 2
                                   ? MyTextStyle.titleStyleCustom(
-                                      14, FontWeight.normal, primaryColor)
+                                      15, FontWeight.normal, primaryColor)
                                   : MyTextStyle.titleStyle14w,
                             )
                           ],
@@ -121,15 +121,15 @@ class NavBarView extends GetView<NavBarController> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    controller.changeIndex(1);
+                    //controller.changeIndex(1);
                   },
                   child: Padding(
                     padding: EdgeInsets.only(bottom: 15.px),
                     child: CommonWidgets.appIcons(
                       assetName: IconConstants.icHome,
                       fit: BoxFit.fill,
-                      height: 70.px,
-                      width: 70.px,
+                      height: 72.px,
+                      width: 72.px,
                     ),
                   ),
                 ),

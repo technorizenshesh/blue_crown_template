@@ -362,6 +362,7 @@ class ProviderPublishEventController extends GetxController {
             image: image.value ?? File(''));
         if (addEventModel!.status != "0" ?? false) {
           print("Add events Successfully complete...");
+          Get.back(result: true);
           // CommonWidgets.showMyToastMessage(addEventModel!.message!);
         } else {
           print("Add events Failed....");

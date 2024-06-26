@@ -29,7 +29,6 @@ class ProviderNavBarView extends GetView<ProviderNavBarController> {
             padding: EdgeInsets.only(top: 5.px),
             child: GestureDetector(
               onTap: () {
-                print("hiii....");
                 Scaffold.of(context).openEndDrawer();
               },
               child: CommonWidgets.appIcons(
@@ -42,24 +41,24 @@ class ProviderNavBarView extends GetView<ProviderNavBarController> {
           );
         }),
         bottomNavigationBar: Container(
-          height: 85.px,
+          height: 100.px,
           alignment: Alignment.bottomCenter,
           decoration: const BoxDecoration(color: Colors.black87),
           child: Stack(
             alignment: Alignment.center,
             children: [
               Padding(
-                padding: EdgeInsets.only(top: 15.px),
+                padding: EdgeInsets.only(top: 10.px),
                 child: CommonWidgets.appIcons(
                     assetName: ImageConstants.imageBottomBar,
                     fit: BoxFit.fill,
-                    height: 70.px,
+                    height: 90.px,
                     width: double
                         .infinity //MediaQuery.of(context).size.width + 40.px,
                     ),
               ),
               Padding(
-                padding: EdgeInsets.only(top: 18.px),
+                padding: EdgeInsets.only(top: 25.px),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
@@ -77,14 +76,14 @@ class ProviderNavBarView extends GetView<ProviderNavBarController> {
                                 ? IconConstants.icWardrobeBlue
                                 : IconConstants.icWardrobe,
                             fit: BoxFit.cover,
-                            height: 25.px,
-                            width: 25.px,
+                            height: 27.px,
+                            width: 27.px,
                           ),
                           Text(
                             StringConstants.wardrobe,
                             style: controller.tabIndex.value == 0
                                 ? MyTextStyle.titleStyleCustom(
-                                    14, FontWeight.normal, primaryColor)
+                                    15, FontWeight.normal, primaryColor)
                                 : MyTextStyle.titleStyle14w,
                           )
                         ],
@@ -100,21 +99,21 @@ class ProviderNavBarView extends GetView<ProviderNavBarController> {
                       child: Column(
                         children: [
                           SizedBox(
-                            height: 10.px,
+                            height: 8.px,
                           ),
                           CommonWidgets.appIcons(
                             assetName: controller.tabIndex.value == 2
                                 ? IconConstants.icProfileColor
                                 : IconConstants.icProfile,
                             fit: BoxFit.cover,
-                            height: 25.px,
-                            width: 25.px,
+                            height: 27.px,
+                            width: 27.px,
                           ),
                           Text(
                             StringConstants.consumerRegister,
                             style: controller.tabIndex.value == 2
                                 ? MyTextStyle.titleStyleCustom(
-                                    14, FontWeight.normal, primaryColor)
+                                    15, FontWeight.normal, primaryColor)
                                 : MyTextStyle.titleStyle14w,
                           )
                         ],
@@ -132,8 +131,8 @@ class ProviderNavBarView extends GetView<ProviderNavBarController> {
                   child: CommonWidgets.appIcons(
                     assetName: IconConstants.icAdd,
                     fit: BoxFit.fill,
-                    height: 70.px,
-                    width: 70.px,
+                    height: 72.px,
+                    width: 72.px,
                   ),
                 ),
               ),
@@ -220,7 +219,7 @@ class ProviderNavBarView extends GetView<ProviderNavBarController> {
                       flex: 4,
                       child: Container(
                         decoration: BoxDecoration(
-                          color: Colors.black87,
+                          color: Colors.black45,
                           borderRadius:
                               BorderRadius.all(Radius.circular(10.px)),
                         ),
@@ -236,7 +235,7 @@ class ProviderNavBarView extends GetView<ProviderNavBarController> {
                             margin: EdgeInsets.symmetric(
                                 horizontal: 3.px, vertical: 0.px),
                             decoration: BoxDecoration(
-                              color: Colors.black87,
+                              color: Colors.black45,
                               borderRadius:
                                   BorderRadius.all(Radius.circular(2.px)),
                             ),
@@ -249,7 +248,7 @@ class ProviderNavBarView extends GetView<ProviderNavBarController> {
                                 margin: EdgeInsets.symmetric(
                                     horizontal: 3.px, vertical: 0.px),
                                 decoration: BoxDecoration(
-                                  color: Colors.black87,
+                                  color: Colors.black45,
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(2.px)),
                                 ),
@@ -259,7 +258,7 @@ class ProviderNavBarView extends GetView<ProviderNavBarController> {
                                   height: 15.px,
                                   width: 120.px,
                                   decoration: BoxDecoration(
-                                    color: Colors.black87,
+                                    color: Colors.black45,
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(2.px)),
                                   ),
@@ -275,7 +274,7 @@ class ProviderNavBarView extends GetView<ProviderNavBarController> {
                                 margin: EdgeInsets.symmetric(
                                     horizontal: 3.px, vertical: 0.px),
                                 decoration: BoxDecoration(
-                                  color: Colors.black87,
+                                  color: Colors.black45,
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(2.px)),
                                 ),
@@ -284,7 +283,7 @@ class ProviderNavBarView extends GetView<ProviderNavBarController> {
                                 height: 15.px,
                                 width: 110.px,
                                 decoration: BoxDecoration(
-                                  color: Colors.black87,
+                                  color: Colors.black45,
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(2.px)),
                                 ),
@@ -299,7 +298,7 @@ class ProviderNavBarView extends GetView<ProviderNavBarController> {
                                 margin: EdgeInsets.symmetric(
                                     horizontal: 3.px, vertical: 0.px),
                                 decoration: BoxDecoration(
-                                  color: Colors.black87,
+                                  color: Colors.black45,
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(2.px)),
                                 ),
@@ -308,7 +307,7 @@ class ProviderNavBarView extends GetView<ProviderNavBarController> {
                                 height: 15.px,
                                 width: 80.px,
                                 decoration: BoxDecoration(
-                                  color: Colors.black87,
+                                  color: Colors.black45,
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(2.px)),
                                 ),
@@ -328,7 +327,7 @@ class ProviderNavBarView extends GetView<ProviderNavBarController> {
                             margin: EdgeInsets.symmetric(
                                 horizontal: 3.px, vertical: 5.px),
                             decoration: BoxDecoration(
-                              color: Colors.black87,
+                              color: Colors.black45,
                               borderRadius:
                                   BorderRadius.all(Radius.circular(2.px)),
                             ),
@@ -341,7 +340,7 @@ class ProviderNavBarView extends GetView<ProviderNavBarController> {
                                 margin: EdgeInsets.symmetric(
                                     horizontal: 3.px, vertical: 0.px),
                                 decoration: BoxDecoration(
-                                  color: Colors.black87,
+                                  color: Colors.black45,
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(2.px)),
                                 ),
@@ -352,7 +351,7 @@ class ProviderNavBarView extends GetView<ProviderNavBarController> {
                                 margin: EdgeInsets.symmetric(
                                     horizontal: 3.px, vertical: 5.px),
                                 decoration: BoxDecoration(
-                                  color: Colors.black87,
+                                  color: Colors.black45,
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(2.px)),
                                 ),

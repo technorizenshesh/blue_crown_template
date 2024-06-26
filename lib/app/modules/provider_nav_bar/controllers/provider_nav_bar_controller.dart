@@ -53,7 +53,7 @@ class ProviderNavBarController extends GetxController {
 
   void increment() => count.value++;
 
-  changeIndex(int index) {
+  changeIndex(int index) async {
     Map<String, String> data = {
       ApiKeyConstants.userId: userData.result!.id ?? '',
       ApiKeyConstants.token: userData.result!.token ?? ''
@@ -64,7 +64,13 @@ class ProviderNavBarController extends GetxController {
         Get.toNamed(Routes.PROVIDER_WARDROBE, parameters: data);
         break;
       case 1:
-        Get.toNamed(Routes.PROVIDER_PUBLISH_EVENT, parameters: data);
+        final result =
+            await Get.toNamed(Routes.PROVIDER_PUBLISH_EVENT, parameters: data);
+        if (result) {
+          showActiveEventsProgressBar.value = true;
+          getActiveEventsList(userData.result!.id ?? '');
+          increment();
+        }
         break;
       case 2:
         Get.toNamed(Routes.PROVIDER_CONSUMER_REGISTER, parameters: data);
