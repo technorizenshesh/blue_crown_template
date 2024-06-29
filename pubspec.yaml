@@ -66,6 +66,8 @@ dependencies:
   screenshot: ^2.1.0
   #save image in gallery....
   image_gallery_saver: ^2.0.3
+  #pdf generator ....
+  pdf: ^3.10.7
   #webVidw...
   webview_flutter: ^4.7.0
   #datePicker....
@@ -80,6 +82,7 @@ dependencies:
   firebase_messaging: ^14.7.15
   firebase_core: ^2.15.0
   flutter_local_notifications: ^15.1.0+1
+
 
 dev_dependencies:
   flutter_test:
