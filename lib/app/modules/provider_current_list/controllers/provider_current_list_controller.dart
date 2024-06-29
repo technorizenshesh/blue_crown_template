@@ -5,6 +5,7 @@ import 'package:blue_crown_template/app/data/apis/api_models/get_common_response
 import 'package:excel/excel.dart';
 import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:pdf/widgets.dart' as pw;
 import 'package:permission_handler/permission_handler.dart';
 
 import '../../../../common/common_widgets.dart';
@@ -134,7 +135,7 @@ class ProviderCurrentListController extends GetxController {
     }
   }
 
-  clickOnDownloadButton() {
+  clickOnDownloadExcel() {
     if (tabIndex.value == 0) {
       if (listRequestResult!.eventReqData!.isNotEmpty) {
         checkPlatForm();
@@ -297,5 +298,91 @@ class ProviderCurrentListController extends GetxController {
     }
     inAsyncCall.value = false;
     increment();
+  }
+
+  Future<void> generatePdf() async {
+    isLoading.value = true;
+    final pdf = pw.Document();
+
+    pdf.addPage(
+      pw.Page(
+        build: (pw.Context context) {
+          return pw.Column(
+            children: tableRequestResult!.eventReqData!.map((user) {
+              return pw.Container(
+                padding: const pw.EdgeInsets.all(8.0),
+                child: pw.Column(
+                  crossAxisAlignment: pw.CrossAxisAlignment.start,
+                  children: [
+                    pw.Text('Name: ${user.name}',
+                        style: const pw.TextStyle(fontSize: 14)),
+                    pw.Text('Email: ${user.email}',
+                        style: const pw.TextStyle(fontSize: 14)),
+                    pw.Text('Phone: ${user.phone}',
+                        style: const pw.TextStyle(fontSize: 14)),
+                    pw.Text(
+                        'Date: ${user.dateTime.toString().substring(0, 10)}',
+                        style: const pw.TextStyle(fontSize: 14)),
+                    pw.SizedBox(height: 10),
+                    pw.Divider(),
+                  ],
+                ),
+              );
+            }).toList(),
+          );
+        },
+      ),
+    );
+
+    if (Platform.isAndroid) {
+      Directory? downloadsDirectory = Directory('/storage/emulated/0/Download');
+      if (downloadsDirectory != null) {
+        String shortFileName = '';
+        if (tabIndex.value == 0) {
+          shortFileName =
+              'BlueCrown_${listRequestResult!.name!.removeAllWhitespace}_list';
+        } else {
+          shortFileName =
+              'BlueCrown_${tableRequestResult!.name!.removeAllWhitespace}_table';
+        }
+        String filePath = "${downloadsDirectory.path}/$shortFileName.pdf";
+        await File(filePath)
+          ..createSync(recursive: true)
+          ..writeAsBytesSync(await pdf.save());
+        print('My Path:-$filePath');
+        CommonWidgets.showMyToastMessage('File Path:-$filePath');
+        // File(filePath)
+        //   ..createSync(recursive: true)
+        //   ..writeAsBytesSync(fileBytes!);
+      } else {
+        print("Failed to get downloads directory");
+        CommonWidgets.showMyToastMessage('Failed to download pdf file');
+      }
+    } else {
+      if (Platform.isIOS) {
+        final iosDirectory = await getApplicationDocumentsDirectory();
+        String shortFileName = '';
+        if (tabIndex.value == 0) {
+          shortFileName =
+              'BlueCrown_${listRequestResult!.name!.removeAllWhitespace}_list';
+        } else {
+          shortFileName =
+              'BlueCrown_${tableRequestResult!.name!.removeAllWhitespace}_table';
+        }
+        String filePath = "${iosDirectory.path}/$shortFileName.pdf";
+        // final file = File("${iosDirectory.path}/user_list.pdf");
+        // await File(filePath).writeAsBytes(await pdf.save());
+        await File(filePath)
+          ..createSync(recursive: true)
+          ..writeAsBytesSync(await pdf.save());
+        CommonWidgets.showMyToastMessage('File Path:-$filePath');
+      }
+    }
+
+    // await Printing.layoutPdf(
+    //   onLayout: (PdfPageFormat format) async => pdf.save(),
+    // );
+
+    isLoading.value = false;
   }
 }
