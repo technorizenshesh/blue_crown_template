@@ -601,4 +601,24 @@ class ApiMethods {
     }
     return null;
   }
+
+  ///PushNotification Api Calling.....
+  static Future<CommonResponseModel?> pushNotification({
+    void Function(int)? checkResponse,
+    Map<String, dynamic>? bodyParams,
+  }) async {
+    CommonResponseModel? commonResponseModel;
+    http.Response? response = await MyHttp.postMethod(
+      bodyParams: bodyParams,
+      url: ApiUrlConstants.endPointOfResetPassword,
+      checkResponse: checkResponse,
+    );
+
+    if (response != null) {
+      commonResponseModel =
+          CommonResponseModel.fromJson(jsonDecode(response.body));
+      return commonResponseModel;
+    }
+    return null;
+  }
 }

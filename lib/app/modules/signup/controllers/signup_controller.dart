@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../../common/PushNotificationService.dart';
 import '../../../../common/colors.dart';
 import '../../../../common/date_picker.dart';
 import '../../../data/apis/api_constants/api_key_constants.dart';
@@ -111,7 +112,7 @@ class SignupController extends GetxController {
           ApiKeyConstants.mobile: phoneController.text.toString(),
           ApiKeyConstants.lat: "22.7196",
           ApiKeyConstants.lon: "75.8577",
-          ApiKeyConstants.registerId: generateRandomString(25),
+          ApiKeyConstants.registerId: PushNotificationService.getToken() ?? '',
         };
         isLoading.value = true;
         print(

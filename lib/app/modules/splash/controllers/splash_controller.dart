@@ -3,11 +3,14 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:blue_crown_template/common/text_styles.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../../common/PushNotificationService.dart';
 import '../../../data/apis/api_models/get_login_model.dart';
 import '../../../data/constants/string_constants.dart';
 import '../../../routes/app_pages.dart';
@@ -18,7 +21,9 @@ class SplashController extends GetxController {
   @override
   Future<void> onInit() async {
     super.onInit();
-    // await splashDuration();
+    if (Platform.isAndroid) {
+      notificationSetup();
+    }
     print('Start check permissions ...');
     await checkPermissions();
   }
@@ -34,6 +39,74 @@ class SplashController extends GetxController {
   }
 
   void increment() => count.value++;
+  void notificationSetup() {
+    var initialzationSettingsAndroid =
+        const AndroidInitializationSettings('@mipmap/ic_launcher');
+    var initializationSettings =
+        InitializationSettings(android: initialzationSettingsAndroid);
+    flutterLocalNotificationsPlugin.initialize(initializationSettings);
+
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
+          alert: true, badge: true, sound: true);
+      RemoteNotification? notification = message.notification;
+      AndroidNotification? android = message.notification?.android;
+      if (notification != null && android != null) {
+        //bool a= notification!['kl'==null];
+        flutterLocalNotificationsPlugin.show(
+            notification.hashCode,
+            notification.title,
+            notification.body,
+            NotificationDetails(
+              android: AndroidNotificationDetails(
+                channel.id,
+                channel.name,
+                //   channel.description,
+                color: Colors.white,
+                // TODO add a proper drawable resource to android, for now using
+                //      one that already exists in example app.
+                icon: "@mipmap/ic_launcher",
+              ),
+            ));
+      }
+    });
+
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+      RemoteNotification? notification = message.notification;
+      AndroidNotification? android = message.notification?.android;
+      if (notification != null && android != null) {
+        showDialog(
+            context: Get.context!,
+            builder: (_) {
+              return AlertDialog(
+                title: Text(notification.title!),
+                content: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [Text(notification.body!)],
+                  ),
+                ),
+              );
+            });
+      }
+    });
+    FirebaseMessaging.instance.requestPermission(
+      alert: true,
+      announcement: false,
+      badge: true,
+      carPlay: false,
+      criticalAlert: false,
+      provisional: false,
+      sound: true,
+    );
+    PushNotificationService.getToken();
+  }
+  //
+  // late String token;
+  // getToken() async {
+  //   token = (await FirebaseMessaging.instance.getToken())!;
+  //   print("My Token:-" + token);
+  // }
 
   manageSession() async {
     await Future.delayed(const Duration(seconds: 3));
@@ -64,9 +137,9 @@ class SplashController extends GetxController {
 
   Future<void> checkPermissions() async {
     // var cameraStatus = await Permission.camera.status;
-    if(Platform.isIOS){
+    if (Platform.isIOS) {
       splashDuration();
-  } else if (Platform.isAndroid){
+    } else if (Platform.isAndroid) {
       var storageStatus = await Permission.manageExternalStorage.status;
 
       if (storageStatus.isDenied) {
@@ -78,7 +151,6 @@ class SplashController extends GetxController {
         splashDuration();
       }
     }
-
   }
 
   void showPermissionDialog() {

@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../../common/PushNotificationService.dart';
 import '../../../data/apis/api_methods/api_methods.dart';
 import '../../../data/apis/api_models/get_login_model.dart';
 import '../../../routes/app_pages.dart';
@@ -83,7 +84,8 @@ class LoginController extends GetxController {
         bodyParamsForSubmitLoginForm = {
           ApiKeyConstants.email: emailController.text.toString(),
           ApiKeyConstants.password: passwordController.text.toString(),
-          ApiKeyConstants.registerId: '89ukjkjahakjlfal',
+          ApiKeyConstants.registerId:
+              await PushNotificationService.getToken() ?? '',
         };
         print("bodyParamsForGetLogin:::::$bodyParamsForSubmitLoginForm");
         isLoading.value = true;

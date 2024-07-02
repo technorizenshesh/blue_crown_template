@@ -379,10 +379,6 @@ class ProviderCurrentListController extends GetxController {
       }
     }
 
-    // await Printing.layoutPdf(
-    //   onLayout: (PdfPageFormat format) async => pdf.save(),
-    // );
-
     isLoading.value = false;
   }
 }
