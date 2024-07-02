@@ -234,27 +234,31 @@ class ProviderCurrentListController extends GetxController {
       });
       sheetObject.appendRow(row);
     }
-    Directory? downloadsDirectory = await getApplicationDocumentsDirectory();
-    if (downloadsDirectory != null) {
-      String shortFileName = '';
-      if (tabIndex.value == 0) {
-        shortFileName =
-            'BlueCrown_${listRequestResult!.name!.removeAllWhitespace}_list';
-      } else {
-        shortFileName =
-            'BlueCrown_${tableRequestResult!.name!.removeAllWhitespace}_table';
-      }
-      String filePath = "${downloadsDirectory.path}/$shortFileName.xlsx";
-      var fileBytes = excel.save(fileName: filePath);
-      File(filePath)
-        ..createSync(recursive: true)
-        ..writeAsBytesSync(fileBytes!);
+    try {
+      Directory? downloadsDirectory = await getApplicationDocumentsDirectory();
+      if (downloadsDirectory != null) {
+        String shortFileName = '';
+        if (tabIndex.value == 0) {
+          shortFileName =
+          'BlueCrown_${listRequestResult!.name!.removeAllWhitespace}_list';
+        } else {
+          shortFileName =
+          'BlueCrown_${tableRequestResult!.name!.removeAllWhitespace}_table';
+        }
+        String filePath = "${downloadsDirectory.path}/$shortFileName.xlsx";
+        var fileBytes = excel.save(fileName: filePath);
+        File(filePath)
+          ..createSync(recursive: true)
+          ..writeAsBytesSync(fileBytes!);
 
-      print("Excel file saved at: $filePath");
-      CommonWidgets.showMyToastMessage('Excel file saved at: $filePath');
-    } else {
-      print("Failed to get downloads directory");
-      CommonWidgets.showMyToastMessage('Failed to download excel file');
+        print("Excel file saved at: $filePath");
+        CommonWidgets.showMyToastMessage('Excel file saved at: $filePath');
+      } else {
+        print("Failed to get downloads directory");
+        CommonWidgets.showMyToastMessage('Failed to download excel file');
+      }
+    }catch (e){
+      print("e::::::::::::::::::::: ${e}");
     }
     isLoading.value = false;
   }
