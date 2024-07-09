@@ -45,21 +45,28 @@ class PushNotificationService {
   }
 
   static Future<String?> getToken() async {
+    FirebaseMessaging messaging = FirebaseMessaging.instance;
     if (Platform.isAndroid) {
-      String? token = await FirebaseMessaging.instance.getToken();
+      String? token = await messaging.getToken();
       print('My Token:- $token');
       return token;
     } else {
       if (Platform.isIOS) {
-        NotificationSettings setting = await FirebaseMessaging.instance
-            .requestPermission(
-                alert: true, badge: true, sound: true, provisional: false);
+        NotificationSettings setting = await messaging.requestPermission(
+          alert: true,
+          announcement: false,
+          badge: true,
+          carPlay: false,
+          criticalAlert: false,
+          provisional: false,
+          sound: true,
+        );
         if (setting.authorizationStatus == AuthorizationStatus.authorized) {
-          String? token = await FirebaseMessaging.instance.getToken();
+          String? token = await messaging.getToken();
           print('My Token:- $token');
           return token;
         } else {
-          return '';
+          return 'f88999444';
         }
       }
     }

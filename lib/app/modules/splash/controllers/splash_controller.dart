@@ -18,12 +18,45 @@ import '../../../routes/app_pages.dart';
 class SplashController extends GetxController {
   late SharedPreferences sharedPreferences;
   final count = 0.obs;
+
+  Future<void> setupInteractedMessage() async {
+    print('Push Notification for ios in foreground.......');
+    // Get device token...
+    PushNotificationService.getToken();
+    // Get any messages which caused the application to open from
+    // a terminated state.
+    RemoteMessage? initialMessage =
+        await FirebaseMessaging.instance.getInitialMessage();
+
+    // If the message also contains a data property with a "type" of "chat",
+    // navigate to a chat screen
+    if (initialMessage != null) {
+      _handleMessage(initialMessage);
+    }
+
+    // Also handle any interaction when the app is in the background via a
+    // Stream listener
+    FirebaseMessaging.onMessageOpenedApp.listen(_handleMessage);
+  }
+
+  void _handleMessage(RemoteMessage message) {
+    RemoteNotification? notification = message.notification;
+    print('Notification title:-${notification!.title}');
+    print('Notification body:-${notification.body}');
+    print('Notification hashCode:-${notification.hashCode}');
+  }
+
   @override
   Future<void> onInit() async {
     super.onInit();
     if (Platform.isAndroid) {
       notificationSetup();
+    } else {
+      if (Platform.isIOS) {
+        setupInteractedMessage();
+      }
     }
+    // setupInteractedMessage();
     print('Start check permissions ...');
     await checkPermissions();
   }
@@ -45,14 +78,13 @@ class SplashController extends GetxController {
     var initializationSettings =
         InitializationSettings(android: initialzationSettingsAndroid);
     flutterLocalNotificationsPlugin.initialize(initializationSettings);
-
+    print('Push Notification for android in foreground.......');
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
           alert: true, badge: true, sound: true);
       RemoteNotification? notification = message.notification;
       AndroidNotification? android = message.notification?.android;
       if (notification != null && android != null) {
-        //bool a= notification!['kl'==null];
         flutterLocalNotificationsPlugin.show(
             notification.hashCode,
             notification.title,
