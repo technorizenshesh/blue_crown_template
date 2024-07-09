@@ -123,7 +123,7 @@ class ProviderDownloadQrCodeController extends GetxController {
       CommonWidgets.showMyToastMessage('QrCode saved at: $filePath');
     } else {
       print("Failed to get downloads directory");
-      CommonWidgets.showMyToastMessage('Failed to get downloads directory');
+      // CommonWidgets.showMyToastMessage('Failed to get downloads directory');
     }
     isLoading.value = false;
   }

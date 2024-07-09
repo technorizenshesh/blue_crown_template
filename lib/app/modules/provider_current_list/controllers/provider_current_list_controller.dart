@@ -112,6 +112,7 @@ class ProviderCurrentListController extends GetxController {
   }
 
   Future<void> convertJsonTableRequest() async {
+    listOfJson.clear();
     for (int i = 0; i < tableRequestResult!.eventReqData!.length; i++) {
       listOfJson.add({
         "name": "${tableRequestResult!.eventReqData![i].name}",
@@ -124,13 +125,14 @@ class ProviderCurrentListController extends GetxController {
   }
 
   Future<void> convertJsonListRequest() async {
-    for (int i = 0; i < tableRequestResult!.eventReqData!.length; i++) {
+    listOfJson.clear();
+    for (int i = 0; i < listRequestResult!.eventReqData!.length; i++) {
       listOfJson.add({
-        "name": "${tableRequestResult!.eventReqData![i].name}",
-        "email": "${tableRequestResult!.eventReqData![i].email}",
-        "phone": "${tableRequestResult!.eventReqData![i].phone}",
+        "name": "${listRequestResult!.eventReqData![i].name}",
+        "email": "${listRequestResult!.eventReqData![i].email}",
+        "phone": "${listRequestResult!.eventReqData![i].phone}",
         "date":
-            "${tableRequestResult!.eventReqData![i].dateTime.toString().substring(0, 10)}"
+            "${listRequestResult!.eventReqData![i].dateTime.toString().substring(0, 10)}"
       });
     }
   }
@@ -178,6 +180,7 @@ class ProviderCurrentListController extends GetxController {
       sheetObject.appendRow(headers);
 
       for (var item in data) {
+        print('Name:-${item['name'].toString()}');
         List<dynamic> row = [];
         item.forEach((key, value) {
           row.add(value);
@@ -228,6 +231,7 @@ class ProviderCurrentListController extends GetxController {
     sheetObject.appendRow(headers);
 
     for (var item in data) {
+      print('Name:-${item['name'].toString()}');
       List<dynamic> row = [];
       item.forEach((key, value) {
         row.add(value);
@@ -300,39 +304,51 @@ class ProviderCurrentListController extends GetxController {
     increment();
   }
 
-  Future<void> generatePdf() async {
+  Future<void> generatePdf(List<EventReqData> eventReqData) async {
     isLoading.value = true;
     final pdf = pw.Document();
 
-    pdf.addPage(
-      pw.Page(
-        build: (pw.Context context) {
-          return pw.Column(
-            children: tableRequestResult!.eventReqData!.map((user) {
-              return pw.Container(
-                padding: const pw.EdgeInsets.all(8.0),
-                child: pw.Column(
-                  crossAxisAlignment: pw.CrossAxisAlignment.start,
-                  children: [
-                    pw.Text('Name: ${user.name}',
-                        style: const pw.TextStyle(fontSize: 14)),
-                    pw.Text('Email: ${user.email}',
-                        style: const pw.TextStyle(fontSize: 14)),
-                    pw.Text('Phone: ${user.phone}',
-                        style: const pw.TextStyle(fontSize: 14)),
-                    pw.Text(
-                        'Date: ${user.dateTime.toString().substring(0, 10)}',
-                        style: const pw.TextStyle(fontSize: 14)),
-                    pw.SizedBox(height: 10),
-                    pw.Divider(),
-                  ],
-                ),
-              );
-            }).toList(),
-          );
-        },
-      ),
-    );
+    void addUserPage(List<EventReqData> userList) {
+      pdf.addPage(
+        pw.Page(
+          build: (pw.Context context) {
+            return pw.Column(
+              children: userList.map((user) {
+                print('Name:- ${user.name}');
+                return pw.Container(
+                  padding: const pw.EdgeInsets.all(8.0),
+                  child: pw.Column(
+                    crossAxisAlignment: pw.CrossAxisAlignment.start,
+                    children: [
+                      pw.Text('Name: ${user.name}',
+                          style: const pw.TextStyle(fontSize: 14)),
+                      pw.Text('Email: ${user.email}',
+                          style: const pw.TextStyle(fontSize: 14)),
+                      pw.Text('Phone: ${user.phone}',
+                          style: const pw.TextStyle(fontSize: 14)),
+                      pw.Text(
+                          'Date: ${user.dateTime.toString().substring(0, 10)}',
+                          style: const pw.TextStyle(fontSize: 14)),
+                      pw.SizedBox(height: 10),
+                      pw.Divider(),
+                    ],
+                  ),
+                );
+              }).toList(),
+            );
+          },
+        ),
+      );
+    }
+
+    List<EventReqData> currentPageUsers = [];
+    for (int i = 0; i < eventReqData.length; i++) {
+      currentPageUsers.add(eventReqData[i]);
+      if (currentPageUsers.length == 6 || i == eventReqData.length - 1) {
+        addUserPage(currentPageUsers);
+        currentPageUsers = []; // Clear current page users
+      }
+    }
 
     if (Platform.isAndroid) {
       Directory? downloadsDirectory = Directory('/storage/emulated/0/Download');
@@ -385,86 +401,4 @@ class ProviderCurrentListController extends GetxController {
 
     isLoading.value = false;
   }
-
-  // Future<void> generatePdf() async {
-  //   isLoading.value = true;
-  //   final pdf = pw.Document();
-  //
-  //   pdf.addPage(
-  //     pw.Page(
-  //       build: (pw.Context context) {
-  //         return pw.Column(
-  //           children: tableRequestResult!.eventReqData!.map((user) {
-  //             return pw.Container(
-  //               padding: const pw.EdgeInsets.all(8.0),
-  //               child: pw.Column(
-  //                 crossAxisAlignment: pw.CrossAxisAlignment.start,
-  //                 children: [
-  //                   pw.Text('Name: ${user.name}',
-  //                       style: const pw.TextStyle(fontSize: 14)),
-  //                   pw.Text('Email: ${user.email}',
-  //                       style: const pw.TextStyle(fontSize: 14)),
-  //                   pw.Text('Phone: ${user.phone}',
-  //                       style: const pw.TextStyle(fontSize: 14)),
-  //                   pw.Text(
-  //                       'Date: ${user.dateTime.toString().substring(0, 10)}',
-  //                       style: const pw.TextStyle(fontSize: 14)),
-  //                   pw.SizedBox(height: 10),
-  //                   pw.Divider(),
-  //                 ],
-  //               ),
-  //             );
-  //           }).toList(),
-  //         );
-  //       },
-  //     ),
-  //   );
-  //
-  //   if (Platform.isAndroid) {
-  //     Directory? downloadsDirectory = Directory('/storage/emulated/0/Download');
-  //     if (downloadsDirectory != null) {
-  //       String shortFileName = '';
-  //       if (tabIndex.value == 0) {
-  //         shortFileName =
-  //             'BlueCrown_${listRequestResult!.name!.removeAllWhitespace}_list';
-  //       } else {
-  //         shortFileName =
-  //             'BlueCrown_${tableRequestResult!.name!.removeAllWhitespace}_table';
-  //       }
-  //       String filePath = "${downloadsDirectory.path}/$shortFileName.pdf";
-  //       await File(filePath)
-  //         ..createSync(recursive: true)
-  //         ..writeAsBytesSync(await pdf.save());
-  //       print('My Path:-$filePath');
-  //       CommonWidgets.showMyToastMessage('File Path:-$filePath');
-  //       // File(filePath)
-  //       //   ..createSync(recursive: true)
-  //       //   ..writeAsBytesSync(fileBytes!);
-  //     } else {
-  //       print("Failed to get downloads directory");
-  //       CommonWidgets.showMyToastMessage('Failed to download pdf file');
-  //     }
-  //   } else {
-  //     if (Platform.isIOS) {
-  //       final iosDirectory = await getApplicationDocumentsDirectory();
-  //       String shortFileName = '';
-  //       if (tabIndex.value == 0) {
-  //         shortFileName =
-  //             'BlueCrown_${listRequestResult!.name!.removeAllWhitespace}_list';
-  //       } else {
-  //         shortFileName =
-  //             'BlueCrown_${tableRequestResult!.name!.removeAllWhitespace}_table';
-  //       }
-  //       String filePath = "${iosDirectory.path}/$shortFileName.pdf";
-  //       // final file = File("${iosDirectory.path}/user_list.pdf");
-  //       // await File(filePath).writeAsBytes(await pdf.save());
-  //       await File(filePath)
-  //         ..createSync(recursive: true)
-  //         ..writeAsBytesSync(await pdf.save());
-  //       CommonWidgets.showMyToastMessage('File Path:-$filePath');
-  //     }
-  //   }
-  //
-  //   isLoading.value = false;
-  // }
 }

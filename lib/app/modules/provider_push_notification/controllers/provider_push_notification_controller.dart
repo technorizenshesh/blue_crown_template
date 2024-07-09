@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:blue_crown_template/app/data/apis/api_models/get_common_response_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -22,6 +24,7 @@ class ProviderPushNotificationController extends GetxController {
   }
 
   List<AllUsersResult> userList = [];
+  List<String> usersId = [];
 
   void onFocusChange() {
     isMessage.value = focusMessage.hasFocus;
@@ -49,6 +52,9 @@ class ProviderPushNotificationController extends GetxController {
 
   changeNotificationStatus(int index, bool value) {
     userList[index].selected = value;
+    if (value) {
+      addUserIdInList(userList[index].id ?? '');
+    }
     increment();
   }
 
@@ -57,6 +63,7 @@ class ProviderPushNotificationController extends GetxController {
       AllUsersModel? allUsersModel = await ApiMethods.getAllUsersApi();
       if (allUsersModel!.status != "0" && allUsersModel.result!.isNotEmpty) {
         userList = allUsersModel.result!;
+        print('User List:-${userList.length}');
       } else {
         print("get all user Failed....");
         CommonWidgets.showMyToastMessage(allUsersModel.message!);
@@ -71,9 +78,12 @@ class ProviderPushNotificationController extends GetxController {
 
   Future<void> sendPushNotification() async {
     if (messageController.text.isNotEmpty) {
+      await sendEveryOne.value ? getAllUserId() : usersId;
       try {
         Map<String, dynamic> bodyParamsForPushNotificationForm = {
-          ApiKeyConstants.userId: parameters[ApiKeyConstants.userId],
+          ApiKeyConstants.userId: jsonEncode(usersId),
+          ApiKeyConstants.body: messageController.text,
+          ApiKeyConstants.title: 'Blue Crown App',
         };
         isBtnLoading.value = true;
         print(
@@ -83,8 +93,9 @@ class ProviderPushNotificationController extends GetxController {
                 bodyParams: bodyParamsForPushNotificationForm);
         if (commonResponseModel!.status != "0" ?? false) {
           print("PushNotification Successfully complete...");
-          Get.back(result: true);
-          // CommonWidgets.showMyToastMessage(addEventModel!.message!);
+          CommonWidgets.showMyToastMessage(
+              'Send pushNotification successfully complete...');
+          Get.back();
         } else {
           print("PushNotification Failed....");
           CommonWidgets.showMyToastMessage(commonResponseModel.message!);
@@ -98,5 +109,19 @@ class ProviderPushNotificationController extends GetxController {
       CommonWidgets.showMyToastMessage('Please enter message...');
     }
     isBtnLoading.value = false;
+  }
+
+  Future<void> getAllUserId() async {
+    usersId.clear();
+    for (int i = 0; i < userList.length; i++) {
+      usersId.add(userList[i].id ?? '');
+    }
+  }
+
+  void addUserIdInList(String userId) {
+    if (!usersId.contains(userId)) {
+      usersId.add(userId);
+      print('User added for notification.....');
+    }
   }
 }

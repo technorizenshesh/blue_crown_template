@@ -15,27 +15,29 @@ class ProviderPushNotificationView
   const ProviderPushNotificationView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        resizeToAvoidBottomInset: false,
-        backgroundColor: Colors.black,
-        appBar: CommonWidgets.appBar(
-            wantBackButton: true, title: StringConstants.pushNotification),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        floatingActionButton: CommonWidgets.commonElevatedButton(
-            onPressed: () {
-              //controller.openNewPage(1);
-            },
-            child: Text(
-              StringConstants.sendMessage,
-              style: MyTextStyle.titleStyle16bw,
-            ),
-            borderRadius: 30.px,
-            buttonColor: primaryColor,
-            buttonMargin:
-                EdgeInsets.only(bottom: 10.px, left: 10.px, right: 10.px)),
-        body: Obx(() {
-          controller.count.value;
-          return Padding(
+    return Obx(() {
+      controller.count.value;
+      return Scaffold(
+          resizeToAvoidBottomInset: false,
+          backgroundColor: Colors.black,
+          appBar: CommonWidgets.appBar(
+              wantBackButton: true, title: StringConstants.pushNotification),
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.centerDocked,
+          floatingActionButton: CommonWidgets.commonElevatedButton(
+              onPressed: () {
+                controller.sendPushNotification();
+              },
+              child: Text(
+                StringConstants.sendMessage,
+                style: MyTextStyle.titleStyle16bw,
+              ),
+              borderRadius: 30.px,
+              buttonColor: primaryColor,
+              isLoading: controller.isBtnLoading.value,
+              buttonMargin:
+                  EdgeInsets.only(bottom: 10.px, left: 10.px, right: 10.px)),
+          body: Padding(
             padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -102,8 +104,8 @@ class ProviderPushNotificationView
                   )
               ],
             ),
-          );
-        }));
+          ));
+    });
   }
 
   /// Show Registered User List ...

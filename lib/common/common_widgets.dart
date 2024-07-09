@@ -777,7 +777,7 @@ class CommonWidgets {
     Fluttertoast.showToast(
         msg: message,
         toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.BOTTOM,
+        gravity: ToastGravity.TOP,
         timeInSecForIosWeb: 1,
         textColor: primaryColor,
         backgroundColor: primary3Color,

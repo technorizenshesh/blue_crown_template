@@ -610,11 +610,12 @@ class ApiMethods {
     CommonResponseModel? commonResponseModel;
     http.Response? response = await MyHttp.postMethod(
       bodyParams: bodyParams,
-      url: ApiUrlConstants.endPointOfResetPassword,
+      url: ApiUrlConstants.endPointOfNotifi,
       checkResponse: checkResponse,
     );
 
     if (response != null) {
+      print('Response:-${response.body.toString()}');
       commonResponseModel =
           CommonResponseModel.fromJson(jsonDecode(response.body));
       return commonResponseModel;

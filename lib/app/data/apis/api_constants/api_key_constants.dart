@@ -55,5 +55,7 @@ class ApiKeyConstants {
   static const String status = 'status';
   static const String people = 'people';
   static const String manual = 'manual';
+  static const String title = 'title';
+  static const String body = 'body';
   static const String eventClubRequestId = 'event_club_request_id';
 }

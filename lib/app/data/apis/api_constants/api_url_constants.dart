@@ -28,6 +28,7 @@ class ApiUrlConstants {
   static const String endPointOfAcceptCancelRequest =
       '${baseUrl}accept_cancel_request';
   static const String endPointOfGetAllUser = '${baseUrl}get_all_user';
+  static const String endPointOfNotifi = '${baseUrl}notifi';
   static const String endPointOfClubAddCostomerRequest =
       '${baseUrl}add_club_friend';
   static const String endPointOfGetClubFriendList =

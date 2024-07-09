@@ -594,7 +594,25 @@ class ProviderCurrentListView extends GetView<ProviderCurrentListController> {
                       child: CommonWidgets.commonElevatedButton(
                           onPressed: () {
                             Get.back();
-                            controller.generatePdf();
+                            if (controller.tabIndex.value == 0) {
+                              if (controller.listRequestResult!.eventReqData!
+                                  .isNotEmpty) {
+                                controller.generatePdf(controller
+                                    .listRequestResult!.eventReqData!);
+                              } else {
+                                CommonWidgets.showMyToastMessage(
+                                    'List user are not available...');
+                              }
+                            } else {
+                              if (controller.tableRequestResult!.eventReqData!
+                                  .isNotEmpty) {
+                                controller.generatePdf(controller
+                                    .tableRequestResult!.eventReqData!);
+                              } else {
+                                CommonWidgets.showMyToastMessage(
+                                    'Table request user are not available...');
+                              }
+                            }
                           },
                           child: Text(
                             'PDF',
@@ -614,7 +632,23 @@ class ProviderCurrentListView extends GetView<ProviderCurrentListController> {
                       child: CommonWidgets.commonElevatedButton(
                           onPressed: () {
                             Get.back();
-                            controller.clickOnDownloadExcel();
+                            if (controller.tabIndex.value == 0) {
+                              if (controller.listRequestResult!.eventReqData!
+                                  .isNotEmpty) {
+                                controller.clickOnDownloadExcel();
+                              } else {
+                                CommonWidgets.showMyToastMessage(
+                                    'List user are not available...');
+                              }
+                            } else {
+                              if (controller.tableRequestResult!.eventReqData!
+                                  .isNotEmpty) {
+                                controller.clickOnDownloadExcel();
+                              } else {
+                                CommonWidgets.showMyToastMessage(
+                                    'Table request user are not available...');
+                              }
+                            }
                           },
                           child: Text(
                             'Excel Sheet',
