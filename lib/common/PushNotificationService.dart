@@ -52,22 +52,24 @@ class PushNotificationService {
       return token;
     } else {
       if (Platform.isIOS) {
-        NotificationSettings setting = await messaging.requestPermission(
-          alert: true,
-          announcement: false,
-          badge: true,
-          carPlay: false,
-          criticalAlert: false,
-          provisional: false,
-          sound: true,
-        );
-        if (setting.authorizationStatus == AuthorizationStatus.authorized) {
-          String? token = await messaging.getToken();
-          print('My Token:- $token');
-          return token;
-        } else {
-          return 'f88999444';
+        // Request permission for iOS
+        await messaging.requestPermission();
+
+        // Wait for the APNS token to be set
+        String? apnsToken;
+        while (apnsToken == null) {
+          apnsToken = await messaging.getAPNSToken();
+          if (apnsToken == null) {
+            await Future.delayed(Duration(seconds: 1));
+          }
         }
+        print("APNS Token: $apnsToken");
+
+        // Get Firebase token
+        String? token = await messaging.getToken();
+        print("Firebase Token: $token");
+         return token ?? 'hiuhjkuhj';
+        // Handle token, register it with your server if needed
       }
     }
   }

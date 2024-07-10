@@ -29,7 +29,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  if (Platform.isAndroid) {
+/*  if (Platform.isAndroid) {
     print('Push Notification Android background notification start....');
     FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
     await flutterLocalNotificationsPlugin
@@ -70,7 +70,10 @@ void main() async {
       badge: true,
       sound: true,
     );
-  }
+  }*/
+
+  PushNotificationService pushNotificationService = PushNotificationService();
+  await pushNotificationService.initialize();
 
   runApp(
     GetMaterialApp(
@@ -82,3 +85,31 @@ void main() async {
     ),
   );
 }
+
+
+
+class PushNotificationService {
+  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
+
+  Future<void> initialize() async {
+    // Request permission for iOS
+    await _firebaseMessaging.requestPermission();
+
+    // Wait for the APNS token to be set
+    String? apnsToken;
+    while (apnsToken == null) {
+      apnsToken = await _firebaseMessaging.getAPNSToken();
+      if (apnsToken == null) {
+        await Future.delayed(Duration(seconds: 1));
+      }
+    }
+    print("APNS Token: $apnsToken");
+
+    // Get Firebase token
+    String? token = await _firebaseMessaging.getToken();
+    print("Firebase Token: $token");
+
+    // Handle token, register it with your server if needed
+  }
+}
+
