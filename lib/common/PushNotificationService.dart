@@ -49,19 +49,23 @@ class PushNotificationService {
       String? token = await FirebaseMessaging.instance.getToken();
       print('My Token:- $token');
       return token;
-    } else {
-      if (Platform.isIOS) {
-        NotificationSettings setting = await FirebaseMessaging.instance
-            .requestPermission(
-                alert: true, badge: true, sound: true, provisional: false);
-        if (setting.authorizationStatus == AuthorizationStatus.authorized) {
-          String? token = await FirebaseMessaging.instance.getToken();
-          print('My Token:- $token');
-          return token;
-        } else {
-          return '';
-        }
+    }       else if(Platform.isIOS) {
+      // final apnsToken = await FirebaseMessaging.instance.getAPNSToken();
+      //  if (apnsToken != null) {
+      NotificationSettings setting = await FirebaseMessaging.instance
+          .requestPermission(
+          alert: true,
+          badge: true,
+          sound: true,
+          provisional: false
+      );
+      if (setting.authorizationStatus == AuthorizationStatus.authorized) {
+        print("permission granted");
+       String? token = await FirebaseMessaging.instance.getAPNSToken();
+        print("device id ios....$token");
+        return token??'not';
       }
+      return 'notautherizzed';
     }
-  }
+    }
 }
