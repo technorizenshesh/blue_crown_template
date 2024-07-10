@@ -29,7 +29,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-/*  if (Platform.isAndroid) {
+  if (Platform.isAndroid) {
     print('Push Notification Android background notification start....');
     FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
     await flutterLocalNotificationsPlugin
@@ -70,10 +70,10 @@ void main() async {
       badge: true,
       sound: true,
     );
-  }*/
+  }
 
-  PushNotificationService pushNotificationService = PushNotificationService();
-  await pushNotificationService.initialize();
+  // PushNotificationService pushNotificationService = PushNotificationService();
+  // await pushNotificationService.initialize();
 
   runApp(
     GetMaterialApp(
