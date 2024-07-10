@@ -20,7 +20,7 @@ final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp();
-  print('Handling a background message ${message.messageId}');
+  print('Handling a background message::::::::: ${message.messageId}');
 }
 
 void main() async {
@@ -30,6 +30,7 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   if (Platform.isAndroid) {
+    print('Push Notification Android background notification start....');
     FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
     await flutterLocalNotificationsPlugin
         .resolvePlatformSpecificImplementation<
@@ -42,7 +43,34 @@ void main() async {
       badge: true,
       sound: true,
     );
-  } else {}
+  } else {
+    print('Push Notification Ios background notification start....');
+    final messaging = FirebaseMessaging.instance;
+
+    final settings = await messaging.requestPermission(
+      alert: true,
+      announcement: false,
+      badge: true,
+      carPlay: false,
+      criticalAlert: false,
+      provisional: false,
+      sound: true,
+    );
+    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+    await flutterLocalNotificationsPlugin
+        .resolvePlatformSpecificImplementation<
+            IOSFlutterLocalNotificationsPlugin>()!
+        .requestPermissions(
+          alert: true,
+          badge: true,
+          sound: true,
+        );
+    await messaging.setForegroundNotificationPresentationOptions(
+      alert: true, // Required to display a heads up notification
+      badge: true,
+      sound: true,
+    );
+  }
 
   runApp(
     GetMaterialApp(

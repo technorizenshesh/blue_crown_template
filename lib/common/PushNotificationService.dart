@@ -10,7 +10,7 @@ const AndroidNotificationChannel channel = AndroidNotificationChannel(
   importance: Importance.high,
 );
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-    FlutterLocalNotificationsPlugin();
+FlutterLocalNotificationsPlugin();
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp();
@@ -33,7 +33,7 @@ class PushNotificationService {
     FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
     await flutterLocalNotificationsPlugin
         .resolvePlatformSpecificImplementation<
-            AndroidFlutterLocalNotificationsPlugin>()
+        AndroidFlutterLocalNotificationsPlugin>()
         ?.createNotificationChannel(channel);
 
     await FirebaseMessaging.instance
@@ -45,27 +45,30 @@ class PushNotificationService {
   }
 
   static Future<String?> getToken() async {
+    FirebaseMessaging messaging = FirebaseMessaging.instance;
     if (Platform.isAndroid) {
-      String? token = await FirebaseMessaging.instance.getToken();
+      String? token = await messaging.getToken();
       print('My Token:- $token');
       return token;
-    }       else if(Platform.isIOS) {
-      // final apnsToken = await FirebaseMessaging.instance.getAPNSToken();
-      //  if (apnsToken != null) {
-      NotificationSettings setting = await FirebaseMessaging.instance
-          .requestPermission(
+    } else {
+      if (Platform.isIOS) {
+        NotificationSettings setting = await messaging.requestPermission(
           alert: true,
+          announcement: false,
           badge: true,
+          carPlay: false,
+          criticalAlert: false,
+          provisional: false,
           sound: true,
-          provisional: false
-      );
-      if (setting.authorizationStatus == AuthorizationStatus.authorized) {
-        print("permission granted");
-       String? token = await FirebaseMessaging.instance.getAPNSToken();
-        print("device id ios....$token");
-        return token??'not';
+        );
+        if (setting.authorizationStatus == AuthorizationStatus.authorized) {
+          String? token = await messaging.getToken();
+          print('My Token:- $token');
+          return token;
+        } else {
+          return 'f88999444';
+        }
       }
-      return 'notautherizzed';
     }
-    }
+  }
 }
