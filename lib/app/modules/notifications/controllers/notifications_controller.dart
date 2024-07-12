@@ -1,57 +1,26 @@
+import 'dart:convert';
+
+import 'package:blue_crown_template/app/data/apis/api_models/get_my_notification_model.dart';
 import 'package:blue_crown_template/app/routes/app_pages.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../../../common/common_widgets.dart';
+import '../../../data/apis/api_constants/api_key_constants.dart';
+import '../../../data/apis/api_methods/api_methods.dart';
+import '../../../data/apis/api_models/get_login_model.dart';
+import '../../../data/constants/string_constants.dart';
 
 class NotificationsController extends GetxController {
-  final showProgressBar = false.obs;
-  TextEditingController searchController = TextEditingController();
-  FocusNode focusSearch = FocusNode();
-  final isSearch = false.obs;
-  void startListener() {
-    focusSearch.addListener(onFocusChange);
-  }
+  final isLoading = true.obs;
 
-  List<Map<String, String>> filterUserList = [];
-
-  List<Map<String, String>> userList = [
-    {
-      "type": "List request accepted",
-      "message": "kung Fu Chau added new image inFurniture and Garden.",
-      "time": "10 min ago"
-    },
-    {
-      "type": "Update version",
-      "message": "kung Fu Chau added new image inFurniture and Garden.",
-      "time": "5 dasys ago"
-    },
-    {
-      "type": "List request accepted",
-      "message": "kung Fu Chau added new image inFurniture and Garden.",
-      "time": "7 days ago"
-    },
-    {
-      "type": "You earned money",
-      "message": "kung Fu Chau added new image inFurniture and Garden.",
-      "time": "10 days ago"
-    },
-    {
-      "type": "List request Rejected",
-      "message": "kung Fu Chau added new image inFurniture and Garden.",
-      "time": "15 days ago"
-    },
-  ];
-
-  void onFocusChange() {
-    isSearch.value = focusSearch.hasFocus;
-  }
+  List<MyNotificationResult> notificationList = [];
 
   final count = 0.obs;
   @override
-  void onInit() {
+  void onInit() async {
     super.onInit();
-    filterUserList = userList;
-
-    startListener();
+    getLocalData();
   }
 
   @override
@@ -66,15 +35,37 @@ class NotificationsController extends GetxController {
 
   void increment() => count.value++;
 
-  changeFilterUsersList(String query) {
-    filterUserList = userList
-        .where(
-            (item) => item['name']!.toLowerCase().contains(query.toLowerCase()))
-        .toList();
-    update();
-  }
-
   clickOnSettingIcon() {
     Get.toNamed(Routes.NOTIFICATION_SETTING);
+  }
+
+  getLocalData() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    Map<String, dynamic> jsonData =
+        jsonDecode(sharedPreferences.getString(StringConstants.userData)!);
+    if (jsonData != null) {
+      LogInModel userData = LogInModel.fromJson(jsonData);
+      getMyNotificationList(userData.result!.id!);
+    }
+  }
+
+  getMyNotificationList(String userId) async {
+    try {
+      Map<String, String> queryParameters = {ApiKeyConstants.userId: userId};
+      MyNotificationModel? myNotificationModel =
+          await ApiMethods.getNotificationByUserId(
+              queryParameters: queryParameters);
+      if (myNotificationModel!.status != "0" &&
+          myNotificationModel.result != null) {
+        notificationList = myNotificationModel.result!;
+        print(" Get Booking Event Successfully complete...");
+      } else {
+        print("Get Booking Event Failed....");
+        CommonWidgets.showMyToastMessage(myNotificationModel.message!);
+      }
+    } catch (e) {
+      print("Error:-${e.toString()}");
+    }
+    isLoading.value = false;
   }
 }

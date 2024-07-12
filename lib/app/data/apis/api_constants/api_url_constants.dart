@@ -54,6 +54,8 @@ class ApiUrlConstants {
       '/BlueCrownAccess/webservice/delete_event';
   static const String endPointOfGetPurchaseEventUser =
       '/BlueCrownAccess/webservice/get_purchase_event_user';
+  static const String endPointOfGetPushNotification =
+      '/BlueCrownAccess/webservice/get_push_Notification';
 
   //
   //

@@ -10,7 +10,7 @@ const AndroidNotificationChannel channel = AndroidNotificationChannel(
   importance: Importance.high,
 );
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-FlutterLocalNotificationsPlugin();
+    FlutterLocalNotificationsPlugin();
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp();
@@ -33,7 +33,7 @@ class PushNotificationService {
     FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
     await flutterLocalNotificationsPlugin
         .resolvePlatformSpecificImplementation<
-        AndroidFlutterLocalNotificationsPlugin>()
+            AndroidFlutterLocalNotificationsPlugin>()
         ?.createNotificationChannel(channel);
 
     await FirebaseMessaging.instance
@@ -52,23 +52,18 @@ class PushNotificationService {
       return token;
     } else {
       if (Platform.isIOS) {
-        // Request permission for iOS
         await messaging.requestPermission();
-
-        // Wait for the APNS token to be set
         String? apnsToken;
         while (apnsToken == null) {
           apnsToken = await messaging.getAPNSToken();
           if (apnsToken == null) {
-            await Future.delayed(Duration(seconds: 1));
+            await Future.delayed(const Duration(seconds: 1));
           }
         }
         print("APNS Token: $apnsToken");
-
-        // Get Firebase token
         String? token = await messaging.getToken();
         print("Firebase Token: $token");
-         return token ?? 'hiuhjkuhj';
+        return token ?? 'hiuhjkuhj';
         // Handle token, register it with your server if needed
       }
     }
