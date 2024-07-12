@@ -5,6 +5,7 @@ import 'package:blue_crown_template/app/data/apis/api_constants/api_key_constant
 import 'package:blue_crown_template/app/data/apis/api_models/get_all_user_model.dart';
 import 'package:blue_crown_template/app/data/apis/api_models/get_club_info_model.dart';
 import 'package:blue_crown_template/app/data/apis/api_models/get_event_model.dart';
+import 'package:blue_crown_template/app/data/apis/api_models/get_my_notification_model.dart';
 import 'package:blue_crown_template/app/data/apis/api_models/get_request_model.dart';
 import 'package:blue_crown_template/app/data/apis/api_models/get_wallet_model.dart';
 import 'package:http/http.dart' as http;
@@ -619,6 +620,26 @@ class ApiMethods {
       commonResponseModel =
           CommonResponseModel.fromJson(jsonDecode(response.body));
       return commonResponseModel;
+    }
+    return null;
+  }
+
+  /// Get My notification  by user_id....
+  static Future<MyNotificationModel?> getNotificationByUserId(
+      {void Function(int)? checkResponse,
+      required Map<String, dynamic> queryParameters}) async {
+    MyNotificationModel? myNotificationModel;
+    http.Response? response = await MyHttp.getMethodParams(
+      queryParameters: queryParameters,
+      baseUri: ApiUrlConstants.baseUrlForGetMethodParams,
+      endPointUri: ApiUrlConstants.endPointOfGetPushNotification,
+      checkResponse: checkResponse,
+    );
+
+    if (response != null) {
+      myNotificationModel =
+          MyNotificationModel.fromJson(jsonDecode(response.body));
+      return myNotificationModel;
     }
     return null;
   }

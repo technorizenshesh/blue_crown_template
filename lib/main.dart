@@ -1,14 +1,14 @@
-import 'dart:io';
-
 import 'package:blue_crown_template/app/routes/app_pages.dart';
 import 'package:blue_crown_template/common/common_methods.dart';
 import 'package:blue_crown_template/common/theme_data.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 
+import 'app/modules/splash/controllers/splash_controller.dart';
 import 'firebase_options.dart';
 
 const AndroidNotificationChannel channel = AndroidNotificationChannel(
@@ -29,9 +29,25 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  if (Platform.isAndroid) {
+
+  /* if (Platform.isAndroid) {
     print('Push Notification Android background notification start....');
     FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+     InitializationSettings initializationSettings =
+        const InitializationSettings(
+      android: AndroidInitializationSettings('@mipmap/ic_launcher'),
+      iOS: DarwinInitializationSettings(),
+    );
+    await flutterLocalNotificationsPlugin.initialize(initializationSettings,
+        /*     onDidReceiveBackgroundNotificationResponse: (details) {
+      print('pressed notification....');
+      print('the notification is selected 12 ${details.payload}');
+    },*/
+        onDidReceiveNotificationResponse: (payload) async {
+      print('pressed notification....');
+      print('the notification is selected 12 ${payload.payload}');
+    });
+
     await flutterLocalNotificationsPlugin
         .resolvePlatformSpecificImplementation<
             AndroidFlutterLocalNotificationsPlugin>()
@@ -70,13 +86,10 @@ void main() async {
       badge: true,
       sound: true,
     );
-  }
-
-  // PushNotificationService pushNotificationService = PushNotificationService();
-  // await pushNotificationService.initialize();
-
+  }  */
   runApp(
     GetMaterialApp(
+      navigatorKey: navigatorKey,
       title: "Ritz Nightclub",
       initialRoute: AppPages.INITIAL,
       getPages: AppPages.routes,
@@ -85,8 +98,6 @@ void main() async {
     ),
   );
 }
-
-
 
 class PushNotificationService {
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
@@ -112,4 +123,3 @@ class PushNotificationService {
     // Handle token, register it with your server if needed
   }
 }
-

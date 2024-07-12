@@ -10,10 +10,13 @@ import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../../common/FirebaseMessagingService.dart';
 import '../../../../common/PushNotificationService.dart';
 import '../../../data/apis/api_models/get_login_model.dart';
 import '../../../data/constants/string_constants.dart';
 import '../../../routes/app_pages.dart';
+
+GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 class SplashController extends GetxController {
   late SharedPreferences sharedPreferences;
@@ -41,9 +44,10 @@ class SplashController extends GetxController {
 
   void _handleMessage(RemoteMessage message) {
     RemoteNotification? notification = message.notification;
+    print('Notification pressed ios:-');
     print('Notification title:-${notification!.title}');
     print('Notification body:-${notification.body}');
-    print('Notification hashCode:-${notification.hashCode}');
+    Get.toNamed(Routes.NOTIFICATIONS);
   }
 
   @override
@@ -56,9 +60,9 @@ class SplashController extends GetxController {
         setupInteractedMessage();
       }
     }
-    // setupInteractedMessage();
     print('Start check permissions ...');
     await checkPermissions();
+    sendNotification();
   }
 
   @override
@@ -101,25 +105,22 @@ class SplashController extends GetxController {
               ),
             ));
       }
+      if (message != null) {
+        print('Notification aaaaaaaaaaaaaaaaaaa ::::::::::::::::::::::');
+        print(
+            'Notification aaaaaaaaaaaaaaaaaaa :::::::::::::::::::::: ${notification!.title}');
+      }
     });
 
-    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) async {
+      print('Notification pressed:-');
       RemoteNotification? notification = message.notification;
       AndroidNotification? android = message.notification?.android;
       if (notification != null && android != null) {
-        showDialog(
-            context: Get.context!,
-            builder: (_) {
-              return AlertDialog(
-                title: Text(notification.title!),
-                content: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [Text(notification.body!)],
-                  ),
-                ),
-              );
-            });
+        print('Notification pressed:-');
+        print('Notification pressed:-${notification.body!}');
+        await Future.delayed(const Duration(seconds: 2, milliseconds: 500));
+        Get.toNamed(Routes.NOTIFICATIONS);
       }
     });
     FirebaseMessaging.instance.requestPermission(
@@ -133,16 +134,12 @@ class SplashController extends GetxController {
     );
     PushNotificationService.getToken();
   }
-  //
-  // late String token;
-  // getToken() async {
-  //   token = (await FirebaseMessaging.instance.getToken())!;
-  //   print("My Token:-" + token);
-  // }
 
-  manageSession() async {
-    await Future.delayed(const Duration(seconds: 3));
-    Get.offAllNamed(Routes.LOGIN_TYPE);
+  void sendNotification() {
+    final MyLocalNotificationService _localNotificationService =
+        MyLocalNotificationService();
+    _localNotificationService.initializeSettings(Get.context!);
+    // _localNotificationService.showSimpleNotification();
   }
 
   splashDuration() async {
