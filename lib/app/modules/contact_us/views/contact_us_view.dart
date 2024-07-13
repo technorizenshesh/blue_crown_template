@@ -13,27 +13,27 @@ class ContactUsView extends GetView<ContactUsController> {
   const ContactUsView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        resizeToAvoidBottomInset: false,
-        backgroundColor: backgroundColor,
-        appBar: CommonWidgets.appBar(
-            title: StringConstants.contactToSupport, wantBackButton: true),
-        bottomNavigationBar: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.px, vertical: 10.px),
-          child: CommonWidgets.commonElevatedButton(
-              onPressed: () {
-                //controller.openNewPage(1);
-              },
-              child: Text(
-                StringConstants.submit,
-                style: MyTextStyle.titleStyle16bw,
-              ),
-              borderRadius: 30.px,
-              buttonColor: primaryColor),
-        ),
-        body: Obx(() {
-          controller.count.value;
-          return Padding(
+    return Obx(() {
+      controller.count.value;
+      return Scaffold(
+          backgroundColor: backgroundColor,
+          appBar: CommonWidgets.appBar(
+              title: StringConstants.contactToSupport, wantBackButton: true),
+          bottomNavigationBar: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20.px, vertical: 10.px),
+            child: CommonWidgets.commonElevatedButton(
+                onPressed: () {
+                  controller.sendEnquiryForm();
+                },
+                child: Text(
+                  StringConstants.submit,
+                  style: MyTextStyle.titleStyle16bw,
+                ),
+                isLoading: controller.btnLoading.value,
+                borderRadius: 30.px,
+                buttonColor: primaryColor),
+          ),
+          body: Padding(
             padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
             child: SingleChildScrollView(
               scrollDirection: Axis.vertical,
@@ -89,7 +89,7 @@ class ContactUsView extends GetView<ContactUsController> {
                 ],
               ),
             ),
-          );
-        }));
+          ));
+    });
   }
 }

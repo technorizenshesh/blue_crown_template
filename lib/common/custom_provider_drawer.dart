@@ -8,10 +8,14 @@ import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../app/data/apis/api_constants/api_key_constants.dart';
+import '../app/data/apis/api_methods/api_methods.dart';
+import '../app/data/apis/api_models/get_common_response_model.dart';
 import '../app/data/apis/api_models/get_login_model.dart';
+import '../app/modules/nav_bar/controllers/nav_bar_controller.dart';
+import 'colors.dart';
 
 class CustomProviderDrawer {
-  static Widget drawer(LogInModel userData) {
+  static Widget drawer(LogInModel userData, int count) {
     Map<String, String> data = {
       ApiKeyConstants.userId: userData.result!.id ?? '',
       ApiKeyConstants.token: userData.result!.token ?? '',
@@ -131,32 +135,33 @@ class CustomProviderDrawer {
                       Get.toNamed(Routes.PROVIDER_ALL_EVENT, parameters: data);
                     },
                   ),
-                  /*   ListTile(
-                    leading: CommonWidgets.appIcons(
-                        assetName: IconConstants.icChangePassword,
-                        height: 40.px,
-                        width: 40.px,
-                        fit: BoxFit.fill),
-                    title: Text(
-                      StringConstants.changePassword,
-                      style: MyTextStyle.titleStyle14w,
-                    ),
-                    trailing: CommonWidgets.appIcons(
-                        assetName: IconConstants.icRightArrow,
-                        height: 24.px,
-                        width: 24.px,
-                        fit: BoxFit.fill),
-                    onTap: () {
-                      Get.back();
-                      Get.toNamed(Routes.CHANGE_PASSWORD, parameters: data);
-                    },
-                  ),*/
                   ListTile(
-                    leading: CommonWidgets.appIcons(
-                        assetName: IconConstants.icNotification,
-                        height: 40.px,
-                        width: 40.px,
-                        fit: BoxFit.fill),
+                    leading: Stack(
+                      children: [
+                        CommonWidgets.appIcons(
+                            assetName: IconConstants.icNotification,
+                            height: 40.px,
+                            width: 40.px,
+                            fit: BoxFit.fill),
+                        if (count != 0)
+                          Positioned(
+                              top: 0.px,
+                              right: 0.px,
+                              child: Container(
+                                height: 18.px,
+                                width: 18.px,
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                    color: errorColor,
+                                    borderRadius: BorderRadius.circular(9.px)),
+                                child: Text(
+                                  count.toString(),
+                                  style: MyTextStyle.titleStyle10bw,
+                                  textAlign: TextAlign.center,
+                                ),
+                              ))
+                      ],
+                    ),
                     title: Text(
                       StringConstants.notifications,
                       style: MyTextStyle.titleStyle14w,
@@ -166,9 +171,22 @@ class CustomProviderDrawer {
                         height: 24.px,
                         width: 24.px,
                         fit: BoxFit.fill),
-                    onTap: () {
+                    onTap: () async {
                       Get.back();
                       Get.toNamed(Routes.NOTIFICATIONS, parameters: data);
+                      if (count != 0) {
+                        Map<String, dynamic> queryParamsForGetEvent = {
+                          ApiKeyConstants.userId: userData.result!.id,
+                        };
+                        CommonResponseModel? commonResponseModel =
+                            await ApiMethods.checkNotificationCountApi(
+                                queryParameters: queryParamsForGetEvent);
+                        if (commonResponseModel!.status != "0" ?? false) {
+                          notificationCount.value = 0;
+                          print(
+                              "Get Notification count Successfully complete...");
+                        }
+                      }
                     },
                   ),
                   ListTile(

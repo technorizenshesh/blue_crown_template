@@ -8,12 +8,16 @@ import '../../../data/apis/api_constants/api_key_constants.dart';
 import '../../../data/apis/api_methods/api_methods.dart';
 import '../../../data/apis/api_models/get_event_model.dart';
 import '../../../data/apis/api_models/get_login_model.dart';
+import '../../../data/apis/api_models/get_notification_count.dart';
 import '../../../data/constants/string_constants.dart';
 import '../../../routes/app_pages.dart';
+
+final notificationCount = 0.obs;
 
 class NavBarController extends GetxController {
   final count = 0.obs;
   final tabIndex = 1.obs;
+
   late SharedPreferences sharedPreferences;
   late LogInModel userData;
   final showEventsProgressBar = true.obs;
@@ -63,6 +67,7 @@ class NavBarController extends GetxController {
       userData = LogInModel.fromJson(jsonData);
       getEventsList(userData.result!.id!);
       isLoading.value = false;
+      getNotificationCount(userData.result!.id!);
     }
   }
 
@@ -97,6 +102,21 @@ class NavBarController extends GetxController {
     } catch (e) {
       print('Error:-${e.toString()}');
       changeProgressbarStatus(false);
+    }
+  }
+
+  Future<void> getNotificationCount(String userId) async {
+    Map<String, dynamic> queryParamsForGetNotificationCount = {
+      ApiKeyConstants.userId: userId,
+    };
+    NotificationCountModel? notificationCountModel =
+        await ApiMethods.getNotificationCountApi(
+            queryParameters: queryParamsForGetNotificationCount);
+    if (notificationCountModel!.status != "0" ?? false) {
+      print(
+          "Get Notification count Successfully complete...${notificationCountModel.count}");
+      notificationCount.value = notificationCountModel.count ?? 0;
+      increment();
     }
   }
 }

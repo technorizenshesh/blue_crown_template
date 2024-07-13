@@ -1,17 +1,21 @@
 import 'package:blue_crown_template/app/data/apis/api_constants/api_key_constants.dart';
 import 'package:blue_crown_template/app/data/constants/icons_constant.dart';
 import 'package:blue_crown_template/app/data/constants/string_constants.dart';
+import 'package:blue_crown_template/app/modules/nav_bar/controllers/nav_bar_controller.dart';
 import 'package:blue_crown_template/app/routes/app_pages.dart';
+import 'package:blue_crown_template/common/colors.dart';
 import 'package:blue_crown_template/common/common_widgets.dart';
 import 'package:blue_crown_template/common/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
+import '../app/data/apis/api_methods/api_methods.dart';
+import '../app/data/apis/api_models/get_common_response_model.dart';
 import '../app/data/apis/api_models/get_login_model.dart';
 
 class CustomDrawer {
-  static Widget drawer(LogInModel userData) {
+  static Widget drawer(LogInModel userData, int count) {
     Map<String, String> data = {
       ApiKeyConstants.userId: userData.result!.id ?? ''
     };
@@ -173,11 +177,32 @@ class CustomDrawer {
                     },
                   ),  */
                   ListTile(
-                    leading: CommonWidgets.appIcons(
-                        assetName: IconConstants.icNotification,
-                        height: 40.px,
-                        width: 40.px,
-                        fit: BoxFit.fill),
+                    leading: Stack(
+                      children: [
+                        CommonWidgets.appIcons(
+                            assetName: IconConstants.icNotification,
+                            height: 40.px,
+                            width: 40.px,
+                            fit: BoxFit.fill),
+                        if (count != 0)
+                          Positioned(
+                              top: 0.px,
+                              right: 0.px,
+                              child: Container(
+                                height: 18.px,
+                                width: 18.px,
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                    color: errorColor,
+                                    borderRadius: BorderRadius.circular(9.px)),
+                                child: Text(
+                                  count.toString(),
+                                  style: MyTextStyle.titleStyle10bw,
+                                  textAlign: TextAlign.center,
+                                ),
+                              ))
+                      ],
+                    ),
                     title: Text(
                       StringConstants.notifications,
                       style: MyTextStyle.titleStyle14w,
@@ -187,9 +212,22 @@ class CustomDrawer {
                         height: 24.px,
                         width: 24.px,
                         fit: BoxFit.fill),
-                    onTap: () {
+                    onTap: () async {
                       Get.back();
                       Get.toNamed(Routes.NOTIFICATIONS, parameters: data);
+                      if (count != 0) {
+                        Map<String, dynamic> queryParamsForGetEvent = {
+                          ApiKeyConstants.userId: userData.result!.id,
+                        };
+                        CommonResponseModel? commonResponseModel =
+                            await ApiMethods.checkNotificationCountApi(
+                                queryParameters: queryParamsForGetEvent);
+                        if (commonResponseModel!.status != "0" ?? false) {
+                          notificationCount.value = 0;
+                          print(
+                              "Get Notification count Successfully complete...");
+                        }
+                      }
                     },
                   ),
                   ListTile(

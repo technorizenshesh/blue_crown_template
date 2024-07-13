@@ -99,6 +99,8 @@ class StringConstants {
       'Are you want to hand in jacket?';
   static const String doYouWantToLogoutFromThisApp =
       'Do you want to logout from this app ?';
+  static const String doYouWantToDeleteNotification =
+      'Do you want to delete notification ?';
   static const String cnfPassword = 'Conform Password';
   static const String appUpdates = 'App Updates';
   static const String vibrate = 'Vibrate';
@@ -144,6 +146,7 @@ class StringConstants {
   static const String sendMessage = 'Send Message';
   static const String type = 'Type';
   static const String deleteEvent = 'Delete Event';
+  static const String deleteNotification = 'Delete Notification';
   static const String checkYourMail = 'Check Your Email';
   static const String pleasePutThe4DigitsSendToYou =
       'Please Put The 4 Digits Send To You';
@@ -154,6 +157,7 @@ class StringConstants {
   static const String selectEventImage = 'Select Event Image';
   static const String purchasedUser = 'Purchased User';
   static const String thankYouForRequest = ' Thank you for the request';
+  static const String yourRequestHasBeenSent = ' Your request has been sent';
   static const String chooseImageFromTheOptionsBelow =
       'Choose Image From The Options Below';
 
