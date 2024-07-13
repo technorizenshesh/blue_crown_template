@@ -21,7 +21,8 @@ class NavBarView extends GetView<NavBarController> {
       return Scaffold(
           drawer: controller.isLoading.value
               ? null
-              : CustomDrawer.drawer(controller.userData),
+              : CustomDrawer.drawer(
+                  controller.userData, notificationCount.value),
           floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
           floatingActionButton: Builder(builder: (context) {
             return Padding(

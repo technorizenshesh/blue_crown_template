@@ -25,7 +25,7 @@ class MyLocalNotificationService {
       initializeSettings,
       onDidReceiveNotificationResponse: (details) {
         Get.toNamed(Routes.NOTIFICATIONS);
-        print("On Did Received notification::::::::::::::::::::::::");
+        print("On Did Received notification:::::::::::::::::::::::::::");
       },
     );
 

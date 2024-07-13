@@ -118,7 +118,9 @@ class TableRequestController extends GetxController {
             bodyParams: bodyParamsForTableRequestForm);
         if (addRequestModel!.status != "0" ?? false) {
           print("Successfully added request ...");
-          CommonWidgets.showMyToastMessage(StringConstants.thankYouForRequest);
+          CommonWidgets.showMyToastMessage(
+              StringConstants.yourRequestHasBeenSent);
+          Get.back();
         } else {
           print("Add request Failed....");
           CommonWidgets.showMyToastMessage(addRequestModel.message!);

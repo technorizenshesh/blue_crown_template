@@ -20,6 +20,8 @@ class MyTextStyle {
       color: Color(0xff0054B4), fontSize: 24, fontWeight: FontWeight.bold);
   static TextStyle titleStyle30bb = const TextStyle(
       color: Color(0xff0054B4), fontSize: 30, fontWeight: FontWeight.bold);
+  static TextStyle titleStyle8bw = const TextStyle(
+      color: Color(0xFFFFFFFF), fontSize: 8, fontWeight: FontWeight.bold);
   static TextStyle titleStyle10bw = const TextStyle(
       color: Color(0xFFFFFFFF), fontSize: 10, fontWeight: FontWeight.bold);
   static TextStyle titleStyle12bw = const TextStyle(

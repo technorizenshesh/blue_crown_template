@@ -14,12 +14,21 @@ class ApiUrlConstants {
   static const String endPointOfAddEvent = '${baseUrl}add_event';
   static const String endPointOfUpdateEvent = '${baseUrl}update_event';
   static const String endPointOfAddListRequest = '${baseUrl}add_list_request';
+
   static const String endPointOfGetEventClubRequest =
       '/BlueCrownAccess/webservice/get_event_club_request';
   static const String endPointOfGetEvent =
       '/BlueCrownAccess/webservice/get_my_publish_event';
   static const String endPointOfGetEarnMorePoint =
       '${baseUrl}get_earn_more_point';
+  static const String endPointOfGetNotificationCount =
+      '/BlueCrownAccess/webservice/get_push_Notification_count';
+  static const String endPointOfCheckNotificationCount =
+      '/BlueCrownAccess/webservice/check_push_Notification_count';
+  static const String endPointOfDeleteNotificationCount =
+      '/BlueCrownAccess/webservice/check_push_Notification_message_delete';
+  static const String endPointOfCheckNotificationMessage =
+      '/BlueCrownAccess/webservice/check_push_Notification_message';
 
   static const String endPointOfGetClubInfo = '${baseUrl}get_club_info';
   static const String endPointOfEventActiveDeactivate =
@@ -56,6 +65,8 @@ class ApiUrlConstants {
       '/BlueCrownAccess/webservice/get_purchase_event_user';
   static const String endPointOfGetPushNotification =
       '/BlueCrownAccess/webservice/get_push_Notification';
+
+  static const String endPointOfContactUs = '${baseUrl}add_contact_us';
 
   //
   //

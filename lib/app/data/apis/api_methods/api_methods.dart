@@ -24,6 +24,7 @@ import '../api_models/get_hand_jacket_model.dart';
 import '../api_models/get_how_get_points_model.dart';
 import '../api_models/get_login_model.dart';
 import '../api_models/get_my_purchased_event_model.dart';
+import '../api_models/get_notification_count.dart';
 import '../api_models/get_otp_model.dart';
 import '../api_models/get_purchase_event_model.dart';
 import '../api_models/get_scan_event_qr_model.dart';
@@ -201,6 +202,82 @@ class ApiMethods {
     if (response != null) {
       addEventModel = AddEventModel.fromJson(jsonDecode(response.body));
       return addEventModel;
+    }
+    return null;
+  }
+
+  /// Get Notification Count Api Calling .....
+  static Future<NotificationCountModel?> getNotificationCountApi(
+      {void Function(int)? checkResponse,
+      required Map<String, dynamic> queryParameters}) async {
+    NotificationCountModel? notificationCountModel;
+    http.Response? response = await MyHttp.getMethodParams(
+      queryParameters: queryParameters,
+      baseUri: ApiUrlConstants.baseUrlForGetMethodParams,
+      endPointUri: ApiUrlConstants.endPointOfGetNotificationCount,
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      notificationCountModel =
+          NotificationCountModel.fromJson(jsonDecode(response.body));
+      return notificationCountModel;
+    }
+    return null;
+  }
+
+  /// Check Notification Count Api Calling .....
+  static Future<CommonResponseModel?> checkNotificationCountApi(
+      {void Function(int)? checkResponse,
+      required Map<String, dynamic> queryParameters}) async {
+    CommonResponseModel? commonResponseModel;
+    http.Response? response = await MyHttp.getMethodParams(
+      queryParameters: queryParameters,
+      baseUri: ApiUrlConstants.baseUrlForGetMethodParams,
+      endPointUri: ApiUrlConstants.endPointOfCheckNotificationCount,
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      commonResponseModel =
+          CommonResponseModel.fromJson(jsonDecode(response.body));
+      return commonResponseModel;
+    }
+    return null;
+  }
+
+  /// Check Notification Count Api Calling .....
+  static Future<CommonResponseModel?> checkNotificationMessageApi(
+      {void Function(int)? checkResponse,
+      required Map<String, dynamic> queryParameters}) async {
+    CommonResponseModel? commonResponseModel;
+    http.Response? response = await MyHttp.getMethodParams(
+      queryParameters: queryParameters,
+      baseUri: ApiUrlConstants.baseUrlForGetMethodParams,
+      endPointUri: ApiUrlConstants.endPointOfCheckNotificationMessage,
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      commonResponseModel =
+          CommonResponseModel.fromJson(jsonDecode(response.body));
+      return commonResponseModel;
+    }
+    return null;
+  }
+
+  /// Check Notification Count Api Calling .....
+  static Future<CommonResponseModel?> deleteNotificationCountApi(
+      {void Function(int)? checkResponse,
+      required Map<String, dynamic> queryParameters}) async {
+    CommonResponseModel? commonResponseModel;
+    http.Response? response = await MyHttp.getMethodParams(
+      queryParameters: queryParameters,
+      baseUri: ApiUrlConstants.baseUrlForGetMethodParams,
+      endPointUri: ApiUrlConstants.endPointOfDeleteNotificationCount,
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      commonResponseModel =
+          CommonResponseModel.fromJson(jsonDecode(response.body));
+      return commonResponseModel;
     }
     return null;
   }
@@ -398,6 +475,7 @@ class ApiMethods {
     http.Response? response = await MyHttp.postMethod(
       bodyParams: bodyParams,
       url: ApiUrlConstants.endPointOfAddHanger,
+      wantSnackBar: false,
       checkResponse: checkResponse,
     );
 
@@ -640,6 +718,26 @@ class ApiMethods {
       myNotificationModel =
           MyNotificationModel.fromJson(jsonDecode(response.body));
       return myNotificationModel;
+    }
+    return null;
+  }
+
+  /// Contact Us api....
+  static Future<CommonResponseModel?> contactUs(
+      {void Function(int)? checkResponse,
+      required Map<String, dynamic> queryParameters}) async {
+    CommonResponseModel? commonResponseModel;
+    http.Response? response = await MyHttp.postMethod(
+      bodyParams: queryParameters,
+      url: ApiUrlConstants.endPointOfContactUs,
+      wantSnackBar: false,
+      checkResponse: checkResponse,
+    );
+
+    if (response != null) {
+      commonResponseModel =
+          CommonResponseModel.fromJson(jsonDecode(response.body));
+      return commonResponseModel;
     }
     return null;
   }
