@@ -398,6 +398,7 @@ class ApiMethods {
     http.Response? response = await MyHttp.postMethod(
       bodyParams: bodyParams,
       url: ApiUrlConstants.endPointOfAddHanger,
+      wantSnackBar: false,
       checkResponse: checkResponse,
     );
 

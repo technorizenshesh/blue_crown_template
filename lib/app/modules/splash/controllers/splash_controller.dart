@@ -42,11 +42,12 @@ class SplashController extends GetxController {
     FirebaseMessaging.onMessageOpenedApp.listen(_handleMessage);
   }
 
-  void _handleMessage(RemoteMessage message) {
+  Future<void> _handleMessage(RemoteMessage message) async {
     RemoteNotification? notification = message.notification;
     print('Notification pressed ios:-');
     print('Notification title:-${notification!.title}');
     print('Notification body:-${notification.body}');
+    await Future.delayed(const Duration(seconds: 2, milliseconds: 500));
     Get.toNamed(Routes.NOTIFICATIONS);
   }
 
