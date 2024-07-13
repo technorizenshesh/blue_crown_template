@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:blue_crown_template/app/routes/app_pages.dart';
 import 'package:blue_crown_template/common/common_methods.dart';
 import 'package:blue_crown_template/common/theme_data.dart';
@@ -30,7 +32,7 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  /* if (Platform.isAndroid) {
+  if (Platform.isAndroid) {
     print('Push Notification Android background notification start....');
     FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
      InitializationSettings initializationSettings =
@@ -86,7 +88,7 @@ void main() async {
       badge: true,
       sound: true,
     );
-  }  */
+  }
   runApp(
     GetMaterialApp(
       navigatorKey: navigatorKey,
