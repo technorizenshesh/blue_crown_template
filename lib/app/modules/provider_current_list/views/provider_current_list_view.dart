@@ -21,7 +21,8 @@ class ProviderCurrentListView extends GetView<ProviderCurrentListController> {
         ),
         bottomNavigationBar: CommonWidgets.commonElevatedButton(
             onPressed: () {
-              controller.clickOnDownloadButton();
+              //controller.clickOnDownloadButton();
+              showAlertBox(context);
             },
             child: Text(
               StringConstants.download,
@@ -542,5 +543,100 @@ class ProviderCurrentListView extends GetView<ProviderCurrentListController> {
                 padding: EdgeInsets.all(10.px),
                 child: CommonWidgets.dataNotFound(),
               ));
+  }
+  /// Open Alert Box for Select file type...
+  /// Show Alert Box...
+  void showAlertBox(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        insetPadding: EdgeInsets.symmetric(horizontal: 20.px),
+        contentPadding: EdgeInsets.zero,
+        clipBehavior: Clip.hardEdge,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(20.px))),
+        content: SizedBox(
+          height: 230.px,
+          child: Card(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(20.px))),
+            elevation: 5.px,
+            color: cartColor,
+            margin: EdgeInsets.all(1.px),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SizedBox(
+                  height: 10.px,
+                ),
+                Text(
+                  'Choose File type',
+                  style: MyTextStyle.titleStyle20bw,
+                ),
+                SizedBox(
+                  height: 10.px,
+                ),
+                Padding(
+                  padding: EdgeInsets.all(4.0.px),
+                  child: Text(
+                    'Select any file type in which you want to to download list',
+                    style: MyTextStyle.titleStyle16w,
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                SizedBox(
+                  height: 30.px,
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                      flex: 1,
+                      child: CommonWidgets.commonElevatedButton(
+                          onPressed: () {
+                            Get.back();
+                            controller.generatePdf();
+                          },
+                          child: Text(
+                            'PDF',
+                            style: MyTextStyle.titleStyle16bw,
+                          ),
+                          borderRadius: 30.px,
+                          height: 40.px,
+                          buttonColor: primaryColor,
+                          buttonMargin: EdgeInsets.only(
+                              top: 10.px,
+                              left: 10.px,
+                              right: 5.px,
+                              bottom: 10.px)),
+                    ),
+                    Expanded(
+                      flex: 1,
+                      child: CommonWidgets.commonElevatedButton(
+                          onPressed: () {
+                            Get.back();
+                            controller.clickOnDownloadExcel();
+                          },
+                          child: Text(
+                            'Excel Sheet',
+                            style: MyTextStyle.titleStyle16bw,
+                          ),
+                          borderRadius: 30.px,
+                          height: 40.px,
+                          buttonColor: primaryColor,
+                          buttonMargin: EdgeInsets.only(
+                              top: 10.px,
+                              left: 5.px,
+                              right: 10.px,
+                              bottom: 10.px)),
+                    ),
+                  ],
+                )
+              ],
+            ),
+          ),
+        ),
+        alignment: Alignment.center,
+      ),
+    );
   }
 }
