@@ -32,16 +32,26 @@ class MyNotificationResult {
   String? userId;
   String? title;
   String? body;
+  String? status;
+  String? count;
   String? datetime;
 
   MyNotificationResult(
-      {this.id, this.userId, this.title, this.body, this.datetime});
+      {this.id,
+      this.userId,
+      this.title,
+      this.body,
+      this.status,
+      this.count,
+      this.datetime});
 
   MyNotificationResult.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     userId = json['user_id'];
     title = json['title'];
     body = json['body'];
+    status = json['status'];
+    count = json['count'];
     datetime = json['datetime'];
   }
 
@@ -51,6 +61,8 @@ class MyNotificationResult {
     data['user_id'] = userId;
     data['title'] = title;
     data['body'] = body;
+    data['status'] = status;
+    data['count'] = count;
     data['datetime'] = datetime;
     return data;
   }

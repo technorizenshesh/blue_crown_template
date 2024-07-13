@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:blue_crown_template/app/data/apis/api_models/get_common_response_model.dart';
 import 'package:blue_crown_template/app/data/apis/api_models/get_my_notification_model.dart';
 import 'package:blue_crown_template/app/routes/app_pages.dart';
 import 'package:get/get.dart';
@@ -67,5 +68,29 @@ class NotificationsController extends GetxController {
       print("Error:-${e.toString()}");
     }
     isLoading.value = false;
+  }
+
+  deleteMyNotification(String id, int index) async {
+    Map<String, String> queryParameters = {ApiKeyConstants.notificationId: id};
+    CommonResponseModel? commonResponseModel =
+        await ApiMethods.deleteNotificationCountApi(
+            queryParameters: queryParameters);
+    if (commonResponseModel!.status != "0") {
+      notificationList.removeAt(index);
+      increment();
+      print(" Delete notification Successfully complete...");
+    }
+  }
+
+  readNotification(String id, int index) async {
+    Map<String, String> queryParameters = {ApiKeyConstants.notificationId: id};
+    CommonResponseModel? commonResponseModel =
+        await ApiMethods.checkNotificationMessageApi(
+            queryParameters: queryParameters);
+    if (commonResponseModel!.status != "0") {
+      notificationList[index].status = 'SEEN';
+      increment();
+      print(" Delete notification Successfully complete...");
+    }
   }
 }

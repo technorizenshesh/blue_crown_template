@@ -9,9 +9,11 @@ import '../../../data/apis/api_constants/api_key_constants.dart';
 import '../../../data/apis/api_methods/api_methods.dart';
 import '../../../data/apis/api_models/get_event_model.dart';
 import '../../../data/apis/api_models/get_login_model.dart';
+import '../../../data/apis/api_models/get_notification_count.dart';
 import '../../../data/constants/string_constants.dart';
 import '../../../routes/app_pages.dart';
 import '../../home/views/home_view.dart';
+import '../../nav_bar/controllers/nav_bar_controller.dart';
 import '../../scanner/views/scanner_view.dart';
 import '../../wardrobe/views/wardrobe_view.dart';
 
@@ -131,6 +133,7 @@ class ProviderNavBarController extends GetxController {
       increment();
       getActiveEventsList(userData.result!.id ?? '');
       getInactiveEventsList(userData.result!.id ?? '');
+      getNotificationCount(userData.result!.id!);
     }
   }
 
@@ -175,6 +178,21 @@ class ProviderNavBarController extends GetxController {
     } catch (e) {
       print('Error:-${e.toString()}');
       changeInactiveProgressbarStatus(false);
+    }
+  }
+
+  Future<void> getNotificationCount(String userId) async {
+    Map<String, dynamic> queryParamsForGetNotificationCount = {
+      ApiKeyConstants.userId: userId,
+    };
+    NotificationCountModel? notificationCountModel =
+        await ApiMethods.getNotificationCountApi(
+            queryParameters: queryParamsForGetNotificationCount);
+    if (notificationCountModel!.status != "0" ?? false) {
+      print(
+          "Get Notification count Successfully complete...${notificationCountModel.count}");
+      notificationCount.value = notificationCountModel.count ?? 0;
+      increment();
     }
   }
 }

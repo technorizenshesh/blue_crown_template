@@ -18,6 +18,7 @@ class HomeController extends GetxController {
   Map<String, dynamic> queryParamsForGetEvent = {};
   List<GetEventsResult> eventList = [];
   final count = 0.obs;
+
   @override
   void onInit() {
     super.onInit();

@@ -1,3 +1,4 @@
+import 'package:blue_crown_template/app/modules/nav_bar/controllers/nav_bar_controller.dart';
 import 'package:blue_crown_template/common/custom_provider_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -22,7 +23,8 @@ class ProviderNavBarView extends GetView<ProviderNavBarController> {
         backgroundColor: backgroundColor,
         endDrawer: controller.isLoading.value
             ? null
-            : CustomProviderDrawer.drawer(controller.userData),
+            : CustomProviderDrawer.drawer(
+                controller.userData, notificationCount.value),
         floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
         floatingActionButton: Builder(builder: (context) {
           return Padding(
